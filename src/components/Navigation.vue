@@ -69,7 +69,7 @@
                                 </li>
 
                                 <li>
-                                    <router-link to="/login">Get App</router-link>
+                                    <router-link to="/">Get App</router-link>
                                 </li>
                             </ul>
                         </nav>

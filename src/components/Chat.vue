@@ -4,7 +4,7 @@
         <div class="window" v-bind:class="{ open: is_chat_open }">
             <span v-bind:class="{hide: !is_chat_open}">
             <div class="chat-head">
-                <h3>Chat With HAYDA</h3>
+                <h3>Chat with Hayda</h3>
                 <i class="fas fa-times" id="chat-close-button" v-on:click="closeChat"></i>
             </div>
             <div class="message-section">
@@ -141,7 +141,7 @@
 
         data() {
             return {
-                is_chat_open: false
+                is_chat_open: true
             }
         },
 
