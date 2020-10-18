@@ -53,23 +53,23 @@
                                 </li>
 
                                 <li>
-                                    <router-link to="/blog">Blog</router-link>
+                                    <router-link to="/blog">In the know</router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/">Shop</router-link>
+                                    <router-link to="/">Chat with HAYDA</router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/">Premium</router-link>
+                                    <router-link to="/">Premium Services</router-link>
                                 </li>
                                 <li>
-                                    <router-link to="/register">Register</router-link>
+                                    <router-link to="/">Set your goals</router-link>
                                 </li>
-
                                 <li>
                                     <router-link to="/login">Login</router-link>
                                 </li>
+
                                 <li>
-                                    <router-link to="/">More</router-link>
+                                    <router-link to="/login">Get App</router-link>
                                 </li>
                             </ul>
                         </nav>

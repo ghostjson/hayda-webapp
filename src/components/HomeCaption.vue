@@ -1,5 +1,6 @@
 <template>
     <section>
+        <search-bar></search-bar>
         <div class="container heading-text-this">
             <div class="slide-captions text-dark text-center">
                 <!-- Captions -->
@@ -20,6 +21,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
+        bottom: 50px;
     }
 
     @media (max-width: 500px) {
@@ -30,7 +33,9 @@
 </style>
 
 <script>
+import SearchBar from "./SearchBar";
 export default {
-    name: 'HomeCaption'
+    name: 'HomeCaption',
+    components: {SearchBar}
 }
 </script>
