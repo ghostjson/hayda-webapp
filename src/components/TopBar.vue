@@ -6,7 +6,6 @@
                     <ul class="top-menu">
                         <li><a href="#">About</a></li>
                         <li><a href="#">Features</a></li>
-                        <li><a href="#">Pricing</a></li>
                         <li><a href="#">Terms</a></li>
                     </ul>
                 </div>

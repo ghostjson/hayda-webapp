@@ -20,7 +20,7 @@
                 <div id="mainMenu">
                     <div class="container">
                         <nav>
-                            <ul>
+                            <ul class="navigation-menu">
                                 <li>
                                     <router-link to="/">Home</router-link>
                                 </li>
@@ -58,8 +58,12 @@
                                 <li>
                                     <router-link to="/">Chat with HAYDA</router-link>
                                 </li>
-                                <li>
+                                <li class="dropdown">
                                     <router-link to="/">Premium Services</router-link>
+                                    <ul class="dropdown-menu">
+                                        <li class=""><a href="#">Pricing</a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li>
                                     <router-link to="/">Set your goals</router-link>
@@ -88,12 +92,13 @@
         .header-inner {
             background-color: var(--primary-color) !important;
 
-            a {
+            .navigation-menu > li > a {
                 color: white;
+
             }
 
-            a:hover{
-                color: black;
+            a:hover, a:active{
+                color: black ;
                 font-size: 1em;
             }
         }
