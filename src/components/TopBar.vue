@@ -1,5 +1,5 @@
 <template>
-    <div id="topbar" class="dark topbar-colored topbar-fullwidth">
+    <div id="topbar" class="dark topbar-fullwidth">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">

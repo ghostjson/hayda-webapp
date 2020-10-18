@@ -1,11 +1,11 @@
 <template>
-    <header id="header" class="dark" data-fullwidth="true" data-transparent="false">
+    <header id="header" data-fullwidth="true" data-transparent="false">
         <div class="header-inner">
             <div class="container">
                 <!--Logo-->
                 <router-link to="/">
                     <div id="logo">
-                        <img class="logo" src="./../assets/logo.png" alt="Logo">
+                        <img class="logo" src="./../assets/logo-with-caption.png" alt="Logo">
                     </div>
                 </router-link>
                 <!--End: Logo-->
@@ -82,7 +82,23 @@
 </template>
 
 
-<style>
+<style lang="scss">
+
+    #header {
+        .header-inner {
+            background-color: var(--primary-color) !important;
+
+            a {
+                color: white;
+            }
+
+            a:hover{
+                color: black;
+                font-size: 1em;
+            }
+        }
+    }
+
     .logo {
         width: 160px;
     }
