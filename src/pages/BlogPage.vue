@@ -3,39 +3,21 @@
         <div class="container">
             <div id="blog" class="grid-layout post-3-columns m-b-30 m-t-60" data-item="post-item">
                 <!-- Post item-->
-                <div class="post-item border">
+                <div v-for="(blog,index) in blogs" :key="index" class="post-item border">
                     <div class="post-item-wrap">
                         <div class="post-image">
                             <a href="#">
-                                <img alt="" src="assets/images/blog/12.jpg">
+                                <img alt="" :src="blog.image">
                             </a>
-                            <span class="post-meta-category"><a href="">Lifestyle</a></span>
+                            <span class="post-meta-category"><a href="">{{ blog.category }}</a></span>
                         </div>
                         <div class="post-item-description">
-                            <span class="post-meta-date"><i class="fa fa-calendar-o"></i>Jan 21, 2017</span>
+                            <span class="post-meta-date"><i class="fa fa-calendar-o"></i>{{ blog.created_at }}</span>
                             <span class="post-meta-comments"><a href=""><i class="fa fa-comments-o"></i>33 Comments</a></span>
-                            <h2><a href="#">Standard post with a single image
+                            <h2><a href="#">{{ blog.title }}
                             </a></h2>
-                            <p>Curabitur pulvinar euismod ante, ac sagittis ante posuere ac. Vivamus luctus commodo dolor porta feugiat. Fusce at velit id ligula pharetra laoreet.</p>
-                            <a href="#" class="item-link">Read More <i class="icon-chevron-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-item border">
-                    <div class="post-item-wrap">
-                        <div class="post-image">
-                            <a href="#">
-                                <img alt="" src="assets/images/blog/12.jpg">
-                            </a>
-                            <span class="post-meta-category"><a href="">Lifestyle</a></span>
-                        </div>
-                        <div class="post-item-description">
-                            <span class="post-meta-date"><i class="fa fa-calendar-o"></i>Jan 21, 2017</span>
-                            <span class="post-meta-comments"><a href=""><i class="fa fa-comments-o"></i>33 Comments</a></span>
-                            <h2><a href="#">Standard post with a single image
-                            </a></h2>
-                            <p>Curabitur pulvinar euismod ante, ac sagittis ante posuere ac. Vivamus luctus commodo dolor porta feugiat. Fusce at velit id ligula pharetra laoreet.</p>
-                            <a href="#" class="item-link">Read More <i class="icon-chevron-right"></i></a>
+                            <p>{{ paraShortener(blog.content, 150) }}</p>
+                            <router-link :to="'/blog/'+blog.id"  class="item-link">Read More <i class="icon-chevron-right"></i></router-link>
                         </div>
                     </div>
                 </div>
@@ -53,8 +35,26 @@
 
 <script>
 
+    import Api from "../modules/Api";
+    import paraShortener from "../helpers/paraShortener";
+
     export default {
-        name: 'BlogPage'
+        name: 'BlogPage',
+        data() {
+            return {
+                blogs: {}
+            }
+        },
+        methods: {
+            paraShortener,
+            async fetchBlogs(){
+              let response = await Api.get('/blog')
+              this.blogs = response.data.data
+          }
+        },
+        mounted() {
+            this.fetchBlogs()
+        }
 
     }
 </script>
