@@ -26,7 +26,8 @@
                                 </li>
                                 <li class="dropdown"><span class="dropdown-arrow"></span><a href="#">Health Hub</a>
                                     <ul class="dropdown-menu" style="">
-                                        <li v-for="(category,index) in health_links_category" :key="index" class="dropdown-submenu"><span
+                                        <li v-for="(category,index) in health_links_category" :key="index"
+                                            class="dropdown-submenu"><span
                                                 class="dropdown-arrow"></span>
                                             <a href="#">{{ capitalize(category) }}</a>
                                             <ul class="dropdown-menu" style="">
@@ -72,17 +73,20 @@
                                 <li class="dropdown">
                                     <router-link to="/">Premium Services</router-link>
                                     <ul class="dropdown-menu">
-                                        <li class=""><router-link to="/pricing">Pricing</router-link>
+                                        <li class="">
+                                            <router-link to="/pricing">Pricing</router-link>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
                                     <router-link to="/">Set your goals</router-link>
                                 </li>
-                                <li>
+                                <li v-if="!isLoggedIn">
                                     <router-link to="/login">Login</router-link>
                                 </li>
-
+                                <li v-else>
+                                    <a @click="logout" href="#">Logout</a>
+                                </li>
                                 <li>
                                     <router-link to="/login">Get App</router-link>
                                 </li>
@@ -123,6 +127,7 @@
 <script>
     import HealthHub from "../services/healthHub";
     import capitalize from "../helpers/capitalize";
+    import Auth from '../services/auth'
 
     export default {
         name: 'Navigation',
@@ -133,9 +138,18 @@
             }
         },
         methods: {
-          capitalize(value){
-              return capitalize(value)
-          }
+            capitalize(value) {
+                return capitalize(value)
+            },
+            logout(){
+                Auth.logout()
+                window.location.reload()
+            }
+        },
+        computed: {
+            isLoggedIn() {
+                return Auth.isLogged()
+            }
         },
         mounted() {
             HealthHub.get()
@@ -145,6 +159,5 @@
                     this.health_links = data
                 })
         },
-        computed: {}
     }
 </script>

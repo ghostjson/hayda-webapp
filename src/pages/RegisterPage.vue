@@ -7,26 +7,26 @@
                        <h5 class="card-title">Register</h5>
                    </div>
                    <div class="card-body">
-                       <form>
+                       <form @submit="registerFormSubmit">
                            <div class="form-group">
                                <label class="form-label">Username</label>
-                               <input type="text" class="form-control" placeholder="imjohn" required="">
+                               <input type="text" v-model="registerForm.name" class="form-control" placeholder="imjohn" required="">
                            </div>
                            <div class="form-group">
                                <label class="form-label">Email</label>
-                               <input type="email" class="form-control" placeholder="example@example.com" required="">
+                               <input type="email" v-model="registerForm.email"  class="form-control" placeholder="example@example.com" required="">
                            </div>
                            <div class="form-group">
                                <label class="form-label">Password</label>
-                               <input type="password" class="form-control" placeholder="*********" required="">
+                               <input type="password"  v-model="registerForm.password"  class="form-control" placeholder="*********" required="">
                            </div>
                            <div class="form-group">
                                <label class="form-label">Confirm Password</label>
-                               <input type="password" class="form-control" placeholder="*********" required="">
+                               <input type="password"  v-model="registerForm.confirm_password"  class="form-control" placeholder="*********" required="">
                            </div>
 
                            <div class="custom-control custom-checkbox mb-4">
-                               <input type="checkbox" class="custom-control-input" id="customCheck1">
+                               <input required type="checkbox" class="custom-control-input" id="customCheck1">
                                <label class="custom-control-label" for="customCheck1">By signing in, you agree to our <router-link to="/">Terms & Conditions</router-link> and <router-link to="/">Privacy Statement</router-link></label>
                            </div>
 
@@ -42,7 +42,25 @@
 </template>
 
 <script>
+    import Auth from "../services/auth";
+
     export default {
-        name: 'RegisterPage'
+        name: 'RegisterPage',
+        data(){
+            return {
+                registerForm: {}
+            }
+        },
+        methods: {
+            async registerFormSubmit(e){ e.preventDefault()
+                let status = await Auth.login(this.registerForm)
+                if(status === 200){
+                    await this.$router.push({ name: 'Home' })
+                }else{
+                    this.error = 'Error in registration'
+                }
+                window.location.reload()
+            }
+        }
     }
 </script>

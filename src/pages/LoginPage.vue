@@ -7,14 +7,15 @@
                         <h5 class="card-title">Login</h5>
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form @submit="loginSubmit">
+                            <alert-box :error="error"></alert-box>
                             <div class="form-group">
                                 <label class="form-label">Email</label>
-                                <input type="email" class="form-control" placeholder="example@example.com" required="">
+                                <input v-model="credential.email" type="email" class="form-control" placeholder="example@example.com" required="">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Password</label>
-                                <input type="password" class="form-control" placeholder="*********" required="">
+                                <input v-model="credential.password" type="password" class="form-control" placeholder="*********" required="">
                             </div>
 
                             <button type="submit" class="btn btn-primary">Login</button>
@@ -29,7 +30,37 @@
 </template>
 
 <script>
+
+    import Auth from '../services/auth'
+    import AlertBox from "../components/AlertBox";
+
     export default {
-        name: 'RegisterPage'
+        name: 'RegisterPage',
+        components: {AlertBox},
+        data(){
+            return {
+                credential: {
+                    email: '',
+                    password: ''
+                },
+                error: ''
+            }
+        },
+        methods: {
+            async loginSubmit(e){ e.preventDefault()
+                let status = await Auth.login(this.credential)
+                if(status === 200){
+                    await this.$router.push({ name: 'Home' })
+                }else{
+                    this.error = 'Username or password is incorrect'
+                }
+                window.location.reload()
+            }
+        },
+        mounted() {
+            if(localStorage.getItem('Token') !== null){
+                this.$router.push({ name: 'Home' })
+            }
+        }
     }
 </script>

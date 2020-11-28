@@ -5,6 +5,7 @@ export default axios.create({
     baseURL: apiConfig.base_url,
     timeout: 5000,
     headers: {
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem('Token')
     }
 })
