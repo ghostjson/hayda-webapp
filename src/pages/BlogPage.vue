@@ -52,7 +52,9 @@
 </style>
 
 <script>
+
     export default {
         name: 'BlogPage'
+
     }
 </script>

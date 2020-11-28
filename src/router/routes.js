@@ -21,6 +21,11 @@ export const routes = [
         name: 'Blog',
         component: () => import('../pages/BlogPage')
     },
+    {
+        path: '/blog/:id',
+        name: 'Blog',
+        component: () => import('../pages/BlogSinglePage')
+    },
     // {
     //     path: '/about',
     //     name: 'About',

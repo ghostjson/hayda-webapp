@@ -9,7 +9,7 @@
             </div>
             <div class="message-section">
                 <div class="bot">
-                    Hi John, this is Hayda Bot and I'm here to assist you. How can I help you?
+                    Hi John, this is HAYDA Bot and I'm here to assist you. How can I help you?
                 </div>
                 <div class="user">
                     Hey there!
