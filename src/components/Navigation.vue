@@ -72,7 +72,7 @@
                                 <li class="dropdown">
                                     <router-link to="/">Premium Services</router-link>
                                     <ul class="dropdown-menu">
-                                        <li class=""><a href="#">Pricing</a>
+                                        <li class=""><router-link to="/pricing">Pricing</router-link>
                                         </li>
                                     </ul>
                                 </li>

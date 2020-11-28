@@ -26,6 +26,11 @@ export const routes = [
         name: 'Blog',
         component: () => import('../pages/BlogSinglePage')
     },
+    {
+        path: '/pricing',
+        name: 'Pricing',
+        component: () => import('../pages/PricingPage')
+    }
     // {
     //     path: '/about',
     //     name: 'About',
