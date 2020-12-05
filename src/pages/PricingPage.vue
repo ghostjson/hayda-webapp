@@ -18,8 +18,11 @@
                             <ul>
                                 <li v-for="(feature, index) in subscription[0].features" :key="index">{{ feature }}</li>
                             </ul>
-                            <div class="plan-button">
-                                <a href="#" class="btn btn-light">Buy Now</a>
+                            <div class="plan-button" v-if="subscribe_to === '1'">
+                                <a href="#" class="btn btn-secondary">Current Plan</a>
+                            </div>
+                            <div class="plan-button" v-else>
+                                <a href="#" class="btn btn-secondary">Change Plan</a>
                             </div>
                         </div>
                     </div>
@@ -37,8 +40,11 @@
                                 <li v-for="(feature, index) in subscription[1].features" :key="index">{{ feature }}</li>
 
                             </ul>
-                            <div class="plan-button">
-                                <a href="#" class="btn">Buy Now</a>
+                            <div class="plan-button" v-if="subscribe_to === '2'">
+                                <a href="#" class="btn btn-secondary">Current Plan</a>
+                            </div>
+                            <div class="plan-button" v-else>
+                                <a href="#" class="btn btn-primary">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -56,8 +62,11 @@
                                 <li v-for="(feature, index) in subscription[2].features" :key="index">{{ feature }}</li>
 
                             </ul>
-                            <div class="plan-button">
-                                <a href="#" class="btn btn-light">Buy Now</a>
+                            <div class="plan-button" v-if="subscribe_to === '3'">
+                                <a href="#" class="btn btn-secondary">Current Plan</a>
+                            </div>
+                            <div class="plan-button" v-else>
+                                <a href="#" class="btn btn-primary">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -77,7 +86,8 @@
         name: 'PricingPage',
         data() {
             return {
-                subscription: []
+                subscription: [],
+                subscribe_to: -1
             }
         },
         methods: {
@@ -88,6 +98,8 @@
         },
         mounted() {
 
+            this.subscribe_to = JSON.parse(localStorage.getItem('User'))['subscription']
+            console.log(this.subscribe_to)
             this.fetchSubscriptions()
 
         }
