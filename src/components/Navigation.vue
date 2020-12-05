@@ -32,7 +32,7 @@
                                             <a href="#">{{ capitalize(category) }}</a>
                                             <ul class="dropdown-menu" style="">
                                                 <li v-for="(links,index) in health_links[category]" :key="index">
-                                                    <a target="_blank" :href="links.link">{{ links.caption }}</a>
+                                                    <a target="_blank" :href="'//'+links.link">{{ links.caption }}</a>
                                                 </li>
                                             </ul>
                                         </li>

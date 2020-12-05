@@ -3,9 +3,11 @@ import apiConfig from '../configs/api.json'
 
 export default axios.create({
     baseURL: apiConfig.base_url,
-    timeout: 5000,
+    withCredentials: false,
     headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem('Token')
-    }
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("Token"),
+        "Access-Control-Allow-Origin": "*"
+    },
 })
