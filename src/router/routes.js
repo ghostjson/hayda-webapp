@@ -27,6 +27,11 @@ export const routes = [
         component: () => import('../pages/BlogSinglePage')
     },
     {
+        path: '/pages/:id',
+        name: 'Page',
+        component: () => import('../pages/CustomPage')
+    },
+    {
         path: '/pricing',
         name: 'Pricing',
         component: () => import('../pages/PricingPage')

@@ -13,14 +13,35 @@
     <!-- Stylesheets & Fonts -->
     <link href="/assets/css/plugins.css" rel="stylesheet">
     <link href="/assets/css/style.css" rel="stylesheet">
+
+<!--  Google translator  -->
+    <style>
+        #google_translate_element{
+            position: fixed;
+            bottom: 0;
+            left: 20px;
+            z-index: 999999;
+        }
+    </style>
 </head>
 
 <body>
-
+<div id="google_translate_element"></div>
 <div id="app"></div>
 
 
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+            {pageLanguage: 'en'},
+            'google_translate_element'
+        );
+    }
 
+</script>
+
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
 
 <!-- Scroll top -->
 <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
@@ -29,6 +50,8 @@
 <script src="/assets/js/plugins.js"></script>
 <!--Template functions-->
 <script src="/assets/js/functions.js"></script>
+
+
 </body>
 
 </html>

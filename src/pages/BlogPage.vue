@@ -13,9 +13,9 @@
                         </div>
                         <div class="post-item-description">
                             <span class="post-meta-date"><i class="fa fa-calendar-o"></i>{{ blog.created_at }}</span>
-                            <span class="post-meta-comments"><a href=""><i class="fa fa-comments-o"></i>33 Comments</a></span>
-                            <h2><a href="#">{{ blog.title }}
-                            </a></h2>
+<!--                            <span class="post-meta-comments"><a href=""><i class="fa fa-comments-o"></i>33 Comments</a></span>-->
+                            <h2><router-link :to="'/blog/'+blog.id">{{ blog.title }}
+                            </router-link></h2>
                             <p>{{ paraShortener(blog.content, 150) }}</p>
                             <router-link :to="'/blog/'+blog.id"  class="item-link">Read More <i class="icon-chevron-right"></i></router-link>
                         </div>

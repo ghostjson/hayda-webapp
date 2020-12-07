@@ -20,19 +20,17 @@
                                             <span class="post-meta-date"><i class="fa fa-calendar-o"></i>{{ blog.created_at }}</span>
                                             <span class="post-meta-category"><a href=""><i class="fa fa-tag"></i>{{ blog.category }}</a></span>
                                             <div class="post-meta-share">
-                                                <a class="btn btn-xs btn-slide btn-facebook" href="#">
+                                                <a class="btn btn-xs btn-slide btn-facebook" target="_blank" :href="`https://www.facebook.com/sharer/sharer.php?u=${getLink()}`">
                                                     <i class="fab fa-facebook-f"></i>
                                                     <span>Facebook</span>
                                                 </a>
-                                                <a class="btn btn-xs btn-slide btn-twitter" href="#" data-width="100">
+                                                <a class="btn btn-xs btn-slide btn-twitter" :href="`https://twitter.com/intent/tweet?url=${getLink()}`" data-width="100">
                                                     <i class="fab fa-twitter"></i>
                                                     <span>Twitter</span>
                                                 </a>
-                                                <a class="btn btn-xs btn-slide btn-instagram" href="#" data-width="118">
-                                                    <i class="fab fa-instagram"></i>
-                                                    <span>Instagram</span>
-                                                </a>
-                                                <a class="btn btn-xs btn-slide btn-googleplus" href="mailto:#" data-width="80">
+                                                <a
+                                                        :href="`mailto:?subject=${blog.title}&amp;body=Check out this site ${getLink()}.`"
+                                                        class="btn btn-xs btn-slide btn-googleplus" data-width="80">
                                                     <i class="icon-mail"></i>
                                                     <span>Mail</span>
                                                 </a>
@@ -194,6 +192,9 @@
                 let id = window.location.href.split('/').pop()
                 let response = await Api.get('/blog/'+id)
                 this.blog = response.data.data
+            },
+            getLink(){
+                return window.location.href;
             }
         },
         mounted() {

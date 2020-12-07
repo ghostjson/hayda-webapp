@@ -90,6 +90,7 @@
                                 <li>
                                     <router-link to="/login">Get App</router-link>
                                 </li>
+
                             </ul>
                         </nav>
                     </div>
@@ -144,6 +145,10 @@
             logout(){
                 Auth.logout()
                 window.location.reload()
+            },
+            changeLanguage(){
+                let d = document.getElementsByClassName('goog-te-combo')[0];
+                d.click()
             }
         },
         computed: {

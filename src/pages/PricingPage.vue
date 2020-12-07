@@ -3,7 +3,7 @@
         <div class="container">
             <!-- Pricing Table -->
             <div class="heading-text heading-line text-center pb-5">
-                <h4>Default pricing table</h4>
+                <h4>Pricing</h4>
             </div>
             <div class="row pricing-table">
                 <div class="col-lg-4 col-md-12 col-12">
@@ -94,6 +94,7 @@
             async fetchSubscriptions() {
                 let response = await Api.get('/subscriptions')
                 this.subscription = response.data.data
+                console.log(response.data.data)
             }
         },
         mounted() {
