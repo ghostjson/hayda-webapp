@@ -71,10 +71,10 @@
                                     <router-link to="/">Chat with HAYDA</router-link>
                                 </li>
                                 <li class="dropdown">
-                                    <router-link to="/">Premium Services</router-link>
+                                    <router-link to="/">Services</router-link>
                                     <ul class="dropdown-menu">
                                         <li class="">
-                                            <router-link to="/pricing">Pricing</router-link>
+                                            <router-link to="/services/geolocation">Geolocation</router-link>
                                         </li>
                                     </ul>
                                 </li>
@@ -88,7 +88,7 @@
                                     <a @click="logout" href="#">Logout</a>
                                 </li>
                                 <li>
-                                    <router-link to="/login">Get App</router-link>
+                                    <router-link to="/pricing">Pricing</router-link>
                                 </li>
 
                             </ul>

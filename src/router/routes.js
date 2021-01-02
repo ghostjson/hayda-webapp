@@ -35,6 +35,11 @@ export const routes = [
         path: '/pricing',
         name: 'Pricing',
         component: () => import('../pages/PricingPage')
+    },
+    {
+        path: '/services/geolocation',
+        name: 'Geolocation',
+        component: () => import('../pages/GeolocationPage')
     }
     // {
     //     path: '/about',
