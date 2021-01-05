@@ -45,7 +45,7 @@
             <iframe
                     width="600"
                     height="450"
-                    frameborder="0" style="border:0"
+                    frameborder="0" style="border:0; margin-bottom: 50px"
                     :src="`https://www.google.com/maps/embed/v1/place?key=AIzaSyBQIN6zs0acYLaiCwTAdlC2s4cfyHPhRZM
                     &zoom=14
     &q=${search}+in+${location}`" allowfullscreen>

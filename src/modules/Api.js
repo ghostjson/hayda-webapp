@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export default axios.create({
     // baseURL: apiConfig.base_url,
-    baseURL: 'localhost:8000/api',
+    baseURL: 'http://localhost:8000/api',
     withCredentials: false,
     headers: {
         Accept: "application/json",
@@ -11,4 +11,5 @@ export default axios.create({
         Authorization: "Bearer " + localStorage.getItem("Token"),
         "Access-Control-Allow-Origin": "*"
     },
+
 })

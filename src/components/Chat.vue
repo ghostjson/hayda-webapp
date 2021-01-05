@@ -8,15 +8,15 @@
                 <i class="fas fa-times" id="chat-close-button" v-on:click="closeChat"></i>
             </div>
             <div class="message-section">
-                <div class="bot">
-                    Hi John, this is HAYDA Bot and I'm here to assist you. How can I help you?
+                <div
+                        :class="{'bot': message.hasOwnProperty('bot'), 'user': message.hasOwnProperty('user')}"
+                        v-for="(message,index) in messages" :key="index">
+                    {{ Object.values(message)[0] }}
                 </div>
-                <div class="user">
-                    Hey there!
-                </div>
+
             </div>
             <div class="chat-input-section">
-                <textarea placeholder="Type message here..."></textarea>
+                <textarea v-model="message_entry" @keyup.enter.exact.prevent="sendMessage()" placeholder="Type message here..."></textarea>
             </div>
             </span>
         </div>
@@ -25,6 +25,7 @@
             <i class="fas fa-comment"></i>
         </div>
     </div>
+
 </template>
 
 <style lang="scss">
@@ -136,12 +137,22 @@
 </style>
 
 <script>
+    import auth from "../services/auth";
+    import Api from "../modules/Api";
+
     export default {
         name: 'Chat',
 
         data() {
             return {
-                is_chat_open: false
+                is_chat_open: false,
+                username: 'guest',
+                messages: [
+                    {
+                        bot: 'Hi admin, this is HAYDA Bot and I\'m here to assist you. How can I help you?'
+                    }
+                ],
+                message_entry: ''
             }
         },
 
@@ -151,6 +162,32 @@
             },
             closeChat: function () {
                 this.is_chat_open = false;
+            },
+            async sendMessage(){
+                this.insertUserMessage(this.message_entry)
+
+                let respond = await Api.post('/chat/chat-bot', {
+                    'message': this.message_entry
+                })
+                this.insertBotMessage(respond.data.message)
+                this.message_entry = ''
+            },
+            insertUserMessage(message){
+                let message_obj = {
+                    user: message
+                }
+                this.messages.push(message_obj)
+            },
+            insertBotMessage(message){
+                let message_obj = {
+                    bot: message
+                }
+                this.messages.push(message_obj)
+            }
+        },
+        created() {
+            if(auth.isLogged()){
+                this.username = JSON.parse(localStorage.getItem('User')).name
             }
         }
     }
