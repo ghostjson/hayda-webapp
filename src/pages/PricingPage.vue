@@ -81,6 +81,7 @@
 
 <script>
     import Api from "../modules/Api";
+    import auth from "../services/auth";
 
     export default {
         name: 'PricingPage',
@@ -99,8 +100,9 @@
         },
         mounted() {
 
-            this.subscribe_to = JSON.parse(localStorage.getItem('User'))['subscription']
-            console.log(this.subscribe_to)
+            if (auth.isLogged()){
+                this.subscribe_to = JSON.parse(localStorage.getItem('User'))['subscription']
+            }
             this.fetchSubscriptions()
 
         }
