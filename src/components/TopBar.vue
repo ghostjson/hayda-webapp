@@ -4,9 +4,9 @@
             <div class="row">
                 <div class="col-md-6">
                     <ul class="top-menu">
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">Terms</a></li>
+                        <li><router-link to="/about">About</router-link></li>
+                        <li><a href="/#services-section">Features</a></li>
+                        <li><a href="/terms">Terms</a></li>
                     </ul>
                 </div>
                 <div class="col-md-6 d-none d-sm-block">

@@ -45,5 +45,15 @@ export const routes = [
         path: '/set-your-goals/weight-goals',
         name: 'WeightGoal',
         component: () => import('../pages/WeightGoalPage')
+    },
+    {
+        path: '/about',
+        name: 'AboutPage',
+        component: () => import('../pages/AboutPage')
+    },
+    {
+        path: '/terms',
+        name: 'TermsPage',
+        component: () => import('../pages/TermsPage')
     }
 ]
