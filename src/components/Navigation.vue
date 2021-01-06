@@ -37,39 +37,14 @@
                                             </ul>
                                         </li>
                                     </ul>
-                                    <!--                                    <ul class="dropdown-menu" style="">-->
-                                    <!--                                        <li class="dropdown-submenu"><span class="dropdown-arrow"></span><a href="#">Body-->
-                                    <!--                                            Health</a>-->
-                                    <!--                                            <ul class="dropdown-menu" style="">-->
-                                    <!--                                                <li><a href="#">Know your sugar</a></li>-->
-                                    <!--                                                <li><a href="#">Fitness Tool</a></li>-->
-                                    <!--                                            </ul>-->
-                                    <!--                                        </li>-->
-                                    <!--                                        <li class="dropdown-submenu"><span class="dropdown-arrow"></span><a href="#">Brain-->
-                                    <!--                                            Health</a>-->
-                                    <!--                                            <ul class="dropdown-menu" style="">-->
-                                    <!--                                                <li><a href="#">Stroke Video</a></li>-->
-                                    <!--                                            </ul>-->
-                                    <!--                                        </li>-->
-                                    <!--                                        <li><a href="#">Heart Health</a>-->
-                                    <!--                                        </li>-->
-                                    <!--                                        <li><a href="#">Insure Your Health</a>-->
-                                    <!--                                        </li>-->
-                                    <!--                                        <li class="dropdown-submenu"><span class="dropdown-arrow"></span><a href="#">Wealth-->
-                                    <!--                                            Tips</a>-->
-                                    <!--                                            <ul class="dropdown-menu" style="">-->
-                                    <!--                                                <li><a href="#">Mint App</a></li>-->
-                                    <!--                                            </ul>-->
-                                    <!--                                        </li>-->
-                                    <!--                                    </ul>-->
                                 </li>
 
                                 <li>
                                     <router-link to="/blog">In the know</router-link>
                                 </li>
-                                <li>
-                                    <router-link to="/">Chat with HAYDA</router-link>
-                                </li>
+<!--                                <li>-->
+<!--                                    <router-link to="/">Chat with HAYDA</router-link>-->
+<!--                                </li>-->
                                 <li class="dropdown">
                                     <router-link to="/">Services</router-link>
                                     <ul class="dropdown-menu">
@@ -80,6 +55,17 @@
                                 </li>
                                 <li>
                                     <router-link to="/">Set your goals</router-link>
+                                    <ul class="dropdown-menu">
+                                        <li class="">
+                                            <router-link to="/set-your-goals/weight-goals">Weight Goals</router-link>
+                                        </li>
+                                        <li class="">
+                                            <router-link to="/services/geolocation">Nutrition Goals</router-link>
+                                        </li>
+                                        <li class="">
+                                            <router-link to="/services/geolocation">Workout Routines</router-link>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li v-if="!isLoggedIn">
                                     <router-link to="/login">Login</router-link>

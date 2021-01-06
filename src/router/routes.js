@@ -40,10 +40,10 @@ export const routes = [
         path: '/services/geolocation',
         name: 'Geolocation',
         component: () => import('../pages/GeolocationPage')
+    },
+    {
+        path: '/set-your-goals/weight-goals',
+        name: 'WeightGoal',
+        component: () => import('../pages/WeightGoalPage')
     }
-    // {
-    //     path: '/about',
-    //     name: 'About',
-    //     component: () => import(/* webpackChunkName: "about" */ '../components/HelloWorld2')
-    // }
 ]
