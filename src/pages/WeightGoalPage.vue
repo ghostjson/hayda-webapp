@@ -126,7 +126,8 @@
                 weights: {},
                 goal_weight: 0,
                 add_weight: 110,
-                percentageComplete: '50%'
+                percentageComplete: '50%',
+                current_weight: 110
             }
         },
         methods: {
@@ -134,6 +135,8 @@
                 let weights_data = await weight.getWeight()
 
                 this.goal_weight = weights_data.goal
+
+                console.log(weights_data)
 
                 if (weights_data.data !== null) {
                     this.weights = weights_data.data

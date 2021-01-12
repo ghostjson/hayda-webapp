@@ -51,6 +51,9 @@
                                         <li class="">
                                             <router-link to="/services/geolocation">Geolocation</router-link>
                                         </li>
+                                        <li>
+                                            <router-link to="/pricing">Pricing</router-link>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li>
@@ -73,9 +76,7 @@
                                 <li v-else>
                                     <a @click="logout" href="#">Logout</a>
                                 </li>
-                                <li>
-                                    <router-link to="/pricing">Pricing</router-link>
-                                </li>
+
 
                             </ul>
                         </nav>

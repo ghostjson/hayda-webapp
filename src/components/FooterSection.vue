@@ -7,9 +7,11 @@
                         <div class="widget">
                             <div class="widget-title">Who we are?</div>
                             <p class="mb-5">Built with love in Some address, Texas, USA<br> All rights reserved. Copyright ©
-                                2020. Hayda.</p>
+                                2020. HAYDA.</p>
                             <a
-                               class="btn btn-inverted" target="_blank">Get Premium</a>
+                               class="btn btn-inverted" target="_blank">
+                                <router-link style="color: white" to="/pricing">Get Premium</router-link>
+                            </a>
                         </div>
                     </div>
                     <div class="col-lg-7">
@@ -64,8 +66,8 @@
         </div>
         <div class="copyright-content">
             <div class="container">
-                <div class="copyright-text text-center">© 2020 Hayda - Caption Here . All Rights
-                    Reserved.<a href="/" style="font-weight: bold"> Hayda</a></div>
+                <div class="copyright-text text-center">© 2020 HAYDA - Caption Here . All Rights
+                    Reserved.<a href="/" style="font-weight: bold"> HAYDA</a></div>
             </div>
         </div>
     </footer>
