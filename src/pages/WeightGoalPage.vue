@@ -61,7 +61,14 @@
                         <button class="btn btn-sm btn-dark" data-toggle="modal" data-target="#addWeight">Add current weight</button>
                     </div>
                 </div>
-                <div class="row" style="height: 50vh; display: flex; align-items: center">
+                <div class="row mt-3" v-if="initial_weight !== -1">
+                    <div class="col">
+                        <p><span class="font-weight-600">Starting Weight</span>: {{ initial_weight }} lbs</p>
+                        <p><span class="font-weight-600">Current Weight</span>: {{ current_weight }} lbs</p>
+                        <p><span class="font-weight-600">Goal Weight</span>: {{ goal_weight }} lbs</p>
+                    </div>
+                </div>
+                <div class="row" style="height: 30vh; display: flex; align-items: center">
                     <div class="col">
                         <div class="progress" style="height: 30px;">
                             <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
@@ -127,7 +134,8 @@
                 goal_weight: 0,
                 add_weight: 110,
                 percentageComplete: '50%',
-                current_weight: 110
+                current_weight: -1,
+                initial_weight: -1
             }
         },
         methods: {
@@ -136,17 +144,23 @@
 
                 this.goal_weight = weights_data.goal
 
-                console.log(weights_data)
 
-                if (weights_data.data !== null) {
+
+                if (weights_data.data !== null && weights_data.data.length) {
+                    console.log(weights_data)
+
+                    this.current_weight = weights_data.data[weights_data.data.length - 1].weight
+                    this.initial_weight = weights_data.data[0].weight
                     this.weights = weights_data.data
                 }
             },
             setGoal(){
                 weight.setGoalWeight(this.goal_weight)
+                .then(() => location.reload())
             },
             addWeight(){
                 weight.addWeight(this.add_weight)
+                .then(() => location.reload())
             },
             percentageCalculation(){
                 try{
@@ -158,7 +172,7 @@
                     if(percentage < 0 || initial_weight === null){
                         percentage = 0
                     }
-                    this.percentageComplete = percentage + '%'
+                    this.percentageComplete = percentage.toFixed(2) + '%'
                 }catch (e) {
                     this.percentageComplete = '0%'
                 }
