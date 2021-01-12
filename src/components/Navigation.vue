@@ -63,10 +63,10 @@
                                             <router-link to="/set-your-goals/weight-goals">Weight Goals</router-link>
                                         </li>
                                         <li class="">
-                                            <router-link to="/services/geolocation">Nutrition Goals</router-link>
+                                            <router-link to="/set-your-goals/nutrition-goals">Nutrition Goals</router-link>
                                         </li>
                                         <li class="">
-                                            <router-link to="/services/geolocation">Workout Routines</router-link>
+                                            <router-link to="/set-your-goals/workout-routines">Workout Routines</router-link>
                                         </li>
                                     </ul>
                                 </li>
