@@ -1,7 +1,11 @@
 <template>
     <div class="page-content">
-        <div class="container">
-            <div id="blog" class="grid-layout post-3-columns m-b-30 m-t-60" data-item="post-item">
+        <div>
+        </div>
+        <div class="container-fluid m-t-20">
+            <h3>In the know</h3>
+
+            <div id="blog" class="grid-layout post-3-columns m-b-30 " data-item="post-item">
                 <!-- Post item-->
                 <div v-for="(blog,index) in blogs" :key="index" class="post-item border">
                     <div class="post-item-wrap">
@@ -29,7 +33,7 @@
 
 <style>
     .post-item{
-        margin: 8px;
+
     }
 </style>
 

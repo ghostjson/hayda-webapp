@@ -19,7 +19,7 @@ export default {
     async logout(){
         localStorage.removeItem('Token')
         localStorage.removeItem('User')
-        await Api.get('auth/logout')
+        await Api.get('auth/logout').then(()=> location.reload())
     },
 
     async register(form){
