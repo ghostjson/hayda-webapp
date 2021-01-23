@@ -16,7 +16,7 @@
                             <span class="post-meta-date"><i class="fa fa-calendar-o"></i>{{ blog.created_at }}</span>
                             <!--                            <span class="post-meta-comments"><a href=""><i class="fa fa-comments-o"></i>33 Comments</a></span>-->
                             <h2>
-                                <router-link :to="'/blog/'+blog.id">{{ blog.title }}
+                                <router-link :to="'/set-your-goals/nutrition-goals/'+blog.id">{{ blog.title }}
                                 </router-link>
                             </h2>
                             <p>{{ paraShortener(blog.content, 150) }}</p>
