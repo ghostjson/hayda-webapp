@@ -1,5 +1,5 @@
 import axios from 'axios'
-import auth from "../services/auth";
+// import auth from "../services/auth";
 // import apiConfig from '../configs/api.json'
 
 let api = axios.create({
@@ -15,10 +15,10 @@ let api = axios.create({
 
 })
 
-api.interceptors.response.use((res) => res, error => {
-    if(error.response.status === 401){
-        auth.logout().then(()=> this.$router.push({name: 'Login'}))
-    }
-})
+// api.interceptors.response.use((res) => res, error => {
+//     if(error.response.status === 401){
+//         auth.logout().then(()=> this.$router.push({name: 'Login'}))
+//     }
+// })
 
 export default api
