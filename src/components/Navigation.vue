@@ -62,9 +62,9 @@
                                         <li class="">
                                             <router-link to="/set-your-goals/weight-goals">Weight Goals</router-link>
                                         </li>
-                                        <li class="">
-                                            <router-link to="/set-your-goals/nutrition-goals">Nutrition Goals</router-link>
-                                        </li>
+<!--                                        <li class="">-->
+<!--                                            <router-link to="/set-your-goals/nutrition-goals">Nutrition Goals</router-link>-->
+<!--                                        </li>-->
                                         <li class="">
                                             <router-link to="/set-your-goals/workout-routines">Workout Routines</router-link>
                                         </li>

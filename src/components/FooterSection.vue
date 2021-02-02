@@ -6,8 +6,7 @@
                     <div class="col-lg-5">
                         <div class="widget">
                             <div class="widget-title">Who we are?</div>
-                            <p class="mb-5">Built with love in Some address, Texas, USA<br> All rights reserved. Copyright ©
-                                2020. HAYDA.</p>
+                            <p class="mb-5">{{ footer['who_we_are'] }}</p>
                             <a
                                class="btn btn-inverted" target="_blank">
                                 <router-link style="color: white" to="/pricing">Get Premium</router-link>
@@ -30,12 +29,9 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="widget">
-                                    <div class="widget-title">Shop</div>
+                                    <div class="widget-title">{{ footer['link_heading'] }}</div>
                                     <ul class="list">
-                                        <li><a href="#">Category 1</a></li>
-                                        <li><a href="#">Category 2</a></li>
-                                        <li><a href="#">Category 3</a></li>
-                                        <li><a href="#">Category 4</a></li>
+                                        <li v-for="(link, index) in footer['links']" :key="index"><a :href="link['link']" >{{ link['name'] }}</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -76,7 +72,25 @@
 
 
 <script>
+    import Api from '../modules/Api'
+
     export default {
-        name: 'FooterSection'
+        name: 'FooterSection',
+        data(){
+            return {
+                footer: {}
+            }
+        },
+        methods: {
+            async fetchContent(){
+                let response = await Api.get('page-content/footer')
+                this.footer = response.data.data.content
+
+                console.log(this.footer)
+            }
+        },
+        created() {
+            this.fetchContent()
+        }
     }
 </script>
