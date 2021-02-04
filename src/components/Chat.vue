@@ -3,11 +3,11 @@
 
         <div class="window" v-bind:class="{ open: is_chat_open }">
             <span v-bind:class="{hide: !is_chat_open}">
-            <div class="chat-head">
+            <div class="chat-head" style="position: absolute; width: 100%;">
                 <h3>Chat With HAYDA</h3>
                 <i class="fas fa-times" id="chat-close-button" v-on:click="closeChat"></i>
             </div>
-            <div class="message-section">
+            <div class="message-section" style="margin-top: 40px">
                 <div
                         :class="{'bot': message.hasOwnProperty('bot'), 'user': message.hasOwnProperty('user')}"
                         v-for="(message,index) in messages" :key="index">
@@ -48,6 +48,8 @@
         border-top-right-radius: 10px;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
         background-color: white;
+        overflow: scroll;
+        padding-bottom: 20px;
 
         .chat-head {
             background: var(--dark-color);
@@ -172,17 +174,26 @@
                 this.insertBotMessage(respond.data.message)
                 this.message_entry = ''
             },
+            scrollMessage(){
+                setTimeout(function () {
+                    let element = document.getElementsByClassName('window')[0]
+                    element.scrollTop = element.scrollHeight
+                }, 500)
+
+            },
             insertUserMessage(message){
                 let message_obj = {
                     user: message
                 }
                 this.messages.push(message_obj)
+                this.scrollMessage()
             },
             insertBotMessage(message){
                 let message_obj = {
                     bot: message
                 }
                 this.messages.push(message_obj)
+                this.scrollMessage()
             }
         },
         created() {
