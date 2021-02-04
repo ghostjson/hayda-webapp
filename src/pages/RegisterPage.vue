@@ -27,7 +27,7 @@
 
                            <div class="custom-control custom-checkbox mb-4">
                                <input required type="checkbox" class="custom-control-input" id="customCheck1">
-                               <label class="custom-control-label" for="customCheck1">By signing in, you agree to our <router-link to="/">Terms & Conditions</router-link> and <router-link to="/">Privacy Statement</router-link></label>
+                               <label class="custom-control-label" for="customCheck1">By signing in, you agree to our <router-link to="/terms">Terms & Conditions</router-link> and <router-link to="/terms">Privacy Statement</router-link></label>
                            </div>
 
                            <button type="submit" class="btn btn-primary">Register</button>

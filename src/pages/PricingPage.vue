@@ -1,4 +1,5 @@
 <template>
+
     <section id="content">
         <div class="container">
             <!-- Pricing Table -->
@@ -6,11 +7,12 @@
                 <h4>Pricing</h4>
             </div>
             <div class="row pricing-table">
+
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="plan">
                         <div class="plan-header">
                             <h4>{{ subscription[0].name }}</h4>
-<!--                            <p class="text-muted">Plan short description</p>-->
+                            <!--                            <p class="text-muted">Plan short description</p>-->
                             <div class="plan-price"><sup>$</sup>{{ subscription[0].price }}<span>/mo</span></div>
                             <div class="countdown small" data-countdown="2019/12/19 11:34:51"></div>
                         </div>
@@ -22,7 +24,7 @@
                                 <a href="#" class="btn btn-secondary">Current Plan</a>
                             </div>
                             <div class="plan-button" v-else>
-                                <a href="#" class="btn btn-secondary">Change Plan</a>
+                                <a href="#" @click="pay('Free')"  class="btn btn-primary">Change Plan</a>
                             </div>
                         </div>
                     </div>
@@ -31,7 +33,7 @@
                     <div class="plan featured">
                         <div class="plan-header">
                             <h4>{{ subscription[1].name }}</h4>
-<!--                            <p class="text-muted">Plan short description</p>-->
+                            <!--                            <p class="text-muted">Plan short description</p>-->
                             <div class="plan-price"><sup>$</sup>{{ subscription[1].price }}<span>/mo</span></div>
                             <div class="countdown small" data-countdown="2019/08/11 11:34:51"></div>
                         </div>
@@ -44,7 +46,7 @@
                                 <a href="#" class="btn btn-secondary">Current Plan</a>
                             </div>
                             <div class="plan-button" v-else>
-                                <a href="#" class="btn btn-primary">Buy Now</a>
+                                <a href="#" @click="pay('Premium')" class="btn btn-primary">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -53,7 +55,7 @@
                     <div class="plan">
                         <div class="plan-header">
                             <h4>{{ subscription[2].name }}</h4>
-<!--                            <p class="text-muted">Plan short description</p>-->
+                            <!--                            <p class="text-muted">Plan short description</p>-->
                             <div class="plan-price"><sup>$</sup>{{ subscription[2].price }}<span>/mo</span></div>
                             <div class="countdown small" data-countdown="2019/11/15 11:34:51"></div>
                         </div>
@@ -66,7 +68,7 @@
                                 <a href="#" class="btn btn-secondary">Current Plan</a>
                             </div>
                             <div class="plan-button" v-else>
-                                <a href="#" class="btn btn-primary">Buy Now</a>
+                                <a href="#" @click="pay('Premium Plus')"  class="btn btn-primary">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -88,20 +90,46 @@
         data() {
             return {
                 subscription: [],
-                subscribe_to: -1
+                subscribe_to: -1,
+                stripe_token: ''
             }
         },
         methods: {
+            pay(sub) {
+
+                let stripe = window.stripe(this.stripe_token);
+                    Api.post('/payment/checkout', {'subscription': sub})
+                        .then(function (response) {
+                            return response;
+                        })
+                        .then(function (session) {
+                            console.log(session)
+                            return stripe.redirectToCheckout({sessionId: session.data.id});
+                        })
+                        .then(function (result) {
+                            if (result.error) {
+                                alert(result.error.message);
+                            }
+                        })
+                        .catch(function (error) {
+                            console.error("Error:", error);
+                        });
+
+                console.log(stripe)
+            },
             async fetchSubscriptions() {
                 let response = await Api.get('/subscriptions')
+                let stripe_token = await Api.get('/payment/token')
                 this.subscription = response.data.data
-                console.log(response.data.data)
+                this.stripe_token = stripe_token.data
+
             }
         },
         mounted() {
 
-            if (auth.isLogged()){
+            if (auth.isLogged()) {
                 this.subscribe_to = JSON.parse(localStorage.getItem('User'))['subscription']
+                console.log(this.subscribe_to)
             }
             this.fetchSubscriptions()
 

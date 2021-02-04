@@ -70,5 +70,10 @@ export const routes = [
         path: '/terms',
         name: 'TermsPage',
         component: () => import('../pages/TermsPage')
+    },
+    {
+        path: '/payment',
+        name: 'PaymentPage',
+        component: () => import('../pages/PaymentPage')
     }
 ]

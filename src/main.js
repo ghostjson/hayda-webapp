@@ -16,3 +16,4 @@ new Vue({
 Vue.use(VCalendar, {
   componentPrefix: 'v'
 })
+
