@@ -51,10 +51,11 @@
                 let status = await Auth.login(this.credential)
                 if(status === 200){
                     await this.$router.push({ name: 'Home' })
+                    window.location.reload()
+
                 }else{
                     this.error = 'Username or password is incorrect'
                 }
-                window.location.reload()
             }
         },
         mounted() {

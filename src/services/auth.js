@@ -1,35 +1,36 @@
 import Api from "../modules/Api";
 
 export default {
-    async login(credentials){
-        try{
+    async login(credentials) {
+        try {
             let response = await Api.post('/auth/login', credentials)
             localStorage.setItem('Token', response.data.access_token)
             localStorage.setItem('User', JSON.stringify(response.data.user))
-            return  response.status
-        }catch (e) {
-            return  e.response.status
+            return response.status
+        } catch (e) {
+            return e.response.status
         }
     },
 
-    isLogged(){
+    isLogged() {
         return localStorage.getItem('Token') !== null
     },
 
-    async logout(){
+    async logout() {
         localStorage.removeItem('Token')
         localStorage.removeItem('User')
-        await Api.get('auth/logout').then(()=> location.reload())
+        await Api.get('auth/logout').finally(() => this.$router.push('/login'))
+
     },
 
-    async register(form){
-        try{
+    async register(form) {
+        try {
             let response = await Api.post('/auth/register', form)
             localStorage.setItem('Token', response.data.access_token)
             localStorage.setItem('User', JSON.stringify(response.data.user))
-            return  response.status
-        }catch (e) {
-            return  e.response.status
+            return response.status
+        } catch (e) {
+            return e.response.status
         }
     }
 }

@@ -1,10 +1,10 @@
 import axios from 'axios'
-// import auth from "../services/auth";
-// import apiConfig from '../configs/api.json'
+import auth from "../services/auth";
+import apiConfig from '../configs/api.json'
 
 let api = axios.create({
-    // baseURL: apiConfig.base_url,
-    baseURL: 'http://localhost:8000/api',
+    baseURL: apiConfig.base_url,
+    // baseURL: 'http://localhost:8000/api',
     withCredentials: false,
     headers: {
         Accept: "application/json",
@@ -15,10 +15,15 @@ let api = axios.create({
 
 })
 
-// api.interceptors.response.use((res) => res, error => {
-//     if(error.response.status === 401){
-//         auth.logout().then(()=> this.$router.push({name: 'Login'}))
-//     }
-// })
+api.interceptors.response.use((res) => res, error => {
+    if(error.response.status === 401){
+        if(error.response.config.url !== 'auth/logout'){
+            console.log(error.response.config.url)
+            auth.logout()
+        }else{
+            location.href = '/login'
+        }
+    }
+})
 
 export default api

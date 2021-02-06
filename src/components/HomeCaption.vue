@@ -20,7 +20,8 @@
 
 <style>
     .heading-text-this{
-        height: 60vh;
+        margin-top: 50px;
+        height: 50vh;
         display: flex;
         justify-content: center;
         align-items: center;

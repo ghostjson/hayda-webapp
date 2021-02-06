@@ -1,6 +1,9 @@
 <template>
 
+
     <section id="content">
+        <spinner-component v-if="loader"  style="margin-top: -182px"></spinner-component>
+
         <div class="container">
             <!-- Pricing Table -->
             <div class="heading-text heading-line text-center pb-5">
@@ -20,11 +23,11 @@
                             <ul>
                                 <li v-for="(feature, index) in subscription[0].features" :key="index">{{ feature }}</li>
                             </ul>
-                            <div class="plan-button" v-if="subscribe_to === '1'">
-                                <a href="#" class="btn btn-secondary">Current Plan</a>
+                            <div class="plan-button" v-if="subscribe_to === '0'">
+                                <a class="btn btn-secondary">Current Plan</a>
                             </div>
                             <div class="plan-button" v-else>
-                                <a href="#" @click="pay('Free')"  class="btn btn-primary">Change Plan</a>
+                                <a @click="pay('Free')"  class="btn btn-primary">Change Plan</a>
                             </div>
                         </div>
                     </div>
@@ -42,11 +45,11 @@
                                 <li v-for="(feature, index) in subscription[1].features" :key="index">{{ feature }}</li>
 
                             </ul>
-                            <div class="plan-button" v-if="subscribe_to === '2'">
-                                <a href="#" class="btn btn-secondary">Current Plan</a>
+                            <div class="plan-button" v-if="subscribe_to === '1'">
+                                <a class="btn btn-secondary">Current Plan</a>
                             </div>
                             <div class="plan-button" v-else>
-                                <a href="#" @click="pay('Premium')" class="btn btn-primary">Buy Now</a>
+                                <a @click="pay('Premium')" class="btn btn-primary">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -64,11 +67,11 @@
                                 <li v-for="(feature, index) in subscription[2].features" :key="index">{{ feature }}</li>
 
                             </ul>
-                            <div class="plan-button" v-if="subscribe_to === '3'">
-                                <a href="#" class="btn btn-secondary">Current Plan</a>
+                            <div class="plan-button" v-if="subscribe_to === '2'">
+                                <a class="btn btn-secondary">Current Plan</a>
                             </div>
                             <div class="plan-button" v-else>
-                                <a href="#" @click="pay('Premium Plus')"  class="btn btn-primary">Buy Now</a>
+                                <a @click="pay('Premium Plus')"  class="btn btn-primary">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -84,38 +87,54 @@
 <script>
     import Api from "../modules/Api";
     import auth from "../services/auth";
+    import SpinnerComponent from "../components/SpinnerComponent";
 
     export default {
         name: 'PricingPage',
+        components: {SpinnerComponent},
         data() {
             return {
                 subscription: [],
                 subscribe_to: -1,
-                stripe_token: ''
+                stripe_token: '',
+                loader: false
             }
         },
         methods: {
             pay(sub) {
 
-                let stripe = window.stripe(this.stripe_token);
-                    Api.post('/payment/checkout', {'subscription': sub})
-                        .then(function (response) {
-                            return response;
-                        })
-                        .then(function (session) {
-                            console.log(session)
-                            return stripe.redirectToCheckout({sessionId: session.data.id});
-                        })
-                        .then(function (result) {
-                            if (result.error) {
-                                alert(result.error.message);
-                            }
-                        })
-                        .catch(function (error) {
-                            console.error("Error:", error);
-                        });
+                if(confirm('Do you want to cancel current subscription?')){
 
-                console.log(stripe)
+                    this.loader = true
+
+                    Api.delete('/subscriptions/cancel')
+                        .finally(() => {
+                            let stripe = window.stripe(this.stripe_token);
+                            Api.post('/payment/checkout', {'subscription': sub})
+                                .then(function (response) {
+                                    return response;
+                                })
+                                .then(function (session) {
+                                    console.log(session)
+                                    return stripe.redirectToCheckout({sessionId: session.data.id});
+                                })
+                                .then(function (result) {
+                                    if (result.error) {
+                                        alert(result.error.message);
+                                    }
+                                })
+                                .catch(function (error) {
+                                    console.error("Error:", error);
+                                }).finally(() => {
+                                    this.loader = false
+                            })
+                        })
+
+
+                }
+
+
+
             },
             async fetchSubscriptions() {
                 let response = await Api.get('/subscriptions')

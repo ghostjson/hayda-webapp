@@ -89,27 +89,22 @@
 </template>
 
 
-<style lang="scss">
+<style>
 
-    #header {
-        .header-inner {
-            background-color: var(--primary-color) !important;
-
-            .navigation-menu > li > a {
-                color: white;
-
-            }
-
-            a:hover, a:active {
-                color: black;
-                font-size: 1em;
-            }
-        }
+    #header .header-inner {
+        background-color: var(--primary-color) !important;
     }
-
+    #header .header-inner .navigation-menu > li > a {
+        color: white;
+    }
+    #header .header-inner a:hover, #header .header-inner a:active {
+        color: black;
+        font-size: 1em;
+    }
     .logo {
         width: 160px;
     }
+
 </style>
 
 <script>
