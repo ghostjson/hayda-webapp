@@ -3,7 +3,7 @@
         <div class="container">
             <div class="heading-text heading-section text-center">
                 <h2>SERVICES</h2>
-                <p>Lorem ipsum dolor sit amet, consecte adipiscing elit. Suspendisse condimentum porttitor cursumus.
+                <p>{{ data['caption'] }}
                 </p>
             </div>
             <div class="row">

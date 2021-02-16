@@ -29,6 +29,12 @@
                 spinner: true
             }
         },
+        beforeCreate() {
+            Api.get('/page-content/theme').then(res => {
+                let root = document.documentElement
+                root.style.setProperty('--primary-color', res.data['primary_color'])
+            })
+        },
         created() {
             Api.interceptors.request.use(req => {
                 setTimeout( ()=>{
@@ -41,6 +47,12 @@
                 this.spinner = false
                 return res;
             });
+
+
+
+
+           // Update theme colour
+
 
 
         }
