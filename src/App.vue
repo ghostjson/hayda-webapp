@@ -13,6 +13,8 @@
         <chat></chat>
     </div>
 </template>
+
+
 <script>
     import TopBar from "./components/TopBar";
     import Navigation from "./components/Navigation";
@@ -33,6 +35,7 @@
             Api.get('/page-content/theme').then(res => {
                 let root = document.documentElement
                 root.style.setProperty('--primary-color', res.data['primary_color'])
+                root.style.setProperty('--dark-color', res.data['secondary_color'])
             })
         },
         created() {

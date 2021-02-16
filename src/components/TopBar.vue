@@ -1,5 +1,6 @@
 <template>
-    <div id="topbar" class="dark topbar-fullwidth">
+    <div id="topbar" class="dark topbar-fullwidth"
+         style="background-color: var(--dark-color)">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
