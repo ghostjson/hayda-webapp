@@ -23,7 +23,7 @@
                             <ul>
                                 <li v-for="(feature, index) in subscription[0].features" :key="index">{{ feature }}</li>
                             </ul>
-                            <div class="plan-button" v-if="subscribe_to === '0'">
+                            <div class="plan-button" v-if="subscribe_to === '1'">
                                 <a class="btn btn-secondary">Current Plan</a>
                             </div>
                             <div class="plan-button" v-else>
@@ -45,7 +45,7 @@
                                 <li v-for="(feature, index) in subscription[1].features" :key="index">{{ feature }}</li>
 
                             </ul>
-                            <div class="plan-button" v-if="subscribe_to === '1'">
+                            <div class="plan-button" v-if="subscribe_to === '2'">
                                 <a class="btn btn-secondary">Current Plan</a>
                             </div>
                             <div class="plan-button" v-else>
@@ -67,7 +67,7 @@
                                 <li v-for="(feature, index) in subscription[2].features" :key="index">{{ feature }}</li>
 
                             </ul>
-                            <div class="plan-button" v-if="subscribe_to === '2'">
+                            <div class="plan-button" v-if="subscribe_to === '3'">
                                 <a class="btn btn-secondary">Current Plan</a>
                             </div>
                             <div class="plan-button" v-else>
@@ -107,8 +107,8 @@
 
                     this.loader = true
 
-                    Api.delete('/subscriptions/cancel')
-                        .finally(() => {
+                    Api.delete('/payment/cancel')
+                        .then(() => {
                             let stripe = window.stripe(this.stripe_token);
                             Api.post('/payment/checkout', {'subscription': sub})
                                 .then(function (response) {

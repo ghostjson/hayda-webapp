@@ -75,5 +75,14 @@ export const routes = [
         path: '/payment',
         name: 'PaymentPage',
         component: () => import('../pages/PaymentPage')
-    }
-]
+    },
+    {
+        path: '/success',
+        name: 'SuccessPage',
+        component: () => import('../pages/SuccessPage')
+    },
+    {
+        path: '/cancel',
+        name: 'CancelPage',
+        component: () => import('../pages/CancelPage')
+    }]

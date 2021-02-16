@@ -51,7 +51,7 @@
                                     <ul class="list">
                                         <li><a href="#">About Us</a></li>
                                         <li><a href="#">What we do?</a></li>
-                                        <li><a href="#">Contact Us</a></li>
+                                        <li><a :href="`mailto:${email}`">Contact Us</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -73,12 +73,14 @@
 
 <script>
     import Api from '../modules/Api'
+    import api from "../modules/Api";
 
     export default {
         name: 'FooterSection',
         data(){
             return {
-                footer: {}
+                footer: {},
+                email: ''
             }
         },
         methods: {
@@ -86,11 +88,14 @@
                 let response = await Api.get('page-content/footer')
                 this.footer = response.data.data.content
 
-                console.log(this.footer)
             }
         },
         created() {
             this.fetchContent()
+
+            api.get('/settings/contact-email').then(res => {
+                this.email = res.data
+            })
         }
     }
 </script>

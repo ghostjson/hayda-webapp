@@ -5,11 +5,17 @@ export default {
         try {
             let response = await Api.post('/auth/login', credentials)
             localStorage.setItem('Token', response.data.access_token)
-            localStorage.setItem('User', JSON.stringify(response.data.user))
+            localStorage.setItem('User', JSON.stringify(response.data.data.user))
             return response.status
         } catch (e) {
             return e.response.status
         }
+    },
+
+    updateUser(){
+        Api.get('/auth/user').then(user => {
+            localStorage.setItem('User', JSON.stringify(user.data.data))
+        })
     },
 
     isLogged() {
