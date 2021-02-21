@@ -18,7 +18,6 @@ let api = axios.create({
 api.interceptors.response.use((res) => res, error => {
     if(error.response.status === 401){
         if(error.response.config.url !== 'auth/logout'){
-            console.log(error.response.config.url)
             auth.logout()
         }else{
             location.href = '/login'

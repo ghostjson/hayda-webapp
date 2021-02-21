@@ -31,8 +31,8 @@
 
 <script>
 
-    import Auth from '../services/auth'
     import AlertBox from "../components/AlertBox";
+    import auth from "../services/auth";
 
     export default {
         name: 'RegisterPage',
@@ -48,7 +48,7 @@
         },
         methods: {
             async loginSubmit(e){ e.preventDefault()
-                let status = await Auth.login(this.credential)
+                let status = await auth.login(this.credential)
                 if(status === 200){
                     await this.$router.push({ name: 'Home' })
                     window.location.reload()
@@ -59,7 +59,7 @@
             }
         },
         mounted() {
-            if(localStorage.getItem('Token') !== null){
+            if(auth.isLogged()){
                 this.$router.push({ name: 'Home' })
             }
         }

@@ -27,7 +27,6 @@
                 let response = await Api.get('/page-content/home')
                 this.home = response.data.data.content
 
-                console.log(this.home)
             }
         },
         created() {

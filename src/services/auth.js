@@ -4,11 +4,13 @@ export default {
     async login(credentials) {
         try {
             let response = await Api.post('/auth/login', credentials)
+
+            localStorage.setItem('expiry', new Date().getTime().toString())
             localStorage.setItem('Token', response.data.access_token)
-            localStorage.setItem('User', JSON.stringify(response.data.data.user))
+            localStorage.setItem('User', JSON.stringify(response.data.user))
             return response.status
         } catch (e) {
-            return e.response.status
+            console.log(e)
         }
     },
 
@@ -19,7 +21,15 @@ export default {
     },
 
     isLogged() {
-        return localStorage.getItem('Token') !== null
+        let minutes = (new Date().getTime().toString() - localStorage.getItem('expiry'))/60000
+        if (minutes < 10 && localStorage.getItem('Token') !== null){
+            return true;
+        }else{
+            localStorage.removeItem('Token')
+            localStorage.removeItem('User')
+            return false;
+        }
+
     },
 
     async logout() {
