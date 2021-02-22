@@ -21,6 +21,8 @@ export default {
     },
 
     isLogged() {
+        if(localStorage.getItem('expiry') === null) return false
+
         let minutes = (new Date().getTime().toString() - localStorage.getItem('expiry'))/60000
         if (minutes < 10 && localStorage.getItem('Token') !== null){
             return true;
