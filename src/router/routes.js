@@ -23,7 +23,7 @@ export const routes = [
     },
     {
         path: '/blog/:id',
-        name: 'Blog',
+        name: 'BlogPage',
         component: () => import('../pages/BlogSinglePage')
     },
     {
