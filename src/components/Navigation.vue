@@ -12,7 +12,7 @@
 
 
                 <!--Navigation Resposnive Trigger-->
-                <div id="mainMenu-trigger">
+                <div id="mainMenu-trigger" @click="openNav">
                     <a class="lines-button x"><span class="lines"></span></a>
                 </div>
                 <!--end: Navigation Resposnive Trigger-->
@@ -85,7 +85,71 @@
                 <!--end: Navigation-->
             </div>
         </div>
+
+        <div class="mobile-navigation">
+            <ul class="navigation-menu" v-if="current_navigation === 1">
+                <li>
+                    <router-link to="/">Home</router-link>
+                </li>
+                <li class="dropdown-mobile">
+                    <a href="#" @click="current_navigation = 2">Health Hub</a>
+                </li>
+
+                <li>
+                    <router-link to="/blog">In the know</router-link>
+                </li>
+                <!--                                <li>-->
+                <!--                                    <router-link to="/">Chat with HAYDA</router-link>-->
+                <!--                                </li>-->
+                <li class="dropdown">
+                    <a href="#" @click="current_navigation = 3">Services</a>
+                </li>
+                <li>
+                    <a href="#" @click="current_navigation = 4">Set your goals</a>
+
+                </li>
+                <li v-if="!isLoggedIn">
+                    <router-link to="/login">Login</router-link>
+                </li>
+                <li v-else>
+                    <a @click="logout" href="#">Logout</a>
+                </li>
+
+
+            </ul >
+            <ul class="dropdown-menu-mobile" style="" v-if="current_navigation === 2">
+                <li v-for="(category,index) in health_links_category" :key="index"
+                    class="dropdown-submenu"><span
+                        class="dropdown-arrow"></span>
+                    <a href="#" @click="healthHubCategoryClicked(index)">{{ capitalize(category) }}</a>
+                    <ul style="padding-left: 20px; display: none" :id="'healthHubLink-'+index">
+                        <li v-for="(links,index) in health_links[category]" :key="index">
+                            <a target="_blank" :href="'//'+links.link">{{ links.caption }}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="dropdown-menu-mobile" v-if="current_navigation === 3">
+                <li class="">
+                    <router-link to="/services/geolocation">Geolocation</router-link>
+                </li>
+                <li>
+                    <router-link to="/pricing">Pricing</router-link>
+                </li>
+            </ul>
+            <ul class="dropdown-menu-mobile" v-if="current_navigation === 4">
+                <li class="">
+                    <router-link to="/set-your-goals/weight-goals">Weight Goals</router-link>
+                </li>
+
+                <li class="">
+                    <router-link to="/set-your-goals/workout-routines">Workout Routines</router-link>
+                </li>
+            </ul>
+        </div>
     </header>
+
+
 </template>
 
 
@@ -105,6 +169,22 @@
         width: 160px;
     }
 
+    .mobile-navigation{
+        background-color: white;
+        border: 1px solid #c8c8c8;
+        padding-left: 30px;
+    }
+
+    .mobile-navigation ul{
+        list-style: none;
+    }
+
+    @media only screen and (min-width: 1024px) {
+        .mobile-navigation{
+            display: none !important;
+        }
+    }
+
 </style>
 
 <script>
@@ -117,7 +197,8 @@
         data() {
             return {
                 health_links: {},
-                health_links_category: []
+                health_links_category: [],
+                current_navigation: 0
             }
         },
         methods: {
@@ -131,6 +212,21 @@
             changeLanguage(){
                 let d = document.getElementsByClassName('goog-te-combo')[0];
                 d.click()
+            },
+            openNav(){
+                if(this.current_navigation === 0){
+                    this.current_navigation = 1;
+                }else{
+                    this.current_navigation = 0;
+                }
+            },
+            healthHubCategoryClicked(index){
+                let link = document.getElementById('healthHubLink-'+index);
+                if(link.style.display === 'none'){
+                    link.style.display = 'block';
+                }else{
+                    link.style.display = 'none';
+                }
             }
         },
         computed: {
