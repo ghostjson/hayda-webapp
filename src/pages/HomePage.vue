@@ -19,7 +19,14 @@
         components: {HomeCaption, HomeStatistics, HomeServices, HomeWeDo},
         data(){
             return {
-                home: {}
+                home: {
+                    title_caption: '',
+                    small_quote: '',
+                    what_we_do: '',
+                    services: '',
+                    statistics: ''
+
+                }
             }
         },
         methods: {

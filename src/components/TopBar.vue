@@ -13,15 +13,15 @@
                 <div class="col-md-6 d-none d-sm-block">
                     <div class="social-icons social-icons-colored-hover">
                         <ul>
-                            <li class="social-facebook"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-                            <li class="social-twitter"><a href="#"><i class="fab fa-twitter"></i></a></li>
-                            <li class="social-google"><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
-                            <li class="social-pinterest"><a href="#"><i class="fab fa-pinterest"></i></a></li>
-                            <li class="social-vimeo"><a href="#"><i class="fab fa-vimeo"></i></a></li>
-                            <li class="social-linkedin"><a href="#"><i class="fab fa-linkedin"></i></a></li>
-                            <li class="social-dribbble"><a href="#"><i class="fab fa-dribbble"></i></a></li>
-                            <li class="social-youtube"><a href="#"><i class="fab fa-youtube"></i></a></li>
-                            <li class="social-rss"><a href="#"><i class="fa fa-rss"></i></a></li>
+                            <li class="social-facebook"><a :href="social.facebook"><i class="fab fa-facebook-f"></i></a></li>
+                            <li class="social-twitter"><a :href="social.twitter"><i class="fab fa-twitter"></i></a></li>
+                            <li class="social-google"><a :href="social.google"><i class="fab fa-google-plus-g"></i></a></li>
+                            <li class="social-pinterest"><a :href="social.pininterest"><i class="fab fa-pinterest"></i></a></li>
+                            <li class="social-vimeo"><a :href="social.vimeo"><i class="fab fa-vimeo"></i></a></li>
+                            <li class="social-linkedin"><a :href="social.linkedin"><i class="fab fa-linkedin"></i></a></li>
+                            <li class="social-dribbble"><a :href="social.dribbble"><i class="fab fa-dribbble"></i></a></li>
+                            <li class="social-youtube"><a :href="social.youtube"><i class="fab fa-youtube"></i></a></li>
+                            <li class="social-rss"><a :href="social.reddit"><i class="fa fa-rss"></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -33,7 +33,34 @@
 
 
 <script>
+    import api from "../modules/Api";
+
     export default {
-        name: 'TopBar'
+        name: 'TopBar',
+        data(){
+          return {
+              social:  {
+                  facebook: '',
+                  dribbble: '',
+                  google: '',
+                  linkedin: '',
+                  pininterest: '',
+                  reddit: '',
+                  twitter: '',
+                  vimeo: '',
+                  youtube: '',
+              }
+          }
+        },
+        methods: {
+          async fetchSocial(){
+              let response = await api.get('/page-content/social')
+              this.social = response.data.data.content
+              console.log(this.social)
+          }
+        },
+        created() {
+            this.fetchSocial()
+        }
     }
 </script>
