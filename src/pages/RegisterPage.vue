@@ -53,13 +53,13 @@
         },
         methods: {
             async registerFormSubmit(e){ e.preventDefault()
-                let status = await Auth.login(this.registerForm)
+                let status = await Auth.register(this.registerForm)
                 if(status === 200){
                     await this.$router.push({ name: 'Home' })
                 }else{
                     this.error = 'Error in registration'
                 }
-                window.location.reload()
+                // window.location.reload()
             }
         }
     }
