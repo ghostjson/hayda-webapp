@@ -150,13 +150,14 @@
                 this.is_chat_open = false;
             },
             async sendMessage(){
-                this.insertUserMessage(this.message_entry)
+                let message = this.message_entry
+                this.message_entry = ''
+                this.insertUserMessage(message)
 
                 let respond = await Api.post('/chat/chat-bot', {
-                    'message': this.message_entry
+                    'message': message
                 })
                 this.insertBotMessage(respond.data.message)
-                this.message_entry = ''
             },
             scrollMessage(){
                 setTimeout(function () {
