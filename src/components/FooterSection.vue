@@ -21,9 +21,10 @@
                                     <ul class="list">
                                         <li><a href="#">Body Health</a></li>
                                         <li><a href="#">Brain Health</a></li>
-                                        <li><a href="#">Hearth Health</a></li>
+                                        <li><a href="#">Heart Health</a></li>
                                         <li><a href="#">Insure Your Health</a></li>
                                         <li><a href="#">Wealth Tips</a></li>
+                                        <li><a href="#">Mindfulness</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -35,16 +36,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
-                                <div class="widget">
-                                    <div class="widget-title">Pages</div>
-                                    <ul class="list">
-                                        <li><a href="#">Premium</a></li>
-                                        <li><a href="#">Blog</a></li>
-                                        <li><a href="#">Shop</a></li>
-                                    </ul>
-                                </div>
-                            </div>
+
                             <div class="col-lg-3">
                                 <div class="widget">
                                     <div class="widget-title">Support</div>
@@ -53,6 +45,17 @@
                                         <li><a href="#">What we do?</a></li>
                                         <li><a :href="`mailto:${email}`">Contact Us</a></li>
                                     </ul>
+                                </div>
+                            </div>
+                            <div class="col-lg-3">
+                                <div class="widget">
+                                    <div class="widget-title">Get the APP</div>
+                                    <div class="get-app-button">
+                                        <i class="fab fa-apple"></i> iOS
+                                    </div>
+                                    <div class="get-app-button">
+                                        <i class="fab fa-android"></i> Android
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +72,32 @@
     </footer>
 </template>
 
+<style>
+    .get-app-button{
+        border: 1px solid rgb(30, 27, 27);
+        cursor: pointer;
+        font-weight: 600;
+        text-align: center;
+        border-radius: 20px;
+        margin-top: 10px;
+        transition: all 0.8s;
+    }
 
+    .get-app-button:hover{
+        background-color: rgb(30, 27, 27);
+        color: white;
+    }
+
+    .get-app-button i{
+        font-size: 1.2em;
+        position: relative;
+        right: 5px;
+    }
+
+    .get-app-button i.fa-apple{
+        right: 20px;
+    }
+</style>
 
 <script>
     import Api from '../modules/Api'
