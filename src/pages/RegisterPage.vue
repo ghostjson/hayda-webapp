@@ -59,7 +59,6 @@
                 }else{
                     this.error = 'Error in registration'
                 }
-                // window.location.reload()
             }
         }
     }

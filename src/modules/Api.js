@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import auth from "../services/auth";
+import auth from "../services/auth";
 // import apiConfig from '../configs/api.json'
 
 let api = axios.create({
@@ -16,14 +16,13 @@ let api = axios.create({
 })
 
 api.interceptors.response.use((res) => res, error => {
-    console.error(error)
-    // if(error.response.status === 401){
-    //     if(error.response.config.url !== 'auth/logout'){
-    //         auth.logout()
-    //     }else{
-    //         location.href = '/login'
-    //     }
-    // }
+    if(error.response.status === 401){
+        if(error.response.config.url !== 'auth/logout'){
+            auth.logout()
+        }else{
+            location.href = '/login'
+        }
+    }
 })
 
 export default api
