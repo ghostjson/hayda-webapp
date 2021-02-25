@@ -241,7 +241,6 @@
                 .then(data => {
                     this.health_links_category = Object.keys(data)
                     this.health_links = data
-                    console.log(this.health_links)
                 })
         },
     }

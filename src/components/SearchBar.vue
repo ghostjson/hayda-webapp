@@ -5,7 +5,7 @@
                 <div class="wrapper">
                     <div class="search-input">
                         <a href="" target="_blank" hidden></a>
-                        <input v-model="query" @keyup="getSuggestions" style="margin-right: 40px" type="search" list="suggestions" placeholder="Type to search..">
+                        <input v-model="query" @keyup="getSuggestions" @keyup.enter="submit" style="margin-right: 40px" type="search" list="suggestions" placeholder="Type to search..">
                         <datalist id="suggestions">
                             <option v-for="(suggest,index) in suggestions" :key="index">{{ suggest.tag }}</option>
                         </datalist>
@@ -140,13 +140,7 @@
                 // console.log(this.query)
             },
             submit(){
-                this.searchable_list.forEach(value => {
-                    if (value.tag.toLowerCase().includes(this.query.toLowerCase())) {
-
-                        this.$router.push(value.value)
-
-                    }
-                })
+                location.href = '/search?query='+this.query
             }
         }
     }

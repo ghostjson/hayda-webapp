@@ -85,4 +85,10 @@ export const routes = [
         path: '/cancel',
         name: 'CancelPage',
         component: () => import('../pages/CancelPage')
-    }]
+    },
+    {
+        path: '/search',
+        name: 'SearchPage',
+        component: () => import('../pages/SearchPage')
+    }
+    ]
