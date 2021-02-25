@@ -56,7 +56,6 @@
           async fetchSocial(){
               let response = await api.get('/page-content/social')
               this.social = response.data.data.content
-              console.log(this.social)
           }
         },
         created() {

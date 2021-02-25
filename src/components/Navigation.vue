@@ -32,7 +32,7 @@
                                             <a href="#">{{ capitalize(category) }}</a>
                                             <ul class="dropdown-menu" style="">
                                                 <li v-for="(links,index) in health_links[category]" :key="index">
-                                                    <a target="_blank" :href="'//'+links.link">{{ links.caption }}</a>
+                                                    <a target="_blank" :href="links.link">{{ links.caption }}</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -124,7 +124,8 @@
                     <a href="#" @click="healthHubCategoryClicked(index)">{{ capitalize(category) }}</a>
                     <ul style="padding-left: 20px; display: none" :id="'healthHubLink-'+index">
                         <li v-for="(links,index) in health_links[category]" :key="index">
-                            <a target="_blank" :href="'//'+links.link">{{ links.caption }}</a>
+
+                            <a target="_blank" :href="links.link">{{ links.caption }}</a>
                         </li>
                     </ul>
                 </li>
@@ -240,6 +241,7 @@
                 .then(data => {
                     this.health_links_category = Object.keys(data)
                     this.health_links = data
+                    console.log(this.health_links)
                 })
         },
     }
