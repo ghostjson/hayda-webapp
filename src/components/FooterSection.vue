@@ -8,7 +8,7 @@
                             <div class="widget-title">Who we are?</div>
                             <p class="mb-5">{{ footer['who_we_are'] }}</p>
                             <a
-                               class="btn btn-inverted" target="_blank">
+                                    class="btn btn-inverted" target="_blank">
                                 <router-link style="color: white" to="/pricing">Get Premium</router-link>
                             </a>
                         </div>
@@ -19,20 +19,26 @@
                                 <div class="widget">
                                     <div class="widget-title">Health Hub</div>
                                     <ul class="list">
-                                        <li><a href="#">Body Health</a></li>
-                                        <li><a href="#">Brain Health</a></li>
-                                        <li><a href="#">Heart Health</a></li>
-                                        <li><a href="#">Insure Your Health</a></li>
-                                        <li><a href="#">Wealth Tips</a></li>
-                                        <li><a href="#">Mindfulness</a></li>
+                                        <li v-for="(category, index) in health_links_category" :key="index">
+                                            <a  @mouseover="healthLinkClicked(index)">{{ capitalize(category) }}</a>
+                                            <div @mouseover="healthLinkClicked(index)" @mouseleave="healthLinkLeave(index)" class="links shadow" :id="'health-link-' + index">
+                                                <ul>
+                                                    <li v-for="(links,index) in health_links[category]" :key="index">
+                                                        <a target="_blank" :href="links.link">{{ links.caption }}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
                                     </ul>
+
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="widget">
                                     <div class="widget-title">{{ footer['link_heading'] }}</div>
                                     <ul class="list">
-                                        <li v-for="(link, index) in footer['links']" :key="index"><a :href="link['link']" >{{ link['name'] }}</a></li>
+                                        <li v-for="(link, index) in footer['links']" :key="index"><a
+                                                :href="link['link']">{{ link['name'] }}</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -73,7 +79,12 @@
 </template>
 
 <style>
-    .get-app-button{
+
+    a{
+        cursor: pointer;
+    }
+
+    .get-app-button {
         border: 1px solid rgb(30, 27, 27);
         cursor: pointer;
         font-weight: 600;
@@ -83,40 +94,81 @@
         transition: all 0.8s;
     }
 
-    .get-app-button:hover{
+    .get-app-button:hover {
         background-color: rgb(30, 27, 27);
         color: white;
     }
 
-    .get-app-button i{
+    .get-app-button i {
         font-size: 1.2em;
         position: relative;
         right: 5px;
     }
 
-    .get-app-button i.fa-apple{
+    .get-app-button i.fa-apple {
         right: 20px;
+    }
+
+    .links{
+        background-color: white;
+        position: absolute;
+        min-width: 200px;
+        z-index: 10;
+        display: none;
+    }
+
+    .links:hover{
+        display: block;
+    }
+
+    .links ul{
+        list-style: none;
+        padding: 10px;
     }
 </style>
 
 <script>
     import Api from '../modules/Api'
     import api from "../modules/Api";
+    import HealthHub from "../services/healthHub";
+    import capitalize from "../helpers/capitalize";
 
     export default {
         name: 'FooterSection',
-        data(){
+        data() {
             return {
                 footer: {},
-                email: ''
+                email: '',
+                health_links: [],
+                health_links_category: []
             }
         },
         methods: {
-            async fetchContent(){
+            async fetchContent() {
                 let response = await Api.get('page-content/footer')
                 this.footer = response.data.data.content
-
+            },
+            capitalize(value) {
+                return capitalize(value)
+            },
+            healthLinkClicked(index){
+                document.getElementById(`health-link-${index}`).style.display = 'block'
+                setTimeout(() => {
+                    document.getElementById(`health-link-${index}`).style.display = 'none'
+                }, 2000)
+            },
+            healthLinkLeave(index){
+                document.getElementById(`health-link-${index}`).style.display = 'none'
             }
+        },
+        mounted() {
+            HealthHub.get()
+                .then(res => res.data)
+                .then(data => {
+                    this.health_links_category = Object.keys(data)
+                    this.health_links = data
+
+                })
         },
         created() {
             this.fetchContent()
