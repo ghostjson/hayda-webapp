@@ -68,7 +68,7 @@
         data() {
             return {
                 search: '',
-                location: 'thiruvalla'
+                location: 'Los Angeles, California'
             }
         },
         methods: {
