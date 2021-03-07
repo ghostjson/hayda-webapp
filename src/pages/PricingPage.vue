@@ -16,7 +16,7 @@
                         <div class="plan-header">
                             <h4>{{ subscription[0].name }}</h4>
                             <!--                            <p class="text-muted">Plan short description</p>-->
-                            <div class="plan-price"><sup>$</sup>{{ subscription[0].price }}<span>/mo</span></div>
+                            <div class="plan-price"><sup>$</sup>{{ subscription[0].price }}<span>/yr</span></div>
                             <div class="countdown small" data-countdown="2019/12/19 11:34:51"></div>
                         </div>
                         <div class="plan-list">
@@ -37,7 +37,7 @@
                         <div class="plan-header">
                             <h4>{{ subscription[1].name }}</h4>
                             <!--                            <p class="text-muted">Plan short description</p>-->
-                            <div class="plan-price"><sup>$</sup>{{ subscription[1].price }}<span>/mo</span></div>
+                            <div class="plan-price"><sup>$</sup>{{ subscription[1].price }}<span>/yr</span></div>
                             <div class="countdown small" data-countdown="2019/08/11 11:34:51"></div>
                         </div>
                         <div class="plan-list">
@@ -59,7 +59,7 @@
                         <div class="plan-header">
                             <h4>{{ subscription[2].name }}</h4>
                             <!--                            <p class="text-muted">Plan short description</p>-->
-                            <div class="plan-price"><sup>$</sup>{{ subscription[2].price }}<span>/mo</span></div>
+                            <div class="plan-price"><sup>$</sup>{{ subscription[2].price }}<span>/yr</span></div>
                             <div class="countdown small" data-countdown="2019/11/15 11:34:51"></div>
                         </div>
                         <div class="plan-list">
