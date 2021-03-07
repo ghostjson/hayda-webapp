@@ -39,12 +39,38 @@
                                     </ul>
                                 </li>
 
-                                <li>
-                                    <router-link to="/blog">In the know</router-link>
+                                <li class="dropdown">
+                                    <router-link to="/">In the know</router-link>
+                                    <ul class="dropdown-menu">
+                                        <li class="">
+                                            <a href="#">Blog</a>
+
+                                        </li>
+                                        <li class="dropdown-submenu"><span
+                                                class="dropdown-arrow"></span>
+                                            <a href="#">Games</a>
+                                            <ul class="dropdown-menu" style="">
+                                                <li v-for="(game, index) in games" :key="index">
+                                                    <a target="_blank" :href="game.link">{{ game.title }}</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="dropdown-submenu"><span
+                                                class="dropdown-arrow"></span>
+                                            <a href="#">Podcasts</a>
+                                            <ul class="dropdown-menu" style="">
+                                                <li v-for="(podcast, index) in podcasts" :key="index">
+                                                    <a target="_blank" :href="podcast.link">{{ podcast.title }}</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+
+                                    </ul>
                                 </li>
-<!--                                <li>-->
-<!--                                    <router-link to="/">Chat with HAYDA</router-link>-->
-<!--                                </li>-->
+                                <!--                                <li>-->
+                                <!--                                    <router-link to="/">Chat with HAYDA</router-link>-->
+                                <!--                                </li>-->
                                 <li class="dropdown">
                                     <router-link to="/">Services</router-link>
                                     <ul class="dropdown-menu">
@@ -62,11 +88,12 @@
                                         <li class="">
                                             <router-link to="/set-your-goals/weight-goals">Weight Goals</router-link>
                                         </li>
-<!--                                        <li class="">-->
-<!--                                            <router-link to="/set-your-goals/nutrition-goals">Nutrition Goals</router-link>-->
-<!--                                        </li>-->
+                                        <!--                                        <li class="">-->
+                                        <!--                                            <router-link to="/set-your-goals/nutrition-goals">Nutrition Goals</router-link>-->
+                                        <!--                                        </li>-->
                                         <li class="">
-                                            <router-link to="/set-your-goals/workout-routines">Workout Routines</router-link>
+                                            <router-link to="/set-your-goals/workout-routines">Workout Routines
+                                            </router-link>
                                         </li>
                                     </ul>
                                 </li>
@@ -116,7 +143,7 @@
                 </li>
 
 
-            </ul >
+            </ul>
             <ul class="dropdown-menu-mobile" style="" v-if="current_navigation === 2">
                 <li v-for="(category,index) in health_links_category" :key="index"
                     class="dropdown-submenu"><span
@@ -159,29 +186,32 @@
     #header .header-inner {
         background-color: var(--primary-color) !important;
     }
+
     #header .header-inner .navigation-menu > li > a {
         color: white;
     }
+
     #header .header-inner a:hover, #header .header-inner a:active {
         color: black;
         font-size: 1em;
     }
+
     .logo {
         width: 160px;
     }
 
-    .mobile-navigation{
+    .mobile-navigation {
         background-color: white;
         border: 1px solid #c8c8c8;
         padding-left: 30px;
     }
 
-    .mobile-navigation ul{
+    .mobile-navigation ul {
         list-style: none;
     }
 
     @media only screen and (min-width: 1024px) {
-        .mobile-navigation{
+        .mobile-navigation {
             display: none !important;
         }
     }
@@ -192,6 +222,7 @@
     import HealthHub from "../services/healthHub";
     import capitalize from "../helpers/capitalize";
     import Auth from '../services/auth'
+    import api from "../modules/Api";
 
     export default {
         name: 'Navigation',
@@ -199,35 +230,46 @@
             return {
                 health_links: {},
                 health_links_category: [],
-                current_navigation: 0
+                current_navigation: 0,
+                games: [],
+                podcasts: []
             }
         },
         methods: {
             capitalize(value) {
                 return capitalize(value)
             },
-            logout(){
+            logout() {
                 Auth.logout()
                 window.location.reload()
             },
-            changeLanguage(){
+            changeLanguage() {
                 let d = document.getElementsByClassName('goog-te-combo')[0];
                 d.click()
             },
-            openNav(){
-                if(this.current_navigation === 0){
+            openNav() {
+                if (this.current_navigation === 0) {
                     this.current_navigation = 1;
-                }else{
+                } else {
                     this.current_navigation = 0;
                 }
             },
-            healthHubCategoryClicked(index){
-                let link = document.getElementById('healthHubLink-'+index);
-                if(link.style.display === 'none'){
+            healthHubCategoryClicked(index) {
+                let link = document.getElementById('healthHubLink-' + index);
+                if (link.style.display === 'none') {
                     link.style.display = 'block';
-                }else{
+                } else {
                     link.style.display = 'none';
                 }
+            },
+            fetchGamesAndPodcast(){
+                api.get('/podcasts').then(res => {
+                    this.podcasts = res.data.data
+                })
+
+                api.get('/games').then(res => {
+                    this.games = res.data.data
+                })
             }
         },
         computed: {
@@ -242,6 +284,8 @@
                     this.health_links_category = Object.keys(data)
                     this.health_links = data
                 })
+
+            this.fetchGamesAndPodcast()
         },
     }
 </script>

@@ -2,8 +2,12 @@
     <div class="page-content">
         <div>
         </div>
-        <div class="container-fluid m-t-20">
-            <h3>In the know</h3>
+        <div class="container-fluid m-t-20" style="min-height: 60vh">
+            <h3>Blogs</h3>
+
+            <div v-if="blogs.length === 0">
+                <p>No blogs.</p>
+            </div>
 
             <div id="blog" class="grid-layout post-3-columns m-b-30 " data-item="post-item">
                 <!-- Post item-->
