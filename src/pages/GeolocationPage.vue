@@ -6,7 +6,7 @@
             </div>
             <div class="row mt-4">
                 <div class="col ml-4">
-                    <ul class="links">
+                    <ul class="links" style="display: block; position: initial">
                         <li>
                             <a @click="searchFor('parks')">Parks</a>
                         </li>
