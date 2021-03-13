@@ -19,7 +19,7 @@
                             <li class="social-pinterest"><a :href="social.pininterest"><i class="fab fa-pinterest"></i></a></li>
                             <li class="social-vimeo"><a :href="social.vimeo"><i class="fab fa-vimeo"></i></a></li>
                             <li class="social-linkedin"><a :href="social.linkedin"><i class="fab fa-linkedin"></i></a></li>
-                            <li class="social-dribbble"><a :href="social.dribbble"><i class="fab fa-dribbble"></i></a></li>
+                            <li class="social-instagram"><a :href="social.instagram"><i class="fab fa-instagram"></i></a></li>
                             <li class="social-youtube"><a :href="social.youtube"><i class="fab fa-youtube"></i></a></li>
                             <li class="social-rss"><a :href="social.reddit"><i class="fa fa-rss"></i></a></li>
                         </ul>
@@ -41,7 +41,7 @@
           return {
               social:  {
                   facebook: '',
-                  dribbble: '',
+                  instagram: '',
                   google: '',
                   linkedin: '',
                   pininterest: '',

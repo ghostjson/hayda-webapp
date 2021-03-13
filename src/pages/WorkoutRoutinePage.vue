@@ -134,7 +134,11 @@
                 if(this.workout.dates === null || this.workout.dates === ''){
                     await workout.addDate([new Date().toJSON()])
                 }else{
-                    this.workout.dates.push(new Date().toJSON())
+                    if(this.workout.dates) {
+                        this.workout.dates.push(new Date().toJSON())
+                    }else {
+                        this.workout.dates = [new Date().toJSON()]
+                    }
                     await workout.addDate(this.workout.dates)
                 }
 
@@ -148,6 +152,9 @@
                     this.setMode(0)
                 }else{
                     this.workout = temp
+
+
+
                     this.setMode(2)
                     let last_day = new Date(this.workout.dates[this.workout.dates.length - 1])
                     if(new Date().toDateString() === last_day.toDateString()){

@@ -20,8 +20,10 @@
                                     <div class="widget-title">Health Hub</div>
                                     <ul class="list">
                                         <li v-for="(category, index) in health_links_category" :key="index">
-                                            <a  @mouseover="healthLinkClicked(index)">{{ capitalize(category) }}</a>
-                                            <div @mouseover="healthLinkClicked(index)" @mouseleave="healthLinkLeave(index)" class="links shadow" :id="'health-link-' + index">
+                                            <a @mouseover="healthLinkClicked(index)">{{ capitalize(category) }}</a>
+                                            <div @mouseover="healthLinkClicked(index)"
+                                                 @mouseleave="healthLinkLeave(index)" class="links shadow"
+                                                 :id="'health-link-' + index">
                                                 <ul>
                                                     <li v-for="(links,index) in health_links[category]" :key="index">
                                                         <a target="_blank" :href="links.link">{{ links.caption }}</a>
@@ -56,12 +58,17 @@
                             <div class="col-lg-3">
                                 <div class="widget">
                                     <div class="widget-title">Get the APP</div>
-                                    <div class="get-app-button">
-                                        <i class="fab fa-apple"></i> iOS
-                                    </div>
-                                    <div class="get-app-button">
-                                        <i class="fab fa-android"></i> Android
-                                    </div>
+                                    <a :href="app_urls['ios']">
+                                        <div class="get-app-button">
+                                            <i class="fab fa-apple"></i> iOS
+                                        </div>
+                                    </a>
+                                    <a :href="app_urls['android']">
+                                        <div class="get-app-button">
+                                            <i class="fab fa-android"></i> Android
+                                        </div>
+                                    </a>
+
                                 </div>
                             </div>
                         </div>
@@ -80,7 +87,7 @@
 
 <style>
 
-    a{
+    a {
         cursor: pointer;
     }
 
@@ -109,7 +116,7 @@
         right: 20px;
     }
 
-    .links{
+    .links {
         background-color: white;
         position: absolute;
         min-width: 200px;
@@ -117,11 +124,11 @@
         display: none;
     }
 
-    .links:hover{
+    .links:hover {
         display: block;
     }
 
-    .links ul{
+    .links ul {
         list-style: none;
         padding: 10px;
     }
@@ -140,7 +147,8 @@
                 footer: {},
                 email: '',
                 health_links: [],
-                health_links_category: []
+                health_links_category: [],
+                app_urls: []
             }
         },
         methods: {
@@ -151,13 +159,13 @@
             capitalize(value) {
                 return capitalize(value)
             },
-            healthLinkClicked(index){
+            healthLinkClicked(index) {
                 document.getElementById(`health-link-${index}`).style.display = 'block'
                 setTimeout(() => {
                     document.getElementById(`health-link-${index}`).style.display = 'none'
                 }, 2000)
             },
-            healthLinkLeave(index){
+            healthLinkLeave(index) {
                 document.getElementById(`health-link-${index}`).style.display = 'none'
             }
         },
@@ -167,7 +175,6 @@
                 .then(data => {
                     this.health_links_category = Object.keys(data)
                     this.health_links = data
-
                 })
         },
         created() {
@@ -175,6 +182,9 @@
 
             api.get('/settings/contact-email').then(res => {
                 this.email = res.data
+            })
+            api.get('/settings/app-urls').then(res => {
+                this.app_urls = res.data
             })
         }
     }

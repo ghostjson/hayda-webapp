@@ -49,7 +49,7 @@
             <div class="container">
                 <div class="heading-text heading-section text-center">
                     <h2>OUR TEAM</h2>
-                    <span class="lead">Create amaThe most happiest time of the day!.</span>
+                    <span class="lead">{{ about.team_description }}</span>
                 </div>
                 <div class="row team-members team-members-shadow m-b-40">
                     <div class="col-lg-3" v-for="(member, index) in about.team" :key="index">
@@ -113,6 +113,7 @@
                         }
                     ],
                     team: [],
+                    team_description: ''
 
                 },
 
@@ -121,9 +122,7 @@
         methods: {
             async fetchContents(){
                 let response = await Api.get('page-content/about')
-
                 this.about = response.data.data.content
-                console.log(this.about)
             }
         },
         created() {
