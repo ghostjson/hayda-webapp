@@ -20,8 +20,11 @@
                                     <div class="widget-title">Health Hub</div>
                                     <ul class="list">
                                         <li v-for="(category, index) in health_links_category" :key="index">
-                                            <a @mouseover="healthLinkClicked(index)">{{ capitalize(category) }}</a>
-                                            <div @mouseover="healthLinkClicked(index)"
+                                            <a class="footer-health-hub-links"
+                                               @mouseover="healthLinkClicked(index)"
+                                               onMouseOver="this.style.color='red'"
+                                               onMouseLeave="this.style.color='black'" :data-id="index">{{ capitalize(category) }}</a>
+                                            <div
                                                  @mouseleave="healthLinkLeave(index)" class="links shadow"
                                                  :id="'health-link-' + index">
                                                 <ul>
@@ -119,10 +122,12 @@
     .links {
         background-color: white;
         position: absolute;
+        left: 100px;
         min-width: 200px;
         z-index: 10;
         display: none;
     }
+
 
     .links:hover {
         display: block;
@@ -160,6 +165,11 @@
                 return capitalize(value)
             },
             healthLinkClicked(index) {
+                let links = document.getElementsByClassName('footer-health-hub-links')
+                links.forEach(link => {
+                    let id = link.getAttribute('data-id')
+                    document.getElementById(`health-link-${id}`).style.display = 'none'
+                })
                 document.getElementById(`health-link-${index}`).style.display = 'block'
                 setTimeout(() => {
                     document.getElementById(`health-link-${index}`).style.display = 'none'
