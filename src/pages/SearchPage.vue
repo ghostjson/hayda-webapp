@@ -3,7 +3,7 @@
         <div>
         </div>
         <div class="container m-t-20" style="padding-top: 30px; min-height: 60vh">
-            <h3>Search Results</h3>
+            <h3 class="search-result-heading" >Search Results <span><a href="/"><i class="fas fa-times"></i></a></span></h3>
             <p>for {{ query }}</p>
 
             <div v-if="!have_results">
@@ -30,6 +30,20 @@
 
     </div>
 </template>
+
+<style>
+    .search-result-heading{
+        /*background-color: red;*/
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .search-result-heading span{
+        position: relative;
+        top: 2px;
+        cursor: pointer;
+    }
+</style>
 
 <script>
 
