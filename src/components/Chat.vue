@@ -16,7 +16,7 @@
 
             </div>
             <div class="chat-input-section">
-                <textarea v-model="message_entry" @keyup.enter.exact.prevent="sendMessage()" placeholder="Type message here..."></textarea>
+                <textarea :disabled="!message_box_active" v-model="message_entry" @keyup.enter.exact.prevent="sendMessage()" id="messageBox" placeholder="Type message here..."></textarea>
             </div>
             </span>
         </div>
@@ -138,7 +138,8 @@
                         bot: 'Hi admin, this is HAYDA Bot and I\'m here to assist you. How can I help you?'
                     }
                 ],
-                message_entry: ''
+                message_entry: '',
+                message_box_active: true
             }
         },
 
@@ -150,14 +151,17 @@
                 this.is_chat_open = false;
             },
             async sendMessage(){
+
                 let message = this.message_entry
                 this.message_entry = ''
                 this.insertUserMessage(message)
 
-                let respond = await Api.post('/chat/chat-bot', {
+                let respond = await Api.post('/chat', {
                     'message': message
                 })
+
                 this.insertBotMessage(respond.data.message)
+
             },
             scrollMessage(){
                 setTimeout(function () {
