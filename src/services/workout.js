@@ -31,10 +31,11 @@ export default {
         }
     },
 
-    async addDate(dates){
+    async addDate(dates, duration){
         try {
             let response = await Api.post('/goals/workout/add', {
-                'dates': dates
+                'dates': dates,
+                'duration': duration
             })
 
             return response.data

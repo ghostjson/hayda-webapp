@@ -1,6 +1,22 @@
 <template>
     <div class="page-content">
 
+        <modal-widget v-if="durationModal">
+            <div class="card-header">
+                <h4>Workout Entry</h4>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="duration">Duration (minutes)</label>
+                    <input v-model="duration" class="form-control" type="number" name="duration" id="duration">
+                </div>
+                <div class="form-group">
+                    <button type="button" @click="addDate" class="btn btn-sm btn-dark">Submit</button>
+                    <button type="button" @click="durationModal=false" class="btn btn-sm btn-danger">Close</button>
+                </div>
+            </div>
+
+        </modal-widget>
 
         <div class="container mt-4 mb-3">
             <div>
@@ -63,33 +79,8 @@
                         </div>
                         <div class="card-footer pl-4" v-if="!entry">
                             <p>Did you meet today's goals?</p>
-                            <button @click="addDate" class="btn btn-primary">Yes</button>
+                            <button @click="openDurationModal" class="btn btn-primary">Yes</button>
                             <button @click="entry = true" class="btn btn-secondary">No</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>Entries</h3>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Time</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr v-for="(d,index) in workout.dates" :key="index">
-                                    <th scope="row">{{ index }}</th>
-                                    <td>{{ new Date(d).getDate() + "/" + new Date(d).getMonth() + "/" + new Date(d).getFullYear() }}</td>
-                                    <td>{{ new Date(d).getHours() + ":" + new Date(d).getMinutes() }}</td>
-                                </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
@@ -99,10 +90,38 @@
                             <h3>History</h3>
                         </div>
                         <div class="card-body">
-                            <v-calendar is-expanded :attributes="attrs"/>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Duration</th>
+                                    <th scope="col">Time</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr v-for="(d,index) in workout.dates" :key="index">
+                                    <th scope="row">{{ index }}</th>
+                                    <td>{{ new Date(d).format('mm/dd/yyyy') }}
+                                    </td>
+                                    <td>{{ workout.duration[index] }} mins</td>
+                                    <td>{{ new Date(d).getHours() + ":" + new Date(d).getMinutes() }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+<!--                <div class="col-md-12">-->
+<!--                    <div class="card">-->
+<!--                        <div class="card-header">-->
+<!--                            <h3>History</h3>-->
+<!--                        </div>-->
+<!--                        <div class="card-body">-->
+<!--                            <v-calendar is-expanded :attributes="attrs"/>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
         </div>
     </div>
@@ -126,9 +145,10 @@
 
     import workout from "../services/workout";
     import auth from "../services/auth";
+    import ModalWidget from "../components/ModalWidget";
 
     export default {
-
+        components: {ModalWidget},
         data() {
             return {
                 mode: 0,
@@ -139,8 +159,10 @@
                     }
                 },
                 entry: false,
+                duration: 20,
 
-                attrs: []
+                attrs: [],
+                durationModal: false
             }
         },
         methods: {
@@ -156,17 +178,23 @@
             submitWorkout(e) {
                 e.preventDefault()
             },
+            openDurationModal(){
+               this.durationModal = true
+            },
             async addDate() {
 
+                console.log(this.workout)
                 if (this.workout.dates === null || this.workout.dates === '') {
-                    await workout.addDate([new Date().toJSON()])
+                    await workout.addDate([new Date().toJSON()], [this.duration])
                 } else {
                     if (this.workout.dates) {
                         this.workout.dates.push(new Date().toJSON())
+                        this.workout.duration.push(this.duration)
                     } else {
                         this.workout.dates = [new Date().toJSON()]
+                        this.workout.duration.push(this.duration)
                     }
-                    await workout.addDate(this.workout.dates)
+                    await workout.addDate(this.workout.dates, this.workout.duration)
                 }
 
                 this.entry = true
@@ -175,6 +203,7 @@
             },
             async loadWorkout() {
                 let temp = (await workout.getWorkout()).data
+                console.log(temp)
                 if (temp.meta === '' || temp.meta === null) {
                     this.setMode(0)
                 } else {

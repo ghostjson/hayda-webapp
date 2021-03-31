@@ -50,23 +50,23 @@
                         <form @submit="registerFormSubmit($event)" v-if="current_form === 'form2'">
                             <div class="form-group">
                                 <label for="zip_code">Zip Code</label>
-                                <input type="number" class="form-control" v-model="registerForm.zip_code" id="zip_code">
+                                <input type="number" name="zip_code" class="form-control" v-model="registerForm.zip_code" id="zip_code">
                             </div>
                             <div class="form-group">
                                 <label for="height">Height (inches)</label>
-                                <input type="number" class="form-control" v-model="registerForm.height" id="height">
+                                <input type="number" name="height" class="form-control" v-model="registerForm.height" id="height">
                             </div>
                             <div class="form-group">
                                 <label for="weight">Weight (pounds)</label>
-                                <input type="number" class="form-control" v-model="registerForm.weight" id="weight">
+                                <input type="number" name="weight" class="form-control" v-model="registerForm.weight" id="weight">
                             </div>
                             <div class="form-group">
                                 <label for="age">Age</label>
-                                <input type="number" class="form-control" v-model="registerForm.age" id="age">
+                                <input type="number" name="age" class="form-control" v-model="registerForm.age" id="age">
                             </div>
                             <div class="form-group">
                                 <label for="gender">Gender</label>
-                                <select id="gender" class="form-control" v-model="registerForm.gender">
+                                <select id="gender" name="gender" class="form-control" v-model="registerForm.gender">
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                     <option value="other">Other</option>

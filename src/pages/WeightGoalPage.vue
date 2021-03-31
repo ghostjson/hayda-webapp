@@ -96,7 +96,7 @@
                         <tr v-for="(weight,index) in weights" :key="index">
                             <th scope="row">{{ index }}</th>
                             <td>{{ weight.weight }}</td>
-                            <td>{{ weight.date }}</td>
+                            <td>{{ new Date(weight.date).format('mm/dd/yyyy')}}</td>
                         </tr>
                         </tbody>
                     </table>
