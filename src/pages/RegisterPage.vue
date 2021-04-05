@@ -49,6 +49,10 @@
                         <!-- Form 2 -->
                         <form @submit="registerFormSubmit($event)" v-if="current_form === 'form2'">
                             <div class="form-group">
+                               <input type="email" value="test@example.com" style="display: none">
+                                <input type="password" value="1234" style="display: none">
+                            </div>
+                            <div class="form-group">
                                 <label for="zip_code">Zip Code</label>
                                 <input type="number" name="zip_code" class="form-control" v-model="registerForm.zip_code" id="zip_code">
                             </div>
