@@ -11,7 +11,7 @@
                     <input v-model="duration" class="form-control" type="number" name="duration" id="duration">
                 </div>
                 <div class="form-group">
-                    <button type="button" @click="addDate" class="btn btn-sm btn-dark">Submit</button>
+                    <button type="button" @click="addDate('YES')" class="btn btn-sm btn-dark">Submit</button>
                     <button type="button" @click="durationModal=false" class="btn btn-sm btn-danger">Close</button>
                 </div>
             </div>
@@ -80,7 +80,7 @@
                         <div class="card-footer pl-4" v-if="!entry">
                             <p>Did you meet today's goals?</p>
                             <button @click="openDurationModal" class="btn btn-primary">Yes</button>
-                            <button @click="entry = true" class="btn btn-secondary">No</button>
+                            <button @click="addDate('No')" class="btn btn-secondary">No</button>
                         </div>
                     </div>
                 </div>
@@ -97,18 +97,23 @@
                                     <th scope="col">Date</th>
                                     <th scope="col">Duration</th>
                                     <th scope="col">Time</th>
+                                    <th scope="col">Met Goal</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr v-for="(d,index) in workout.dates" :key="index">
-                                    <th scope="row">{{ index }}</th>
+                                    <th scope="row">{{ index + 1 }}</th>
                                     <td>{{ new Date(d).format('mm/dd/yyyy') }}
                                     </td>
                                     <td>{{ workout.duration[index] }} mins</td>
                                     <td>{{ new Date(d).getHours() + ":" + new Date(d).getMinutes() }}</td>
+                                    <td v-if="workout.met_goal[index] === 'No'" class="text-danger font-weight-bold">{{ workout.met_goal[index] }}</td>
+                                    <td v-if="workout.met_goal[index] === 'YES'" class="text-success font-weight-bold">{{ workout.met_goal[index] }}</td>
                                 </tr>
+
                                 </tbody>
                             </table>
+                            <p v-if="workout.dates.length === 0">No records so far.</p>
                         </div>
                     </div>
                 </div>
@@ -156,7 +161,8 @@
                     meta: {
                         workouts: 0,
                         minutes: 0
-                    }
+                    },
+                    met_goal: []
                 },
                 entry: false,
                 duration: 20,
@@ -170,7 +176,7 @@
                 workout.setWorkoutGoal({
                     'workouts': this.workout.meta.workouts,
                     'minutes': this.workout.meta.minutes
-                }).then(() => this.setMode(2))
+                }).then(()=> location.reload())
             },
             setMode(mode) {
                 this.mode = mode
@@ -181,20 +187,24 @@
             openDurationModal(){
                this.durationModal = true
             },
-            async addDate() {
+            async addDate(goal='YES') {
+
+                console.log(goal)
 
                 console.log(this.workout)
                 if (this.workout.dates === null || this.workout.dates === '') {
-                    await workout.addDate([new Date().toJSON()], [this.duration])
+                    await workout.addDate([new Date().toJSON()], [this.duration], [goal])
                 } else {
                     if (this.workout.dates) {
                         this.workout.dates.push(new Date().toJSON())
                         this.workout.duration.push(this.duration)
+                        this.workout.met_goal.push([goal])
                     } else {
                         this.workout.dates = [new Date().toJSON()]
                         this.workout.duration.push(this.duration)
+                        this.workout.met_goal.push([goal])
                     }
-                    await workout.addDate(this.workout.dates, this.workout.duration)
+                    await workout.addDate(this.workout.dates, this.workout.duration, this.workout.met_goal)
                 }
 
                 this.entry = true
@@ -221,7 +231,10 @@
                 }
             },
             reset() {
-                workout.reset().then(() => this.setMode(0))
+                workout.reset().then(() => {
+                    this.setMode(0)
+                    location.reload()
+                })
             },
             dateUIBuild() {
                 let res = []

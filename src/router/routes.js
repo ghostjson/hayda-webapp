@@ -17,7 +17,7 @@ export const routes = [
         component: () => import('../pages/LoginPage')
     },
     {
-        path: '/',
+        path: '/blog',
         name: 'Blog',
         component: () => import('../pages/BlogPage')
     },
