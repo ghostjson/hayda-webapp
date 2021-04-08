@@ -11,8 +11,44 @@
                     <input v-model="duration" class="form-control" type="number" name="duration" id="duration">
                 </div>
                 <div class="form-group">
-                    <button type="button" @click="addDate('YES')" class="btn btn-sm btn-dark">Submit</button>
+                    <button type="button" @click="addDate('Yes')" class="btn btn-sm btn-dark">Submit</button>
                     <button type="button" @click="durationModal=false" class="btn btn-sm btn-danger">Close</button>
+                </div>
+            </div>
+
+        </modal-widget>
+
+        <modal-widget v-if="durationModal_another_date">
+            <div class="card-header">
+                <h4>Workout Entry</h4>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label for="date">Date</label>
+                    <input required type="datetime-local" v-model="date" class="form-control" id="date">
+                </div>
+                <div class="form-group">
+                    <label for="duration-date">Duration (minutes)</label>
+                    <input required v-model="duration" class="form-control" type="number" name="duration" id="duration-date">
+                </div>
+                <div class="form-group">
+                   <p>Did you met your goal?</p>
+                    <div class="form-check">
+                        <input required class="form-check-input" type="radio" name="flexRadioDefault" v-model="met_goal" value="Yes" id="flexRadioDefault1" checked>
+                        <label class="form-check-label" for="flexRadioDefault1">
+                           YES
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input required class="form-check-input" type="radio" name="flexRadioDefault" v-model="met_goal" value="No" id="flexRadioDefault2" >
+                        <label class="form-check-label" for="flexRadioDefault2">
+                           NO
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="button" @click="addDateManual()" class="btn btn-sm btn-dark">Submit</button>
+                    <button type="button" @click="durationModal_another_date=false" class="btn btn-sm btn-danger">Close</button>
                 </div>
             </div>
 
@@ -82,6 +118,10 @@
                             <button @click="openDurationModal" class="btn btn-primary">Yes</button>
                             <button @click="addDate('No')" class="btn btn-secondary">No</button>
                         </div>
+                        <div class="card-footer pl-4" v-if="entry">
+                            <p>Add another date?</p>
+                            <button class="btn btn-sm btn-primary" @click="durationModal_another_date = true">Yes</button>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -107,8 +147,12 @@
                                     </td>
                                     <td>{{ workout.duration[index] }} mins</td>
                                     <td>{{ new Date(d).getHours() + ":" + new Date(d).getMinutes() }}</td>
-                                    <td v-if="workout.met_goal[index] === 'No'" class="text-danger font-weight-bold">{{ workout.met_goal[index] }}</td>
-                                    <td v-if="workout.met_goal[index] === 'YES'" class="text-success font-weight-bold">{{ workout.met_goal[index] }}</td>
+                                    <td v-if="workout.met_goal[index] === 'No'" class="text-danger font-weight-bold">{{
+                                        workout.met_goal[index] }}
+                                    </td>
+                                    <td v-if="workout.met_goal[index] === 'Yes'" class="text-success font-weight-bold">
+                                        {{ workout.met_goal[index] }}
+                                    </td>
                                 </tr>
 
                                 </tbody>
@@ -117,16 +161,16 @@
                         </div>
                     </div>
                 </div>
-<!--                <div class="col-md-12">-->
-<!--                    <div class="card">-->
-<!--                        <div class="card-header">-->
-<!--                            <h3>History</h3>-->
-<!--                        </div>-->
-<!--                        <div class="card-body">-->
-<!--                            <v-calendar is-expanded :attributes="attrs"/>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <!--                <div class="col-md-12">-->
+                <!--                    <div class="card">-->
+                <!--                        <div class="card-header">-->
+                <!--                            <h3>History</h3>-->
+                <!--                        </div>-->
+                <!--                        <div class="card-body">-->
+                <!--                            <v-calendar is-expanded :attributes="attrs"/>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
             </div>
         </div>
     </div>
@@ -165,10 +209,13 @@
                     met_goal: []
                 },
                 entry: false,
+                date: new Date(),
                 duration: 20,
+                met_goal: 'Yes',
 
                 attrs: [],
-                durationModal: false
+                durationModal: false,
+                durationModal_another_date: false
             }
         },
         methods: {
@@ -176,7 +223,7 @@
                 workout.setWorkoutGoal({
                     'workouts': this.workout.meta.workouts,
                     'minutes': this.workout.meta.minutes
-                }).then(()=> location.reload())
+                }).then(() => location.reload())
             },
             setMode(mode) {
                 this.mode = mode
@@ -184,12 +231,11 @@
             submitWorkout(e) {
                 e.preventDefault()
             },
-            openDurationModal(){
-               this.durationModal = true
+            openDurationModal() {
+                this.durationModal = true
             },
-            async addDate(goal='YES') {
+            async addDate(goal = 'Yes') {
 
-                console.log(goal)
 
                 console.log(this.workout)
                 if (this.workout.dates === null || this.workout.dates === '') {
@@ -198,16 +244,17 @@
                     if (this.workout.dates) {
                         this.workout.dates.push(new Date().toJSON())
                         this.workout.duration.push(this.duration)
-                        this.workout.met_goal.push([goal])
+                        this.workout.met_goal.push(goal)
                     } else {
                         this.workout.dates = [new Date().toJSON()]
                         this.workout.duration.push(this.duration)
-                        this.workout.met_goal.push([goal])
+                        this.workout.met_goal.push(goal)
                     }
                     await workout.addDate(this.workout.dates, this.workout.duration, this.workout.met_goal)
                 }
 
                 this.entry = true
+                this.durationModal = false
                 location.reload()
 
             },
@@ -219,7 +266,6 @@
                 } else {
                     this.workout = temp
 
-                    // console.log(new Date(this.workout.dates[1]).get)
                     this.setMode(2)
                     let last_day = new Date(this.workout.dates[this.workout.dates.length - 1])
                     if (new Date().toDateString() === last_day.toDateString()) {
@@ -250,6 +296,41 @@
                 }
 
                 this.attrs = res
+            },
+            addDateManual(){
+
+
+
+                this.workout.dates.push(this.date)
+                this.workout.duration.push(this.duration)
+                this.workout.met_goal.push(this.met_goal)
+
+
+                for (let i=this.workout.dates.length - 1; i >= 0; i--){
+                   if (new Date(this.workout.dates[i]).getTime() < new Date(this.workout.dates[i-1]).getTime()){
+                       let temp = this.workout.dates[i-1]
+                       this.workout.dates[i-1] = this.workout.dates[i]
+                       this.workout.dates[i] = temp
+
+                       temp = this.workout.duration[i-1]
+                       this.workout.duration[i-1] = this.workout.duration[i]
+                       this.workout.duration[i] = temp
+
+                       temp = this.workout.met_goal[i-1]
+                       this.workout.met_goal[i-1] = this.workout.met_goal[i]
+                       this.workout.met_goal[i] = temp
+                   }else{
+                       break
+                   }
+
+                    workout.addDate(this.workout.dates, this.workout.duration, this.workout.met_goal)
+                        .then(() => {
+                            this.durationModal_another_date = false
+                            location.reload()
+                        })
+
+                }
+
             }
         },
         async created() {

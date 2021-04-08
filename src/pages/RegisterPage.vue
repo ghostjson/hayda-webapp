@@ -47,26 +47,26 @@
                         </form>
                         <!-- End Form 1 -->
                         <!-- Form 2 -->
-                        <form @submit="registerFormSubmit($event)" v-if="current_form === 'form2'">
+                        <div v-if="current_form === 'form2'">
                             <div class="form-group">
                                <input type="email" value="test@example.com" style="display: none">
                                 <input type="password" value="1234" style="display: none">
                             </div>
                             <div class="form-group">
                                 <label for="zip_code">Zip Code</label>
-                                <input type="number" name="zip_code" class="form-control" v-model="registerForm.zip_code" id="zip_code">
+                                <input type="number" autocomplete="__away" name="zip_code" class="form-control" v-model="registerForm.zip_code" id="zip_code">
                             </div>
                             <div class="form-group">
                                 <label for="height">Height (inches)</label>
-                                <input type="number" name="height" class="form-control" v-model="registerForm.height" id="height">
+                                <input type="number" autocomplete="__away" name="height" class="form-control" v-model="registerForm.height" id="height">
                             </div>
                             <div class="form-group">
                                 <label for="weight">Weight (pounds)</label>
-                                <input type="number" name="weight" class="form-control" v-model="registerForm.weight" id="weight">
+                                <input type="number" autocomplete="__away" name="weight" class="form-control" v-model="registerForm.weight" id="weight">
                             </div>
                             <div class="form-group">
                                 <label for="age">Age</label>
-                                <input type="number" name="age" class="form-control" v-model="registerForm.age" id="age">
+                                <input type="number" autocomplete="__away"  name="age" class="form-control" v-model="registerForm.age" id="age">
                             </div>
                             <div class="form-group">
                                 <label for="gender">Gender</label>
@@ -76,8 +76,8 @@
                                     <option value="other">Other</option>
                                 </select>
                             </div>
-                            <button type="submit" class="btn btn-primary">Register</button>
-                        </form>
+                            <button type="button" class="btn btn-primary" @click="registerFormSubmit">Register</button>
+                        </div>
                         <!-- End Form 2 -->
                     </div>
                 </div>
@@ -114,8 +114,7 @@
                     this.current_form = 'form2'
                 }
             },
-            async registerFormSubmit(e) {
-                e.preventDefault()
+            async registerFormSubmit() {
                 let status = await Auth.register(this.registerForm)
                 if (status === 200) {
                     await this.$router.push({name: 'Home'})
