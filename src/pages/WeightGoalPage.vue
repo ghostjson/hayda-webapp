@@ -71,15 +71,15 @@
                 <div class="row" style="height: 30vh; display: flex; align-items: center">
                     <div class="col">
                         <div class="progress" style="height: 30px;">
-                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger"
+                            <div class="progress-bar progress-bar progress-bar-animated bg-danger"
                                  role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"
                                  style="height: 30px" v-bind:style="{ width: percentageComplete }">
-                                {{ percentageComplete }}
+<!--                                {{ percentageComplete }}-->
                             </div>
 
                         </div>
-                        <div class="start">Start</div>
-                        <div class="end">End</div>
+                        <div class="start">{{ initial_weight }}</div>
+                        <div class="end">{{ goal_weight }}</div>
                     </div>
                 </div>
                 <div class="row mb-5">
