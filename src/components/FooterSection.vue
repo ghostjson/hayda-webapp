@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-lg-5">
                         <div class="widget">
-                            <div class="widget-title">Who we are?</div>
+                            <div class="widget-title">Who we are</div>
                             <p class="mb-5">{{ footer['who_we_are'] }}</p>
                             <a
                                     class="btn btn-inverted" target="_blank">

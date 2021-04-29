@@ -13,6 +13,7 @@
     import HomeStatistics from "../components/HomeStatistics";
     import HomeCaption from "../components/HomeCaption";
     import Api from "../modules/Api"
+    import cache from "../services/cache";
 
     export default {
         name: 'HomePage',
@@ -31,13 +32,28 @@
         },
         methods: {
             async fetchContents(){
-                let response = await Api.get('/page-content/home')
-                this.home = response.data.data.content
+                if (cache.isExist('home_data')){
+                    this.home = cache.get('home_data')
+                }else{
+                    let response = await Api.get('/page-content/home')
+                    this.home = response.data.data.content
+                    cache.store('home_data', this.home)
+                }
 
             }
         },
         created() {
             this.fetchContents()
+
+            // get theme colour
+            Api.get('/page-content/theme').then(res => {
+                let root = document.documentElement
+                root.style.setProperty('--primary-color', res.data['primary_color'])
+                root.style.setProperty('--dark-color', res.data['secondary_color'])
+
+                localStorage.setItem('primary-color', res.data['primary_color'])
+                localStorage.setItem('secondary-color', res.data['secondary_color'])
+            })
         }
     }
 </script>

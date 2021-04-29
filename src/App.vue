@@ -26,21 +26,26 @@
     export default {
         components: {SpinnerComponent, Chat, FooterSection, Navigation, TopBar},
 
-        data(){
+        data() {
             return {
                 spinner: true
             }
         },
         beforeCreate() {
-            Api.get('/page-content/theme').then(res => {
-                let root = document.documentElement
-                root.style.setProperty('--primary-color', res.data['primary_color'])
-                root.style.setProperty('--dark-color', res.data['secondary_color'])
-            })
+
+            // set theme
+            let root = document.documentElement
+            if (localStorage.getItem('primary-color') !== null) {
+                root.style.setProperty('--primary-color', localStorage.getItem('primary-color'))
+                root.style.setProperty('--dark-color', localStorage.getItem('secondary-color'))
+            }
+
+
+
         },
         created() {
             Api.interceptors.request.use(req => {
-                setTimeout( ()=>{
+                setTimeout(() => {
                     this.spinner = false;
                 }, 1000)
                 return req;
@@ -52,10 +57,7 @@
             });
 
 
-
-
-           // Update theme colour
-
+            // Update theme colour
 
 
         }

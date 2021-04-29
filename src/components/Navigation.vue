@@ -223,6 +223,7 @@
     import capitalize from "../helpers/capitalize";
     import Auth from '../services/auth'
     import api from "../modules/Api";
+    import cache from "../services/cache";
 
     export default {
         name: 'Navigation',
@@ -262,7 +263,7 @@
                     link.style.display = 'none';
                 }
             },
-            fetchGamesAndPodcast(){
+            fetchGamesAndPodcast() {
                 api.get('/podcasts').then(res => {
                     this.podcasts = res.data.data
                 })
@@ -278,12 +279,22 @@
             }
         },
         mounted() {
-            HealthHub.get()
-                .then(res => res.data)
-                .then(data => {
-                    this.health_links_category = Object.keys(data)
-                    this.health_links = data
-                })
+            if (cache.isExist('health_links_category') && cache.isExist('health_links')) {
+                this.health_links_category = cache.get('health_links_category')
+                this.health_links = cache.get('health_links')
+            } else {
+                HealthHub.get()
+                    .then(res => res.data)
+                    .then(data => {
+                        this.health_links_category = Object.keys(data)
+                        this.health_links = data
+
+                        cache.store('health_links_category', this.health_links_category)
+                        cache.store('health_links', this.health_links)
+
+                    })
+            }
+
 
             this.fetchGamesAndPodcast()
         },
