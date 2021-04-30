@@ -2,8 +2,7 @@
 
 
     <section id="content">
-        <spinner-component v-if="loader"  style="margin-top: -182px"></spinner-component>
-
+        <spinner-component v-if="loader" style="margin-top: -182px"></spinner-component>
         <div class="container">
             <!-- Pricing Table -->
             <div class="heading-text heading-line text-center pb-5">
@@ -14,9 +13,9 @@
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="plan">
                         <div class="plan-header">
-                            <h4>{{ subscription[0].name }}</h4>
+                            <h4>{{ subscription[0]['name'] }}</h4>
                             <!--                            <p class="text-muted">Plan short description</p>-->
-                            <div class="plan-price"><sup>$</sup>{{ subscription[0].price }}<span>/yr</span></div>
+                            <div class="plan-price"><sup>$</sup>{{ subscription[0]['price'] }}<span>/yr</span></div>
                             <div class="countdown small" data-countdown="2019/12/19 11:34:51"></div>
                         </div>
                         <div class="plan-list">
@@ -27,7 +26,7 @@
                                 <a class="btn btn-secondary">Current Plan</a>
                             </div>
                             <div class="plan-button" v-else>
-                                <a @click="pay('Free')"  class="btn btn-primary">Change Plan</a>
+                                <a @click="pay('Free')" class="btn btn-primary">Change Plan</a>
                             </div>
                         </div>
                     </div>
@@ -35,14 +34,15 @@
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="plan featured">
                         <div class="plan-header">
-                            <h4>{{ subscription[1].name }}</h4>
+                            <h4>{{ subscription[1]['name'] }}</h4>
                             <!--                            <p class="text-muted">Plan short description</p>-->
-                            <div class="plan-price"><sup>$</sup>{{ subscription[1].price }}<span>/yr</span></div>
+                            <div class="plan-price"><sup>$</sup>{{ subscription[1]['price'] }}<span>/yr</span></div>
                             <div class="countdown small" data-countdown="2019/08/11 11:34:51"></div>
                         </div>
                         <div class="plan-list">
                             <ul>
-                                <li v-for="(feature, index) in subscription[1].features" :key="index">{{ feature }}</li>
+                                <li v-for="(feature, index) in subscription[1]['features']" :key="index">{{ feature }}
+                                </li>
 
                             </ul>
                             <div class="plan-button" v-if="subscribe_to === '2'">
@@ -57,21 +57,22 @@
                 <div class="col-lg-4 col-md-12 col-12">
                     <div class="plan">
                         <div class="plan-header">
-                            <h4>{{ subscription[2].name }}</h4>
+                            <h4>{{ subscription[2]['name'] }}</h4>
                             <!--                            <p class="text-muted">Plan short description</p>-->
-                            <div class="plan-price"><sup>$</sup>{{ subscription[2].price }}<span>/yr</span></div>
+                            <div class="plan-price"><sup>$</sup>{{ subscription[2]['price'] }}<span>/yr</span></div>
                             <div class="countdown small" data-countdown="2019/11/15 11:34:51"></div>
                         </div>
                         <div class="plan-list">
                             <ul>
-                                <li v-for="(feature, index) in subscription[2].features" :key="index">{{ feature }}</li>
+                                <li v-for="(feature, index) in subscription[2]['features']" :key="index">{{ feature }}
+                                </li>
 
                             </ul>
                             <div class="plan-button" v-if="subscribe_to === '3'">
                                 <a class="btn btn-secondary">Current Plan</a>
                             </div>
                             <div class="plan-button" v-else>
-                                <a @click="pay('Premium Plus')"  class="btn btn-primary">Buy Now</a>
+                                <a @click="pay('Premium Plus')" class="btn btn-primary">Buy Now</a>
                             </div>
                         </div>
                     </div>
@@ -88,6 +89,7 @@
     import Api from "../modules/Api";
     import auth from "../services/auth";
     import SpinnerComponent from "../components/SpinnerComponent";
+    import cache from "../services/cache";
 
     export default {
         name: 'PricingPage',
@@ -97,13 +99,13 @@
                 subscription: [],
                 subscribe_to: -1,
                 stripe_token: '',
-                loader: false
+                loader: false,
             }
         },
         methods: {
             pay(sub) {
 
-                if(confirm('Do you want to cancel current subscription?')){
+                if (confirm('Do you want to cancel current subscription?')) {
 
                     this.loader = true
 
@@ -126,7 +128,7 @@
                                 .catch(function (error) {
                                     console.error("Error:", error);
                                 }).finally(() => {
-                                    this.loader = false
+                                this.loader = false
                             })
                         })
 
@@ -134,14 +136,21 @@
                 }
 
 
-
             },
             async fetchSubscriptions() {
-                let response = await Api.get('/subscriptions')
-                let stripe_token = await Api.get('/payment/token')
-                this.subscription = response.data.data
-                this.stripe_token = stripe_token.data
 
+                if (cache.isExist('subscription') && cache.isExist('stripe_token')) {
+                    this.subscription = cache.get('subscription')
+                    this.stripe_token = cache.get('stripe_token')
+                }else{
+                    let response = await Api.get('/subscriptions')
+                    let stripe_token = await Api.get('/payment/token')
+                    this.subscription = response.data.data
+                    this.stripe_token = stripe_token.data
+
+                    cache.store('subscription', this.subscription)
+                    cache.store('stripe_token', this.stripe_token)
+                }
             }
         },
         mounted() {

@@ -1,5 +1,6 @@
 <template>
     <div class="page-content">
+        <spinner-component v-if="loader"></spinner-component>
         <div>
         </div>
         <div class="container-fluid m-t-20" style="min-height: 60vh">
@@ -21,11 +22,14 @@
                         </div>
                         <div class="post-item-description">
                             <span class="post-meta-date"><i class="fa fa-calendar-o"></i>{{ blog.created_at }}</span>
-<!--                            <span class="post-meta-comments"><a href=""><i class="fa fa-comments-o"></i>33 Comments</a></span>-->
-                            <h2><router-link :to="'/blog/'+blog.id">{{ blog.title }}
-                            </router-link></h2>
+                            <!--                            <span class="post-meta-comments"><a href=""><i class="fa fa-comments-o"></i>33 Comments</a></span>-->
+                            <h2>
+                                <router-link :to="'/blog/'+blog.id">{{ blog.title }}
+                                </router-link>
+                            </h2>
                             <p>{{ paraShortener(blog.content, 150) }}</p>
-                            <router-link :to="'/blog/'+blog.id"  class="item-link">Read More <i class="icon-chevron-right"></i></router-link>
+                            <router-link :to="'/blog/'+blog.id" class="item-link">Read More <i
+                                    class="icon-chevron-right"></i></router-link>
                         </div>
                     </div>
                 </div>
@@ -36,7 +40,7 @@
 </template>
 
 <style>
-    .post-item{
+    .post-item {
 
     }
 </style>
@@ -45,20 +49,25 @@
 
     import Api from "../modules/Api";
     import paraShortener from "../helpers/paraShortener";
+    import SpinnerComponent from "../components/SpinnerComponent";
 
     export default {
         name: 'BlogPage',
+        components: {SpinnerComponent},
         data() {
             return {
-                blogs: {}
+                blogs: {},
+                loader: false
             }
         },
         methods: {
             paraShortener,
-            async fetchBlogs(){
-              let response = await Api.get('/blog')
-              this.blogs = response.data.data
-          }
+            async fetchBlogs() {
+                this.loader = true
+                let response = await Api.get('/blog')
+                this.blogs = response.data.data
+                this.loader = false
+            }
         },
         mounted() {
             this.fetchBlogs()

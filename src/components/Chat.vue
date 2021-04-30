@@ -135,7 +135,7 @@
                 username: 'guest',
                 messages: [
                     {
-                        bot: 'Hi admin, this is HAYDA Bot and I\'m here to assist you. How can I help you?'
+                        bot: 'Hi, this is HAYDA Bot and I\'m here to assist you. How can I help you?'
                     }
                 ],
                 message_entry: '',

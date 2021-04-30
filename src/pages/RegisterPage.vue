@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <spinner-component v-if="loader"></spinner-component>
         <div class="row">
             <div class="col-md-12 m-t-60">
                 <div class="card">
@@ -88,9 +89,11 @@
 
 <script>
     import Auth from "../services/auth";
+    import SpinnerComponent from "../components/SpinnerComponent";
 
     export default {
         name: 'RegisterPage',
+        components: {SpinnerComponent},
         data() {
             return {
                 registerForm: {
@@ -104,7 +107,8 @@
                     age: '',
                     gender: ''
                 },
-                current_form: 'form1'
+                current_form: 'form1',
+                loader: false
             }
         },
         methods: {
@@ -117,7 +121,10 @@
             async registerFormSubmit() {
                 let status = await Auth.register(this.registerForm)
                 if (status === 200) {
+                    this.loader = true
                     await this.$router.push({name: 'Home'})
+                    this.loader = false
+                    location.reload()
                 } else {
                     this.error = 'Error in registration'
                 }

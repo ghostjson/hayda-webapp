@@ -1,5 +1,6 @@
 <template>
     <section id="page-content" class="sidebar-right">
+        <spinner-component v-if="loader"></spinner-component>
         <div class="container">
             <div class="row">
                 <!-- content -->
@@ -151,26 +152,29 @@
 
 <script>
     import Api from "../modules/Api";
+    import SpinnerComponent from "../components/SpinnerComponent";
 
     export default {
         name: 'BlogSinglePage',
+        components: {SpinnerComponent},
         data() {
             return {
                 blog: {},
                 recent_blogs: {},
-                categories: []
+                categories: [],
+                loader: false
             }
         },
         methods: {
             async fetchBlog() {
+                this.loader = true
                 let id = window.location.href.split('/').pop()
                 let response = await Api.get('/blog/' + id)
                 this.blog = response.data.data
 
                 this.recent_blogs = (await Api.get('/blog/recent')).data
                 this.categories = (await Api.get('/blog/categories')).data
-
-                console.log(this.categories)
+                this.loader = false
             },
             getLink() {
                 return window.location.href;

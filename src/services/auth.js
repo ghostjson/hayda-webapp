@@ -43,7 +43,9 @@ export default {
 
     async register(form) {
         try {
+
             let response = await Api.post('/auth/register', form)
+            localStorage.setItem('expiry', new Date().getTime().toString())
             localStorage.setItem('Token', response.data.access_token)
             localStorage.setItem('User', JSON.stringify(response.data.user))
             return response.status
