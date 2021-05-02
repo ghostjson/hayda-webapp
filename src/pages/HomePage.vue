@@ -4,7 +4,7 @@
         <home-caption :title_caption="home['title_caption']" :small_quote="home['small_quote']"></home-caption>
         <home-we-do :data="home['what_we_do']"></home-we-do>
         <home-services :data="home['services']"></home-services>
-        <home-statistics :data="home['statistics']"></home-statistics>
+        <home-statistics :data="home['video_section']"></home-statistics>
     </div>
 </template>
 
