@@ -18,7 +18,8 @@
                             <div class="form-group">
                                 <label class="form-label">Email</label>
                                 <input type="email" v-model="registerForm.email" class="form-control"
-                                       placeholder="example@example.com" required="">
+                                       placeholder="example@example.com" required="" v-on:focusout="checkEmail">
+                                <small v-if="email_exist_message" class="text-danger">Already registered email. Try <a href="/login">login</a></small>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Password</label>
@@ -40,7 +41,7 @@
                                 </label>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">Register</button>
+                            <button type="submit" class="btn btn-primary" :disabled="!correct_email">Register</button>
 
                             <p style="margin-top: 10px">Already have an account?
                                 <router-link to="/login">login</router-link>
@@ -108,7 +109,9 @@
                     gender: ''
                 },
                 current_form: 'form1',
-                loader: false
+                loader: false,
+                correct_email: false,
+                email_exist_message: false
             }
         },
         methods: {
@@ -116,6 +119,18 @@
                 e.preventDefault()
                 if (this.current_form === 'form1') {
                     this.current_form = 'form2'
+                }
+            },
+            async checkEmail(){
+                let is_exist = await Auth.isEmailExist(this.registerForm.email)
+                if (is_exist === 'TRUE'){
+                    // email exist
+                    this.email_exist_message = true
+                    this.correct_email = false
+                }else {
+                    // email not exist
+                    this.correct_email = true
+                    this.email_exist_message = false
                 }
             },
             async registerFormSubmit() {

@@ -52,5 +52,16 @@ export default {
         } catch (e) {
             return e.response.status
         }
-    }
+    },
+
+    async isEmailExist(email){
+       try {
+           let response = await Api.post('/auth/is_exist', {
+               'email': email
+           })
+           return response.data
+       }catch (e) {
+          return e.response.status
+       }
+    },
 }
