@@ -26,20 +26,20 @@
         <section class="box-fancy section-fullwidth text-light p-b-0">
             <div class="row">
                 <div style="background-color:#917d5d" class="col-lg-4">
-                    <h1 class="text-lg text-uppercase">01.</h1>
-                    <h3>{{ about['steps'][0]['title'] }}</h3>
+<!--                    <h1 class="text-lg text-uppercase">01.</h1>-->
+<!--                    <h3>{{ about['steps'][0]['title'] }}</h3>-->
                     <span>{{ about['steps'][0]['description'] }}</span>
                 </div>
 
                 <div style="background-color:#a08c6c" class="col-lg-4">
-                    <h1 class="text-lg text-uppercase">02.</h1>
-                    <h3>{{ about['steps'][1]['title'] }}</h3>
+<!--                    <h1 class="text-lg text-uppercase">02.</h1>-->
+<!--                    <h3>{{ about['steps'][1]['title'] }}</h3>-->
                     <span>{{ about['steps'][1]['description'] }}</span>
                 </div>
 
                 <div style="background-color:#ad9979" class="col-lg-4">
-                    <h1 class="text-lg text-uppercase">03.</h1>
-                    <h3>{{ about['steps'][2]['title'] }}</h3>
+<!--                    <h1 class="text-lg text-uppercase">03.</h1>-->
+<!--                    <h3>{{ about['steps'][2]['title'] }}</h3>-->
                     <span>{{ about['steps'][2]['description'] }}</span>
                 </div>
             </div>
