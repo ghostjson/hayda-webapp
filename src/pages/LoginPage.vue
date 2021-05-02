@@ -54,7 +54,7 @@
                     window.location.reload()
 
                 }else{
-                    this.error = 'Username or password is incorrect'
+                    this.error = 'Email or password is incorrect'
                 }
             }
         },
