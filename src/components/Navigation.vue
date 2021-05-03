@@ -1,5 +1,5 @@
 <template>
-    <header id="header" data-fullwidth="true" data-transparent="false">
+    <header id="header" data-fullwidth="true" data-transparent="false" style="position: fixed; top: 41px;">
         <div class="header-inner">
             <div class="container">
                 <!--Logo-->
@@ -32,7 +32,7 @@
                                             <a href="#">{{ capitalize(category) }}</a>
                                             <ul class="dropdown-menu" style="">
                                                 <li v-for="(links,index) in health_links[category]" :key="index">
-                                                    <a target="_blank" :href="links.link">{{ links.caption }}</a>
+                                                    <a target="_blank" v-on:click="linkInterrupt" :href="links.link">{{ links.caption }}</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -51,7 +51,7 @@
                                             <a href="#">Games</a>
                                             <ul class="dropdown-menu" style="">
                                                 <li v-for="(game, index) in games" :key="index">
-                                                    <a target="_blank" :href="game.link">{{ game.title }}</a>
+                                                    <a target="_blank" v-on:click="linkInterrupt" :href="game.link">{{ game.title }}</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -255,6 +255,12 @@
                     this.current_navigation = 0;
                 }
             },
+            linkInterrupt(e) {
+                let r = confirm('You are leaving this website, are you sure you want to continue?')
+                if (r === false){
+                    e.preventDefault()
+                }
+            },
             healthHubCategoryClicked(index) {
                 let link = document.getElementById('healthHubLink-' + index);
                 if (link.style.display === 'none') {
@@ -297,6 +303,7 @@
 
 
             this.fetchGamesAndPodcast()
+
         },
     }
 </script>

@@ -3,6 +3,7 @@
         <div class="container">
             <div class="heading-text heading-section">
                 <h2>WHAT WE DO</h2>
+                <p><a href="/login" class="btn btn-dark">Login</a> <a href="/register" class="btn btn-dark">Register</a></p>
                 <span class="lead">{{ data.caption }}</span>
             </div>
             <div class="row">
