@@ -62,9 +62,9 @@ export const routes = [
         component: () => import('../pages/NutritionGoalPage')
     },
     {
-      path: '/set-your-goals/nutrition-goals/:id',
-      name: 'SingleNutritionGoal',
-      component: () => import('../pages/NutritionSinglePage')
+        path: '/set-your-goals/nutrition-goals/:id',
+        name: 'SingleNutritionGoal',
+        component: () => import('../pages/NutritionSinglePage')
     },
     {
         path: '/about',
@@ -95,5 +95,10 @@ export const routes = [
         path: '/search',
         name: 'SearchPage',
         component: () => import('../pages/SearchPage')
+    },
+    {
+        path: '/profile',
+        name: 'ProfilePage',
+        component: () => import('../pages/ProfilePage')
     }
-    ]
+]

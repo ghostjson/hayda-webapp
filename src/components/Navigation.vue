@@ -32,7 +32,8 @@
                                             <a href="#">{{ capitalize(category) }}</a>
                                             <ul class="dropdown-menu" style="">
                                                 <li v-for="(links,index) in health_links[category]" :key="index">
-                                                    <a target="_blank" v-on:click="linkInterrupt" :href="links.link">{{ links.caption }}</a>
+                                                    <a target="_blank" v-on:click="linkInterrupt" :href="links.link">{{
+                                                        links.caption }}</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -51,7 +52,8 @@
                                             <a href="#">Games</a>
                                             <ul class="dropdown-menu" style="">
                                                 <li v-for="(game, index) in games" :key="index">
-                                                    <a target="_blank" v-on:click="linkInterrupt" :href="game.link">{{ game.title }}</a>
+                                                    <a target="_blank" v-on:click="linkInterrupt" :href="game.link">{{
+                                                        game.title }}</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -68,9 +70,6 @@
 
                                     </ul>
                                 </li>
-                                <!--                                <li>-->
-                                <!--                                    <router-link to="/">Chat with HAYDA</router-link>-->
-                                <!--                                </li>-->
                                 <li class="dropdown">
                                     <router-link to="/">Services</router-link>
                                     <ul class="dropdown-menu">
@@ -88,9 +87,6 @@
                                         <li class="">
                                             <router-link to="/set-your-goals/weight-goals">Weight Goals</router-link>
                                         </li>
-                                        <!--                                        <li class="">-->
-                                        <!--                                            <router-link to="/set-your-goals/nutrition-goals">Nutrition Goals</router-link>-->
-                                        <!--                                        </li>-->
                                         <li class="">
                                             <router-link to="/set-your-goals/workout-routines">Workout Routines
                                             </router-link>
@@ -101,7 +97,15 @@
                                     <router-link to="/login">Login</router-link>
                                 </li>
                                 <li v-else>
-                                    <a @click="logout" href="#">Logout</a>
+                                    <a>Hi, {{ user.name }}</a>
+                                    <ul class="dropdown-menu" style="right: 0px;">
+                                        <li class="">
+                                            <router-link to="/profile">Profile</router-link>
+                                        </li>
+                                        <li class="">
+                                            <a @click="logout" href="#">Logout</a>
+                                        </li>
+                                    </ul>
                                 </li>
 
 
@@ -224,6 +228,7 @@
     import Auth from '../services/auth'
     import api from "../modules/Api";
     import cache from "../services/cache";
+    import auth from "../services/auth";
 
     export default {
         name: 'Navigation',
@@ -233,7 +238,10 @@
                 health_links_category: [],
                 current_navigation: 0,
                 games: [],
-                podcasts: []
+                podcasts: [],
+                user: {
+                    name: ''
+                }
             }
         },
         methods: {
@@ -257,7 +265,7 @@
             },
             linkInterrupt(e) {
                 let r = confirm('You are leaving this website, are you sure you want to continue?')
-                if (r === false){
+                if (r === false) {
                     e.preventDefault()
                 }
             },
@@ -303,7 +311,9 @@
 
 
             this.fetchGamesAndPodcast()
-
+            if (auth.isLogged()) {
+                this.user = auth.getUser()
+            }
         },
     }
 </script>

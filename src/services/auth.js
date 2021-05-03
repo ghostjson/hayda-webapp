@@ -14,19 +14,23 @@ export default {
         }
     },
 
-    updateUser(){
+    updateUser() {
         Api.get('/auth/user').then(user => {
             localStorage.setItem('User', JSON.stringify(user.data.data))
         })
     },
 
-    isLogged() {
-        if(localStorage.getItem('expiry') === null) return false
+    async updateRemoteUser(user) {
+        return await Api.post('/auth/user/update', user)
+    },
 
-        let minutes = (new Date().getTime().toString() - localStorage.getItem('expiry'))/60000
-        if (minutes < 10 && localStorage.getItem('Token') !== null){
+    isLogged() {
+        if (localStorage.getItem('expiry') === null) return false
+
+        let minutes = (new Date().getTime().toString() - localStorage.getItem('expiry')) / 60000
+        if (minutes < 10 && localStorage.getItem('Token') !== null) {
             return true;
-        }else{
+        } else {
             localStorage.removeItem('Token')
             localStorage.removeItem('User')
             return false;
@@ -39,6 +43,10 @@ export default {
         localStorage.removeItem('User')
         await Api.get('auth/logout').finally(() => this.$router.push('/login'))
 
+    },
+
+    getUser() {
+        return JSON.parse(localStorage.getItem('User'))
     },
 
     async register(form) {
@@ -54,14 +62,18 @@ export default {
         }
     },
 
-    async isEmailExist(email){
-       try {
-           let response = await Api.post('/auth/is_exist', {
-               'email': email
-           })
-           return response.data
-       }catch (e) {
-          return e.response.status
-       }
+    async isEmailExist(email) {
+        try {
+            let response = await Api.post('/auth/is_exist', {
+                'email': email
+            })
+            return response.data
+        } catch (e) {
+            return e.response.status
+        }
     },
+
+    async fetchUser() {
+        return await Api.get('/auth/user')
+    }
 }
