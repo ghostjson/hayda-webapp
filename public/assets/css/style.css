@@ -106,7 +106,8 @@ body .container-wide {
 
 /* Sections */
 section {
-  padding: 40px 0;
+  padding-top: 40px;
+  padding-bottom: 0;
   position: relative;
   width: 100%;
   overflow: hidden;
@@ -18466,4 +18467,8 @@ body[data-bg-image] {
   padding: 1rem;
 }
 
-
+.hayda-heading{
+  font-size: 1.35714286em !important;
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 600 !important;
+}

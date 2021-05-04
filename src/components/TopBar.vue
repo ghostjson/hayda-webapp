@@ -8,7 +8,7 @@
                         <li>
                             <router-link to="/about">About</router-link>
                         </li>
-                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/#what-we-do">What We Do</a></li>
                         <li><a href="/terms">Terms</a></li>
                     </ul>
                 </div>

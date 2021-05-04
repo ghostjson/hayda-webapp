@@ -63,7 +63,7 @@
                                             <a href="#">Podcasts</a>
                                             <ul class="dropdown-menu" style="">
                                                 <li v-for="(podcast, index) in podcasts" :key="index">
-                                                    <a target="_blank" :href="podcast.link">{{ podcast.title }}</a>
+                                                    <a target="_blank" v-on:click="linkInterrupt" :href="podcast.link">{{ podcast.title }}</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -74,7 +74,7 @@
                                     <router-link to="/">Services</router-link>
                                     <ul class="dropdown-menu">
                                         <li class="">
-                                            <router-link to="/services/geolocation">Geolocation</router-link>
+                                            <router-link to="/services/geolocation">Discover Places</router-link>
                                         </li>
                                         <li>
                                             <router-link to="/pricing">Pricing</router-link>
@@ -185,7 +185,7 @@
 </template>
 
 
-<style>
+<style scoped>
 
     #header .header-inner {
         background-color: var(--primary-color) !important;
@@ -204,6 +204,10 @@
         width: 160px;
     }
 
+    a{
+        font-size: 1.2em !important;
+    }
+
     .mobile-navigation {
         background-color: white;
         border: 1px solid #c8c8c8;
@@ -214,7 +218,7 @@
         list-style: none;
     }
 
-    @media only screen and (min-width: 1024px) {
+    @media only screen and (min-width: 1086px) {
         .mobile-navigation {
             display: none !important;
         }

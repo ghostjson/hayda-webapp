@@ -2,7 +2,7 @@
     <div class="page-content">
         <div class="container mt-4">
             <div>
-                <h3>Geolocation</h3>
+                <h3 class="hayda-heading">Discover Places</h3>
             </div>
             <div class="row mt-4">
                 <div class="col ml-4">

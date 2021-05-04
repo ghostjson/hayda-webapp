@@ -23,13 +23,14 @@
                                             <a class="footer-health-hub-links"
                                                @mouseover="healthLinkClicked(index)"
                                                onMouseOver="this.style.color='red'"
-                                               onMouseLeave="this.style.color='black'" :data-id="index">{{ capitalize(category) }}</a>
+                                               onMouseLeave="this.style.color='black'" :data-id="index">{{
+                                                capitalize(category) }}</a>
                                             <div
-                                                 @mouseleave="healthLinkLeave(index)" class="links shadow"
-                                                 :id="'health-link-' + index">
+                                                    @mouseleave="healthLinkLeave(index)" class="links shadow"
+                                                    :id="'health-link-' + index">
                                                 <ul>
                                                     <li v-for="(links,index) in health_links[category]" :key="index">
-                                                        <a target="_blank" :href="links.link">{{ links.caption }}</a>
+                                                        <a target="_blank" v-on:click="linkInterrupt" :href="links.link">{{ links.caption }}</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -42,7 +43,7 @@
                                 <div class="widget">
                                     <div class="widget-title">{{ footer['link_heading'] }}</div>
                                     <ul class="list">
-                                        <li v-for="(link, index) in footer['links']" :key="index"><a
+                                        <li v-on:click="linkInterrupt" v-for="(link, index) in footer['links']" :key="index"><a
                                                 :href="link['link']">{{ link['name'] }}</a></li>
                                     </ul>
                                 </div>
@@ -52,8 +53,8 @@
                                 <div class="widget">
                                     <div class="widget-title">Support</div>
                                     <ul class="list">
-                                        <li><a href="#">About Us</a></li>
-                                        <li><a href="#">What we do?</a></li>
+                                        <li><a href="/about">About Us</a></li>
+                                        <li><a href="/#what-we-do">What we do</a></li>
                                         <li><a :href="`mailto:${email}`">Contact Us</a></li>
                                     </ul>
                                 </div>
@@ -92,6 +93,10 @@
 
     a {
         cursor: pointer;
+    }
+
+    .widget-title {
+        font-size: 1.35714286em !important;
     }
 
     .get-app-button {
@@ -163,6 +168,12 @@
             },
             capitalize(value) {
                 return capitalize(value)
+            },
+            linkInterrupt(e) {
+                let r = confirm('You are leaving this website, are you sure you want to continue?')
+                if (r === false) {
+                    e.preventDefault()
+                }
             },
             healthLinkClicked(index) {
                 let links = document.getElementsByClassName('footer-health-hub-links')
