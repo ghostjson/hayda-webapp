@@ -131,7 +131,7 @@
 
         data() {
             return {
-                is_chat_open: false,
+                is_chat_open: true,
                 username: 'guest',
                 messages: [
                     {
