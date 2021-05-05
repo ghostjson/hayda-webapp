@@ -54,7 +54,7 @@
                                     <div class="widget-title">Support</div>
                                     <ul class="list">
                                         <li><a href="/about">About Us</a></li>
-                                        <li><a href="/#what-we-do">What we do</a></li>
+                                        <li><a href="/#what-we-do">What We Do</a></li>
                                         <li><a :href="`mailto:${email}`">Contact Us</a></li>
                                     </ul>
                                 </div>

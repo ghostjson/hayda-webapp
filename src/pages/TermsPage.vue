@@ -1,5 +1,5 @@
 <template>
-    <div class="container mt-5 mb-5" style="min-height: 60vh;">
+    <div class="container mb-5" style="min-height: 60vh;">
         <h3>Terms and conditions</h3>
         <p>
             {{ terms.content }}

@@ -44,7 +44,7 @@
                                     <router-link to="/">In the know</router-link>
                                     <ul class="dropdown-menu">
                                         <li class="">
-                                            <a href="/blog">Blog</a>
+                                            <a href="/blog">Blogs</a>
 
                                         </li>
                                         <li class="dropdown-submenu"><span
