@@ -44,7 +44,7 @@
                                     <div class="widget-title">{{ footer['link_heading'] }}</div>
                                     <ul class="list">
                                         <li v-on:click="linkInterrupt" v-for="(link, index) in footer['links']" :key="index"><a
-                                                :href="link['link']">{{ link['name'] }}</a></li>
+                                               target="_blank" :href="link['link']">{{ link['name'] }}</a></li>
                                     </ul>
                                 </div>
                             </div>
