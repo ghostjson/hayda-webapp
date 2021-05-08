@@ -7,18 +7,18 @@
             <div class="row mt-4">
                 <div class="col ml-4">
                     <ul class="links" style="display: block; position: initial">
-                        <li>
-                            <a @click="searchFor('parks')">Parks</a>
+                        <li v-for="(place,index) in places" :key="index">
+                            <a @click="searchFor(place)">{{ place }}</a>
                         </li>
-                        <li>
-                            <a @click="searchFor('gyms')">Gyms</a>
-                        </li>
-                        <li>
-                            <a @click="searchFor('hospitals')">Hospitals</a>
-                        </li>
-                        <li>
-                            <a @click="searchFor('food+stores')">Food Stores</a>
-                        </li>
+<!--                        <li>-->
+<!--                            <a @click="searchFor('gyms')">Gyms</a>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a @click="searchFor('hospitals')">Hospitals</a>-->
+<!--                        </li>-->
+<!--                        <li>-->
+<!--                            <a @click="searchFor('food+stores')">Food Stores</a>-->
+<!--                        </li>-->
 
                     </ul>
                 </div>
@@ -63,18 +63,32 @@
 
 <script>
 
+    import api from "../modules/Api";
+
     export default {
         name: 'GeolocationPage',
         data() {
             return {
                 search: '',
+                places: [],
                 location: 'Los Angeles, California'
             }
         },
         methods: {
-            searchFor(keyword){
+            searchFor(keyword) {
+                console.log(keyword)
                 this.search = keyword
+            },
+            fetchData(){
+                api.get('/page-content/discover-places').then(res => {
+                    let places_string = res.data.data.content['places']
+                    this.places = places_string.split(',')
+                    console.log(this.places)
+                })
             }
+        },
+        created() {
+            this.fetchData()
         }
 
     }
