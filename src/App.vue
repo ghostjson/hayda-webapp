@@ -6,7 +6,7 @@
         <div class="body-inner">
             <top-bar></top-bar>
             <navigation></navigation>
-            <router-view style="padding-top: 120px;"/>
+            <router-view id="route-view" style="padding-top: 120px;"/>
             <footer-section></footer-section>
 
         </div>

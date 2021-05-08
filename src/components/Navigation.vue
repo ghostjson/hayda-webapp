@@ -117,17 +117,17 @@
             </div>
         </div>
 
-        <div class="mobile-navigation">
+        <div class="mobile-navigation" >
             <ul class="navigation-menu" v-if="current_navigation === 1">
                 <li>
-                    <router-link to="/">Home</router-link>
+                    <router-link @click.native="closeNav" to="/">Home</router-link>
                 </li>
                 <li class="dropdown-mobile">
                     <a href="#" @click="current_navigation = 2">Health Hub</a>
                 </li>
 
                 <li>
-                    <router-link to="/blog">In the know</router-link>
+                    <router-link @click.native="closeNav" to="/blog">In the know</router-link>
                 </li>
                 <!--                                <li>-->
                 <!--                                    <router-link to="/">Chat with HAYDA</router-link>-->
@@ -140,10 +140,10 @@
 
                 </li>
                 <li v-if="!isLoggedIn">
-                    <router-link to="/login">Login</router-link>
+                    <router-link @click.native="closeNav" to="/login">Login</router-link>
                 </li>
                 <li v-else>
-                    <a @click="logout" href="#">Logout</a>
+                    <a @click="logout();closeNav()"  href="#">Logout</a>
                 </li>
 
 
@@ -156,26 +156,26 @@
                     <ul style="padding-left: 20px; display: none" :id="'healthHubLink-'+index">
                         <li v-for="(links,index) in health_links[category]" :key="index">
 
-                            <a target="_blank" :href="links.link">{{ links.caption }}</a>
+                            <a target="_blank" @click="closeNav" :href="links.link">{{ links.caption }}</a>
                         </li>
                     </ul>
                 </li>
             </ul>
             <ul class="dropdown-menu-mobile" v-if="current_navigation === 3">
                 <li class="">
-                    <router-link to="/services/geolocation">Geolocation</router-link>
+                    <router-link @click.native="closeNav" to="/services/geolocation">Discover Places</router-link>
                 </li>
                 <li>
-                    <router-link to="/pricing">Pricing</router-link>
+                    <router-link @click.native="closeNav" to="/pricing">Pricing</router-link>
                 </li>
             </ul>
             <ul class="dropdown-menu-mobile" v-if="current_navigation === 4">
                 <li class="">
-                    <router-link to="/set-your-goals/weight-goals">Weight Goals</router-link>
+                    <router-link @click.native="closeNav" to="/set-your-goals/weight-goals">Weight Goals</router-link>
                 </li>
 
                 <li class="">
-                    <router-link to="/set-your-goals/workout-routines">Workout Routines</router-link>
+                    <router-link @click.native="closeNav" to="/set-your-goals/workout-routines">Workout Routines</router-link>
                 </li>
             </ul>
         </div>
@@ -212,10 +212,16 @@
         background-color: white;
         border: 1px solid #c8c8c8;
         padding-left: 30px;
+        max-height: 70vh !important;
+        overflow-y: auto;
     }
 
     .mobile-navigation ul {
         list-style: none;
+    }
+
+    .mobile-navigation ul li{
+        line-height: 40px;
     }
 
     @media only screen and (min-width: 1086px) {
@@ -263,9 +269,18 @@
             openNav() {
                 if (this.current_navigation === 0) {
                     this.current_navigation = 1;
+                    document.getElementById('route-view').style.display = 'none'
+                    document.getElementsByTagName('footer')[0].style.display = 'none'
+
                 } else {
-                    this.current_navigation = 0;
+                    this.closeNav()
                 }
+            },
+            closeNav(){
+                console.log('working')
+                this.current_navigation = 0;
+                document.getElementById('route-view').style.display = 'block'
+                document.getElementsByTagName('footer')[0].style.display = 'block'
             },
             linkInterrupt(e) {
                 let r = confirm('You are leaving this website, are you sure you want to continue?')

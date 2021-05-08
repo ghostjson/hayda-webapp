@@ -125,6 +125,7 @@
 <script>
     import auth from "../services/auth";
     import Api from "../modules/Api";
+    import cache from "../services/cache";
 
     export default {
         name: 'Chat',
@@ -146,9 +147,11 @@
         methods: {
             openChat: function () {
                 this.is_chat_open = true;
+                cache.store('isChatOpen', true)
             },
             closeChat: function () {
                 this.is_chat_open = false;
+                cache.store('isChatOpen', false)
             },
             async sendMessage(){
 
@@ -188,6 +191,10 @@
         created() {
             if(auth.isLogged()){
                 this.username = JSON.parse(localStorage.getItem('User')).name
+            }
+
+            if (cache.isExist('isChatOpen')){
+                this.is_chat_open = cache.get('isChatOpen')
             }
         }
     }
