@@ -24,21 +24,24 @@
                                 <li>
                                     <router-link to="/">Home</router-link>
                                 </li>
-                                <li class="dropdown"><span class="dropdown-arrow"></span><a href="#">Health Hub</a>
-                                    <ul class="dropdown-menu" style="">
-                                        <li v-for="(category,index) in health_links_category" :key="index"
-                                            class="dropdown-submenu"><span
-                                                class="dropdown-arrow"></span>
-                                            <a href="#">{{ capitalize(category) }}</a>
-                                            <ul class="dropdown-menu" style="">
-                                                <li v-for="(links,index) in health_links[category]" :key="index">
-                                                    <a target="_blank" v-on:click="linkInterrupt" :href="links.link">{{
-                                                        links.caption }}</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
+                                <li>
+                                    <router-link to="/health-hub">Health Hub</router-link>
                                 </li>
+<!--                                <li class="dropdown"><span class="dropdown-arrow"></span><a href="#">Health Hub</a>-->
+<!--                                    <ul class="dropdown-menu" style="">-->
+<!--                                        <li v-for="(category,index) in health_links_category" :key="index"-->
+<!--                                            class="dropdown-submenu"><span-->
+<!--                                                class="dropdown-arrow"></span>-->
+<!--                                            <a href="#">{{ capitalize(category) }}</a>-->
+<!--                                            <ul class="dropdown-menu" style="">-->
+<!--                                                <li v-for="(links,index) in health_links[category]" :key="index">-->
+<!--                                                    <a target="_blank" v-on:click="linkInterrupt" :href="links.link">{{-->
+<!--                                                        links.caption }}</a>-->
+<!--                                                </li>-->
+<!--                                            </ul>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </li>-->
 
                                 <li class="dropdown">
                                     <router-link to="/">In the know</router-link>
@@ -63,7 +66,8 @@
                                             <a href="#">Podcasts</a>
                                             <ul class="dropdown-menu" style="">
                                                 <li v-for="(podcast, index) in podcasts" :key="index">
-                                                    <a target="_blank" v-on:click="linkInterrupt" :href="podcast.link">{{ podcast.title }}</a>
+                                                    <a target="_blank" v-on:click="linkInterrupt" :href="podcast.link">{{
+                                                        podcast.title }}</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -117,7 +121,7 @@
             </div>
         </div>
 
-        <div class="mobile-navigation" >
+        <div class="mobile-navigation">
             <ul class="navigation-menu" v-if="current_navigation === 1">
                 <li>
                     <router-link @click.native="closeNav" to="/">Home</router-link>
@@ -127,7 +131,8 @@
                 </li>
 
                 <li>
-                    <router-link @click.native="closeNav" to="/blog">In the know</router-link>
+                    <a href="#" @click="current_navigation = 5">In the know</a>
+
                 </li>
                 <!--                                <li>-->
                 <!--                                    <router-link to="/">Chat with HAYDA</router-link>-->
@@ -143,7 +148,7 @@
                     <router-link @click.native="closeNav" to="/login">Login</router-link>
                 </li>
                 <li v-else>
-                    <a @click="logout();closeNav()"  href="#">Logout</a>
+                    <a @click="logout();closeNav()" href="#">Logout</a>
                 </li>
 
 
@@ -156,7 +161,8 @@
                     <ul style="padding-left: 20px; display: none" :id="'healthHubLink-'+index">
                         <li v-for="(links,index) in health_links[category]" :key="index">
 
-                            <a target="_blank" @click="closeNav" :href="links.link">{{ links.caption }}</a>
+                            <a target="_blank" @click="closeNav();linkInterrupt($event)" :href="links.link">{{ links.caption
+                                }}</a>
                         </li>
                     </ul>
                 </li>
@@ -175,9 +181,30 @@
                 </li>
 
                 <li class="">
-                    <router-link @click.native="closeNav" to="/set-your-goals/workout-routines">Workout Routines</router-link>
+                    <router-link @click.native="closeNav" to="/set-your-goals/workout-routines">Workout Routines
+                    </router-link>
                 </li>
             </ul>
+            <ul class="dropdown-menu-mobile" v-if="current_navigation === 5">
+                <li class="">
+                    <router-link @click.native="closeNav" to="/blog">Blogs</router-link>
+                </li>
+                <li class="dropdown-submenu"><span
+                        class="dropdown-arrow"></span>
+                    <a href="#">Games</a>
+                    <ul class="dropdown-menu" style="">
+                        <li v-for="(game, index) in games" :key="index">
+                            <a target="_blank" v-on:click="linkInterrupt" :href="game.link">{{
+                                game.title }}</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" @click="current_navigation = 7;closeNav">Podcasts</a>
+                </li>
+            </ul>
+
+
         </div>
     </header>
 
@@ -204,7 +231,7 @@
         width: 160px;
     }
 
-    a{
+    a {
         font-size: 1.2em !important;
     }
 
@@ -220,7 +247,7 @@
         list-style: none;
     }
 
-    .mobile-navigation ul li{
+    .mobile-navigation ul li {
         line-height: 40px;
     }
 
@@ -276,7 +303,7 @@
                     this.closeNav()
                 }
             },
-            closeNav(){
+            closeNav() {
                 console.log('working')
                 this.current_navigation = 0;
                 document.getElementById('route-view').style.display = 'block'
@@ -284,6 +311,7 @@
             },
             linkInterrupt(e) {
                 let r = confirm('You are leaving this website, are you sure you want to continue?')
+                console.log(r)
                 if (r === false) {
                     e.preventDefault()
                 }

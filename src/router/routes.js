@@ -100,5 +100,10 @@ export const routes = [
         path: '/profile',
         name: 'ProfilePage',
         component: () => import('../pages/ProfilePage')
+    },
+    {
+        path: '/health-hub',
+        name: 'HealthHub',
+        component: () => import('../pages/HealthHubPage')
     }
 ]
