@@ -35,6 +35,7 @@
         bottom: 50px;
         right: 50px;
         z-index: 100;
+        border-top-right-radius: 10px;
     }
     .window {
         height: 0;
@@ -42,7 +43,7 @@
         transition: all 0.6s;
         visibility: hidden;
         border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        border-top-right-radius: 10px !important;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
         background-color: white;
         overflow: scroll;

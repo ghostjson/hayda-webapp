@@ -1,5 +1,5 @@
 <template>
-    <header id="header" data-fullwidth="true" data-transparent="false" style="position: fixed; top: 41px;">
+    <header id="header" data-fullwidth="true" data-transparent="false" style="position: fixed;margin-top: 40px;">
         <div class="header-inner">
             <div class="container">
                 <!--Logo-->
