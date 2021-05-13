@@ -2,7 +2,7 @@
     <div>
         <spinner-component v-if="loading"></spinner-component>
         <div class="container ">
-            <h3 class="mt-5">Health Hub</h3>
+            <h3 class="mt-5">HEALTH HUB</h3>
             <div class="panel-group" id="faqAccordion">
                 <div class="panel panel-default " v-for="(category, index) in health_links_category" :key="index">
                     <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse"

@@ -13,7 +13,7 @@
 
                 <!--Navigation Resposnive Trigger-->
                 <div id="mainMenu-trigger" @click="openNav">
-                    <a class="lines-button x"><span class="lines"></span></a>
+                    <a @click="($event) => $event.preventDefault()" class="lines-button x"><span class="lines"></span></a>
                 </div>
                 <!--end: Navigation Resposnive Trigger-->
                 <!--Navigation-->
@@ -189,18 +189,27 @@
                 <li class="">
                     <router-link @click.native="closeNav" to="/blog">Blogs</router-link>
                 </li>
-                <li class="dropdown-submenu"><span
+                <li class="dropdown-submenu" @click="current_navigation = 6"><span
                         class="dropdown-arrow"></span>
                     <a href="#">Games</a>
-                    <ul class="dropdown-menu" style="">
-                        <li v-for="(game, index) in games" :key="index">
-                            <a target="_blank" v-on:click="linkInterrupt" :href="game.link">{{
-                                game.title }}</a>
-                        </li>
-                    </ul>
+
                 </li>
                 <li>
                     <a href="#" @click="current_navigation = 7;closeNav">Podcasts</a>
+                </li>
+            </ul>
+
+            <ul class="dropdown-menu-mobile" v-if="current_navigation === 6">
+                <li v-for="(game, index) in games" :key="index">
+                    <a target="_blank" v-on:click="linkInterrupt" :href="game.link">{{
+                        game.title }}</a>
+                </li>
+            </ul>
+
+            <ul class="dropdown-menu-mobile" v-if="current_navigation === 7">
+                <li v-for="(podcast, index) in podcasts" :key="index">
+                    <a target="_blank" v-on:click="linkInterrupt" :href="podcast.link">{{
+                        podcast.title }}</a>
                 </li>
             </ul>
 
@@ -337,6 +346,11 @@
         computed: {
             isLoggedIn() {
                 return Auth.isLogged()
+            }
+        },
+        watch: {
+            $route (){
+                this.closeNav()
             }
         },
         mounted() {

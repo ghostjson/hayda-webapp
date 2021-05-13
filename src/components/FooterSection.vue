@@ -45,6 +45,16 @@
                                     <ul class="list">
                                         <li v-on:click="linkInterrupt" v-for="(link, index) in footer['links']" :key="index"><a
                                                target="_blank" :href="link['link']">{{ link['name'] }}</a></li>
+
+                                        <li onclick="document.getElementById('donation-button').click()" style="cursor: pointer">DONATE</li>
+
+                                        <li style="visibility: hidden">
+                                            <form action="https://www.paypal.com/donate" method="post" target="_top">
+                                                <input type="hidden" name="hosted_button_id" value="49MMQ7C3TWPVS" />
+                                                <input id="donation-button" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                                                <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
