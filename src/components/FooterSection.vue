@@ -46,7 +46,7 @@
                                         <li v-on:click="linkInterrupt" v-for="(link, index) in footer['links']" :key="index"><a
                                                target="_blank" :href="link['link']">{{ link['name'] }}</a></li>
 
-                                        <li onclick="document.getElementById('donation-button').click()" style="cursor: pointer">DONATE</li>
+                                        <li @click="donate" style="cursor: pointer">DONATE</li>
 
                                         <li style="visibility: hidden">
                                             <form action="https://www.paypal.com/donate" method="post" target="_top">
@@ -198,6 +198,12 @@
             },
             healthLinkLeave(index) {
                 document.getElementById(`health-link-${index}`).style.display = 'none'
+            },
+            donate(){
+                let r = confirm('You are leaving this website, are you sure you want to continue?')
+                if(r){
+                    document.getElementById('donation-button').click()
+                }
             }
         },
         mounted() {
