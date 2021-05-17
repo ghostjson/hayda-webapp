@@ -10,16 +10,6 @@
                         <li v-for="(place,index) in places" :key="index">
                             <a @click="searchFor(place)">{{ place }}</a>
                         </li>
-<!--                        <li>-->
-<!--                            <a @click="searchFor('gyms')">Gyms</a>-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            <a @click="searchFor('hospitals')">Hospitals</a>-->
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            <a @click="searchFor('food+stores')">Food Stores</a>-->
-<!--                        </li>-->
-
                     </ul>
                 </div>
             </div>
@@ -31,9 +21,7 @@
                             <div class="col">
                                 <input class="form-control" placeholder="Enter location" v-model="location">
                             </div>
-<!--                            <div class="col">-->
-<!--                                <button class="btn btn-primary" @click="gps">GPS</button>-->
-<!--                            </div>-->
+
                         </div>
                     </div>
                 </div>
@@ -64,6 +52,7 @@
 <script>
 
     import api from "../modules/Api";
+    import auth from "../services/auth";
 
     export default {
         name: 'GeolocationPage',
@@ -76,14 +65,19 @@
         },
         methods: {
             searchFor(keyword) {
-                console.log(keyword)
                 this.search = keyword
             },
             fetchData(){
                 api.get('/page-content/discover-places').then(res => {
                     let places_string = res.data.data.content['places']
                     this.places = places_string.split(',')
-                    console.log(this.places)
+
+                    if (!auth.isLogged()){
+                       this.location = 'Los Angeles, California'
+                    }else{
+                        this.location = auth.getUser().zip_code
+                    }
+
                 })
             }
         },

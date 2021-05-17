@@ -313,7 +313,6 @@
                 }
             },
             closeNav() {
-                console.log('working')
                 this.current_navigation = 0;
                 document.getElementById('route-view').style.display = 'block'
                 document.getElementsByTagName('footer')[0].style.display = 'block'
