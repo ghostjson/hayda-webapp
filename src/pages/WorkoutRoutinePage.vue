@@ -136,7 +136,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Duration</th>
-                                    <th scope="col">Time</th>
+<!--                                    <th scope="col">Time</th>-->
                                     <th scope="col">Met Goal</th>
                                 </tr>
                                 </thead>
@@ -146,7 +146,7 @@
                                     <td>{{ new Date(d).format('mm/dd/yyyy') }}
                                     </td>
                                     <td>{{ workout.duration[index] }} mins</td>
-                                    <td>{{ new Date(d).getHours() + ":" + new Date(d).getMinutes() }}</td>
+<!--                                    <td>{{ new Date(d).getHours() + ":" + new Date(d).getMinutes() }}</td>-->
                                     <td v-if="workout.met_goal[index] === 'No'" class="text-danger font-weight-bold">{{
                                         workout.met_goal[index] }}
                                     </td>
