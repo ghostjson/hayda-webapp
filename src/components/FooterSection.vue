@@ -20,7 +20,7 @@
                                     <div class="widget-title">Health Hub</div>
                                     <ul class="list">
                                         <li v-for="(category, index) in health_links_category" :key="index">
-                                            <a class="footer-health-hub-links"
+                                            <a class="footer-health-hub-links primary-text"
                                                @mouseover="healthLinkClicked(index)"
                                                onMouseOver="this.style.color='red'"
                                                onMouseLeave="this.style.color='black'" :data-id="index">{{
@@ -30,7 +30,7 @@
                                                     :id="'health-link-' + index">
                                                 <ul>
                                                     <li v-for="(links,index) in health_links[category]" :key="index">
-                                                        <a target="_blank" v-on:click="linkInterrupt" :href="links.link">{{ links.caption }}</a>
+                                                        <a class="primary-text" target="_blank" v-on:click="linkInterrupt" :href="links.link">{{ links.caption }}</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -44,9 +44,9 @@
                                     <div class="widget-title">{{ footer['link_heading'] }}</div>
                                     <ul class="list">
                                         <li v-on:click="linkInterrupt" v-for="(link, index) in footer['links']" :key="index"><a
-                                               target="_blank" :href="link['link']">{{ link['name'] }}</a></li>
+                                               target="_blank" :href="link['link']" class="primary-text">{{ link['name'] }}</a></li>
 
-                                        <li @click="donate" style="cursor: pointer">DONATE</li>
+                                        <li @click="donate" style="cursor: pointer" class="primary-text">DONATE</li>
 
                                         <li style="visibility: hidden">
                                             <form action="https://www.paypal.com/donate" method="post" target="_top">
@@ -63,9 +63,9 @@
                                 <div class="widget">
                                     <div class="widget-title">Support</div>
                                     <ul class="list">
-                                        <li><a href="/about">About Us</a></li>
-                                        <li><a href="/#what-we-do">What We Do</a></li>
-                                        <li><a :href="`mailto:${email}`">Contact Us</a></li>
+                                        <li><a class="primary-text" href="/about">About Us</a></li>
+                                        <li><a class="primary-text" href="/#what-we-do">What We Do</a></li>
+                                        <li><a class="primary-text" :href="`mailto:${email}`">Contact Us</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -101,8 +101,8 @@
 
 <style>
 
-    a {
-        cursor: pointer;
+    .primary-text{
+        color: var(--primary-color) !important;
     }
 
     .widget-title {
