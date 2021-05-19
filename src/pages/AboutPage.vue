@@ -88,6 +88,12 @@
     </div>
 </template>
 
+<style>
+    .team-member{
+        min-height: 300px;
+    }
+</style>
+
 <script>
     import Api from '../modules/Api'
 
