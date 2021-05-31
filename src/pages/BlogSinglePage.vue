@@ -1,7 +1,7 @@
 <template>
     <section id="page-content" class="sidebar-right">
         <spinner-component v-if="loader"></spinner-component>
-        <div class="container">
+        <div class="container" style="margin-top: 50px;">
             <div class="row">
                 <!-- content -->
                 <div class="content col-lg-9">
@@ -18,7 +18,7 @@
                                 <div class="post-item-description">
                                     <h2>{{ blog.title }}</h2>
                                     <div class="post-meta">
-                                        <span class="post-meta-date"><i class="fa fa-calendar-o"></i>{{ blog.created_at }}</span>
+                                        <span class="post-meta-date"><i class="fa fa-calendar-o"></i>{{ dateFormatter(blog.created_at) }}</span>
                                         <span class="post-meta-category"><a href=""><i class="fa fa-tag"></i>{{ blog.category }}</a></span>
                                         <div class="post-meta-share">
                                             <a class="btn btn-xs btn-slide btn-facebook" target="_blank"
@@ -70,7 +70,7 @@
                                             <img alt="" :src="recent['image']">
                                             <div class="post-thumbnail-content">
                                                 <a :href="'/blog/'+recent['id']">{{ recent['title']}}</a>
-                                                <span class="post-date"><i class="icon-clock"></i> {{ recent['created_at']}}</span>
+                                                <span class="post-date"><i class="icon-clock"></i> {{ dateFormatter(recent['created_at']) }}</span>
                                                 <span class="post-category"><i class="fa fa-tag"></i>{{ recent['category']}}</span>
                                             </div>
                                         </div>
@@ -153,6 +153,7 @@
 <script>
     import Api from "../modules/Api";
     import SpinnerComponent from "../components/SpinnerComponent";
+    import dateFormatter from "../helpers/dateFormatter";
 
     export default {
         name: 'BlogSinglePage',
@@ -166,6 +167,7 @@
             }
         },
         methods: {
+            dateFormatter,
             async fetchBlog() {
                 this.loader = true
                 let id = window.location.href.split('/').pop()

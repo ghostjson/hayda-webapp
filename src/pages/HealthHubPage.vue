@@ -1,13 +1,13 @@
 <template>
     <div>
         <spinner-component v-if="loading"></spinner-component>
-        <div class="container ">
+        <div class="container text-center" >
             <h3 class="mt-5">HEALTH HUB</h3>
             <div class="panel-group" id="faqAccordion">
                 <div class="panel panel-default " v-for="(category, index) in health_links_category" :key="index">
                     <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse"
                          data-parent="#faqAccordion" :data-target="'#link' + index">
-                        <h4 class="panel-title">
+                        <h4 class="panel-title" style="cursor: pointer">
                             <a class="ing">{{ category }}</a>
                         </h4>
 

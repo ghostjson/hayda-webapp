@@ -1,10 +1,10 @@
 import axios from 'axios'
 import auth from "../services/auth";
-import apiConfig from '../configs/api.json'
+// import apiConfig from '../configs/api.json'
 
 let api = axios.create({
-    baseURL: apiConfig.base_url,
-    // baseURL: 'http://localhost:8000/api',
+    // baseURL: apiConfig.base_url,
+    baseURL: 'http://localhost:8000/api',
     withCredentials: false,
     headers: {
         Accept: "application/json",

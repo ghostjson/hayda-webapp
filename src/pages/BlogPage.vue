@@ -4,7 +4,7 @@
         <div>
         </div>
         <div class="container-fluid m-t-20" style="min-height: 60vh">
-            <h3>Blogs</h3>
+            <h3>Blogs Bits</h3>
 
             <div v-if="blogs.length === 0">
                 <p>No blogs.</p>
@@ -21,7 +21,7 @@
                             <span class="post-meta-category"><a href="">{{ blog.category }}</a></span>
                         </div>
                         <div class="post-item-description">
-                            <span class="post-meta-date"><i class="fa fa-calendar-o"></i>{{ blog.created_at }}</span>
+                            <span class="post-meta-date"><i class="fa fa-calendar-o"></i>{{ dateFormatter(blog.created_at) }}</span>
                             <!--                            <span class="post-meta-comments"><a href=""><i class="fa fa-comments-o"></i>33 Comments</a></span>-->
                             <h2>
                                 <router-link :to="'/blog/'+blog.id">{{ blog.title }}
@@ -50,6 +50,7 @@
     import Api from "../modules/Api";
     import paraShortener from "../helpers/paraShortener";
     import SpinnerComponent from "../components/SpinnerComponent";
+    import dateFormatter from "../helpers/dateFormatter";
 
     export default {
         name: 'BlogPage',
@@ -62,6 +63,7 @@
         },
         methods: {
             paraShortener,
+            dateFormatter,
             async fetchBlogs() {
                 this.loader = true
                 let response = await Api.get('/blog')

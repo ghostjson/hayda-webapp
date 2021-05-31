@@ -47,7 +47,7 @@
                                     <router-link to="/">In the know</router-link>
                                     <ul class="dropdown-menu">
                                         <li class="">
-                                            <a href="/blog">Blogs</a>
+                                            <a href="/blog">Blogs Bits</a>
 
                                         </li>
                                         <li class="dropdown-submenu"><span
@@ -187,7 +187,7 @@
             </ul>
             <ul class="dropdown-menu-mobile" v-if="current_navigation === 5">
                 <li class="">
-                    <router-link @click.native="closeNav" to="/blog">Blogs</router-link>
+                    <router-link @click.native="closeNav" to="/blog">Blogs Bits</router-link>
                 </li>
                 <li class="dropdown-submenu" @click="current_navigation = 6"><span
                         class="dropdown-arrow"></span>
