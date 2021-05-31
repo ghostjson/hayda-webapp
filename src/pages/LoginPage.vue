@@ -47,8 +47,11 @@
             }
         },
         methods: {
+
             async loginSubmit(e){ e.preventDefault()
                 let status = await auth.login(this.credential)
+
+
                 if(status === 200){
                     await this.$router.push({ name: 'Home' })
                     window.location.reload()

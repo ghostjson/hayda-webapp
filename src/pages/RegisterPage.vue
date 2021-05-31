@@ -23,8 +23,9 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Password</label>
-                                <input type="password" v-model="registerForm.password" class="form-control"
+                                <input v-on:focusout="passSet" type="password" v-model="registerForm.password" class="form-control"
                                        placeholder="*********" required="">
+                                <small v-if="password_set" class="text-danger">Password should be at least 8 characters.</small>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Confirm Password</label>
@@ -111,12 +112,20 @@
                 current_form: 'form1',
                 loader: false,
                 correct_email: false,
-                email_exist_message: false
+                email_exist_message: false,
+                password_set: false
             }
         },
         methods: {
             nextForm(e) {
                 e.preventDefault()
+
+                // password check
+                if (this.registerForm.password.length < 8){
+                    this.password_set = true
+                    return
+                }
+
                 if (this.current_form === 'form1') {
                     this.current_form = 'form2'
                 }
@@ -133,8 +142,22 @@
                     this.email_exist_message = false
                 }
             },
+            passSet(){
+                if (this.registerForm.password.length < 8){
+                    this.password_set = true
+                }else{
+                    this.password_set = false
+                }
+            },
             async registerFormSubmit() {
                 let status = await Auth.register(this.registerForm)
+
+                // password check
+                if (this.registerForm.password.length < 8){
+                    this.password_set = true
+                    return
+                }
+
                 if (status === 200) {
                     this.loader = true
                     await this.$router.push({name: 'Home'})
