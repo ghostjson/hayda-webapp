@@ -27,27 +27,12 @@
                                 <li>
                                     <router-link to="/health-hub">Health Hub</router-link>
                                 </li>
-<!--                                <li class="dropdown"><span class="dropdown-arrow"></span><a href="#">Health Hub</a>-->
-<!--                                    <ul class="dropdown-menu" style="">-->
-<!--                                        <li v-for="(category,index) in health_links_category" :key="index"-->
-<!--                                            class="dropdown-submenu"><span-->
-<!--                                                class="dropdown-arrow"></span>-->
-<!--                                            <a href="#">{{ capitalize(category) }}</a>-->
-<!--                                            <ul class="dropdown-menu" style="">-->
-<!--                                                <li v-for="(links,index) in health_links[category]" :key="index">-->
-<!--                                                    <a target="_blank" v-on:click="linkInterrupt" :href="links.link">{{-->
-<!--                                                        links.caption }}</a>-->
-<!--                                                </li>-->
-<!--                                            </ul>-->
-<!--                                        </li>-->
-<!--                                    </ul>-->
-<!--                                </li>-->
 
                                 <li class="dropdown">
                                     <router-link to="/">In the know</router-link>
                                     <ul class="dropdown-menu">
                                         <li class="">
-                                            <a href="/blog">Blogs Bits</a>
+                                            <a href="/blog">Blog Bits</a>
 
                                         </li>
                                         <li class="dropdown-submenu"><span
@@ -187,7 +172,7 @@
             </ul>
             <ul class="dropdown-menu-mobile" v-if="current_navigation === 5">
                 <li class="">
-                    <router-link @click.native="closeNav" to="/blog">Blogs Bits</router-link>
+                    <router-link @click.native="closeNav" to="/blog">Blog Bits</router-link>
                 </li>
                 <li class="dropdown-submenu" @click="current_navigation = 6"><span
                         class="dropdown-arrow"></span>

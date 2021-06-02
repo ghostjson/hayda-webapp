@@ -18,7 +18,7 @@
 
             <div class="card" v-for="(result, index) in results['health_hub']" :key="index">
                 <div class="card-body">
-                    <a target="_blank" :href="result.link">Health Hub: {{ result.caption }}</a>
+                    <a target="_blank" :href="result.link" @click="linkInterrupt">Health Hub: {{ result.caption }}</a>
                 </div>
             </div>
             <div class="card" v-for="(result, index) in results['blog']" :key="index">
@@ -82,7 +82,12 @@
           }
         },
         methods: {
-
+            linkInterrupt(e) {
+                let r = confirm('You are leaving this website, are you sure you want to continue?')
+                if (r === false) {
+                    e.preventDefault()
+                }
+            }
         },
         mounted() {
             console.log('work')
