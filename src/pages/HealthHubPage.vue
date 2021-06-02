@@ -8,7 +8,7 @@
                     <div class="panel-heading accordion-toggle question-toggle collapsed" data-toggle="collapse"
                          data-parent="#faqAccordion" :data-target="'#link' + index">
                         <h4 class="panel-title" style="cursor: pointer">
-                            <a class="ing">{{ category }}</a>
+                            <a class="ing" style="color: var(--primary-color)">{{ category }}</a>
                         </h4>
 
                     </div>
