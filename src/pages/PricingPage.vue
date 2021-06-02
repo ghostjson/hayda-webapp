@@ -32,8 +32,8 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-12 col-12">
-                    <div class="plan featured">
-                        <div class="plan-header">
+                    <div class="plan" >
+                        <div class="plan-header" >
                             <h4>{{ subscription[1]['name'] }}</h4>
                             <!--                            <p class="text-muted">Plan short description</p>-->
                             <div class="plan-price"><sup>$</sup>{{ subscription[1]['price'] }}<span>/yr</span></div>
