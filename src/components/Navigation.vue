@@ -86,7 +86,7 @@
                                     <router-link to="/login">Login</router-link>
                                 </li>
                                 <li v-else>
-                                    <a>Hi, {{ user.name }}</a>
+                                    <a>Hi {{ user.name }}</a>
                                     <ul class="dropdown-menu" style="right: 0px;">
                                         <li class="">
                                             <router-link to="/profile">Profile</router-link>

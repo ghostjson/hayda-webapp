@@ -15,20 +15,21 @@
                 <div class="col-md-6 d-none d-sm-block">
                     <div class="social-icons social-icons-colored-hover">
                         <ul>
-                            <li class="social-facebook"><a :href="social.facebook" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-facebook-f"></i></a>
+
+                            <li v-if="social.facebook !== '#'" class="social-facebook"><a :href="social.facebook" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-facebook-f"></i></a>
                             </li>
-                            <li class="social-twitter"><a :href="social.twitter" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-twitter"></i></a></li>
-                            <li class="social-google"><a :href="social.google" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-google-plus-g"></i></a>
+                            <li v-if="social.twitter !== '#'" class="social-twitter"><a :href="social.twitter" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                            <li v-if="social.google !== '#'" class="social-google"><a :href="social.google" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-google-plus-g"></i></a>
                             </li>
-                            <li class="social-pinterest"><a :href="social.pininterest" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-pinterest"></i></a>
+                            <li v-if="social.pininterest !== '#'" class="social-pinterest"><a :href="social.pininterest" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-pinterest"></i></a>
                             </li>
-                            <li class="social-vimeo"><a :href="social.vimeo" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-vimeo"></i></a></li>
-                            <li class="social-linkedin"><a :href="social.linkedin" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-linkedin"></i></a>
+                            <li v-if="social.vimeo !== '#'" class="social-vimeo"><a :href="social.vimeo" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-vimeo"></i></a></li>
+                            <li v-if="social.linkedin !== '#'" class="social-linkedin"><a :href="social.linkedin" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-linkedin"></i></a>
                             </li>
-                            <li class="social-instagram"><a :href="social.instagram" v-on:click="linkInterrupt" target="_blank"><i
+                            <li v-if="social.instagram !== '#'" class="social-instagram"><a :href="social.instagram" v-on:click="linkInterrupt" target="_blank"><i
                                     class="fab fa-instagram"></i></a></li>
-                            <li class="social-youtube"><a :href="social.youtube" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-youtube"></i></a></li>
-                            <li class="social-rss"><a :href="social.reddit" v-on:click="linkInterrupt" target="_blank"><i class="fa fa-rss"></i></a></li>
+                            <li v-if="social.youtube !== '#'" class="social-youtube"><a :href="social.youtube" v-on:click="linkInterrupt" target="_blank"><i class="fab fa-youtube"></i></a></li>
+                            <li v-if="social.reddit !=='#'" class="social-rss"><a :href="social.reddit" v-on:click="linkInterrupt" target="_blank"><i class="fa fa-rss"></i></a></li>
                         </ul>
                     </div>
                 </div>
