@@ -3,7 +3,7 @@
 
     <section id="content">
         <spinner-component v-if="loader" style="margin-top: -182px"></spinner-component>
-        <div class="container">
+        <div class="container" style="margin-top: 50px">
             <!-- Pricing Table -->
             <div class="heading-text heading-line text-center pb-5">
                 <h4>Pricing</h4>

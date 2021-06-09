@@ -1,6 +1,6 @@
 <template>
     <div class="container" id="success">
-        <div class="card" style="width: inherit; height: fit-content">
+        <div class="card" style="width: inherit; height: fit-content;margin-top: 40px;">
             <div class="card-body">
                 <h3>Success! You're now subscribed.</h3>
                 <router-link to="/">Go to Home</router-link>

@@ -11,11 +11,11 @@
                 <!--End: Logo-->
 
 
-                <!--Navigation Resposnive Trigger-->
+                <!--Navigation Responsive Trigger-->
                 <div id="mainMenu-trigger" @click="openNav">
                     <a @click="($event) => $event.preventDefault()" class="lines-button x"><span class="lines"></span></a>
                 </div>
-                <!--end: Navigation Resposnive Trigger-->
+                <!--end: Navigation Responsive Trigger-->
                 <!--Navigation-->
                 <div id="mainMenu">
                     <div class="container">

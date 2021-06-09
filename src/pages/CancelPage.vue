@@ -1,6 +1,6 @@
 <template>
     <div class="container" id="success">
-        <div class="card" style="width: inherit; height: fit-content">
+        <div class="card" style="width: inherit; height: fit-content;margin-top: 40px;">
             <div class="card-body">
                 <h3>Payment Cancelled! Contact Us if you face any issues</h3>
                 <a :href="`mailto:${email}?subject=I face an issue with payment`">Go to contact</a>
