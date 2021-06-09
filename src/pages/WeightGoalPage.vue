@@ -131,8 +131,8 @@
         data() {
             return {
                 weights: {},
-                goal_weight: 0,
-                add_weight: 110,
+                goal_weight: "0",
+                add_weight: "110",
                 percentageComplete: '50%',
                 current_weight: -1,
                 initial_weight: -1
