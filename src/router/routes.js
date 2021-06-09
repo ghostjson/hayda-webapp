@@ -110,5 +110,10 @@ export const routes = [
         path: '/services/geolocation/app',
         name: 'GeolocationApp',
         component: () => import('../pages/GeolocationPageApp')
+    },
+    {
+        path: '/pricing/app',
+        name: 'PricingApp',
+        component: () => import('../pages/PricingPageApp')
     }
 ]
