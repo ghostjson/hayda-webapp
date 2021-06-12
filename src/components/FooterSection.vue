@@ -71,7 +71,9 @@
                             </div>
                             <div class="col-lg-3">
                                 <div class="widget">
-                                    <div class="widget-title">Get the APP</div>
+<!--                                    <div class="widget-title">Get the APP</div>-->
+                                    <div class="widget-title">App Coming Soon</div>
+
                                     <a :href="app_urls['ios']">
                                         <div class="get-app-button">
                                             <i class="fab fa-apple"></i> iOS

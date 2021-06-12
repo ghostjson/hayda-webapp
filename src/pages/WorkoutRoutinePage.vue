@@ -10,7 +10,7 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="duration">Duration (minutes)</label>
-                    <input v-model="duration" class="form-control" type="number" name="duration" id="duration">
+                    <input required v-model="duration" class="form-control" type="number" name="duration" id="duration">
                 </div>
                 <div class="form-group">
                     <button type="button" @click="addDate('Yes')" class="btn btn-sm btn-dark">Submit</button>
@@ -233,6 +233,10 @@
             },
             async addDate(goal = 'Yes') {
 
+                if (this.duration === '' || this.duration === null){
+                    return;
+                }
+
                 if (this.workout.dates === null || this.workout.dates === '') {
                     await workout.addDate([new Date().toJSON()], [this.duration], [goal])
                 } else {
@@ -296,6 +300,10 @@
                 this.attrs = res
             },
             addDateManual(){
+
+                if (this.duration === '' || this.duration === null){
+                    return;
+                }
 
                 this.workout.dates.push(this.date)
                 this.workout.duration.push(this.duration)
