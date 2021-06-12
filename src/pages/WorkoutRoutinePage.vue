@@ -1,5 +1,7 @@
 <template>
-    <div class="page-content">
+    <div class="page-content" style="padding-top: 100px">
+
+        <spinner-component v-if="loading"></spinner-component>
 
         <modal-widget v-if="durationModal">
             <div class="card-header">
@@ -55,9 +57,9 @@
         </modal-widget>
 
         <div class="container mt-4 mb-3">
-            <div>
-                <h3>Workout Routines</h3>
-            </div>
+<!--            <div>-->
+<!--                <h3>Workout Routines</h3>-->
+<!--            </div>-->
             <div class="row mt-5" v-if="mode === 0">
                 <div class="col-md-6 workout-right">
                     <div class="pr-5">
@@ -161,16 +163,7 @@
                         </div>
                     </div>
                 </div>
-                <!--                <div class="col-md-12">-->
-                <!--                    <div class="card">-->
-                <!--                        <div class="card-header">-->
-                <!--                            <h3>History</h3>-->
-                <!--                        </div>-->
-                <!--                        <div class="card-body">-->
-                <!--                            <v-calendar is-expanded :attributes="attrs"/>-->
-                <!--                        </div>-->
-                <!--                    </div>-->
-                <!--                </div>-->
+
             </div>
         </div>
     </div>
@@ -195,9 +188,11 @@
     import workout from "../services/workout";
     import auth from "../services/auth";
     import ModalWidget from "../components/ModalWidget";
+    import cache from "../services/cache";
+    import SpinnerComponent from "../components/SpinnerComponent";
 
     export default {
-        components: {ModalWidget},
+        components: {SpinnerComponent, ModalWidget},
         data() {
             return {
                 mode: 0,
@@ -212,6 +207,7 @@
                 date: new Date(),
                 duration: 20,
                 met_goal: 'Yes',
+                loading: false,
 
                 attrs: [],
                 durationModal: false,
@@ -226,6 +222,7 @@
                 }).then(() => location.reload())
             },
             setMode(mode) {
+                cache.store("workout_mode", mode)
                 this.mode = mode
             },
             submitWorkout(e) {
@@ -236,8 +233,6 @@
             },
             async addDate(goal = 'Yes') {
 
-
-                console.log(this.workout)
                 if (this.workout.dates === null || this.workout.dates === '') {
                     await workout.addDate([new Date().toJSON()], [this.duration], [goal])
                 } else {
@@ -260,7 +255,7 @@
             },
             async loadWorkout() {
                 let temp = (await workout.getWorkout()).data
-                console.log(temp)
+
                 if (temp.meta === '' || temp.meta === null) {
                     this.setMode(0)
                 } else {
@@ -283,6 +278,7 @@
                 })
             },
             dateUIBuild() {
+                this.loading = true
                 let res = []
                 for (let i = 0; i < this.workout.dates.length; i++) {
                     res.push({
@@ -295,16 +291,15 @@
                     })
                 }
 
+                this.loading = false
+
                 this.attrs = res
             },
             addDateManual(){
 
-
-
                 this.workout.dates.push(this.date)
                 this.workout.duration.push(this.duration)
                 this.workout.met_goal.push(this.met_goal)
-
 
                 for (let i=this.workout.dates.length - 1; i >= 0; i--){
                    if (new Date(this.workout.dates[i]).getTime() < new Date(this.workout.dates[i-1]).getTime()){
@@ -322,20 +317,25 @@
                    }else{
                        break
                    }
-
-                    workout.addDate(this.workout.dates, this.workout.duration, this.workout.met_goal)
-                        .then(() => {
-                            this.durationModal_another_date = false
-                            location.reload()
-                        })
-
                 }
+
+                workout
+                    .addDate(this.workout.dates, this.workout.duration, this.workout.met_goal)
+                    .then(() => {
+                        this.durationModal_another_date = false
+                        location.reload()
+                    })
+
 
             }
         },
         async created() {
             if (!auth.isLogged()) {
                 await this.$router.push('/login')
+            }
+
+            if (cache.isExist('workout_mode')){
+                this.setMode(cache.get('workout_mode'))
             }
 
             await this.loadWorkout()
