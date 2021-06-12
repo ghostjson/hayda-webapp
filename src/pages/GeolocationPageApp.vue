@@ -6,9 +6,8 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="places">Places</label>
-                        <select class="form-select" id="places">
-                            <option>value1</option>
-                            <option>value2</option>
+                        <select class="form-select" id="places" v-model="search">
+                            <option v-for="(place, index) in places" :key="index">{{ place }}</option>
                         </select>
                     </div>
                 </div>
