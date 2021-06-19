@@ -4,16 +4,21 @@
             <div>
                 <h3 class="hayda-heading">Discover Places</h3>
             </div>
-            <div class="row mt-4">
-                <div class="col ml-4">
-                    <ul class="links" style="display: block; position: initial">
-                        <li v-for="(place,index) in places" :key="index">
-                            <a @click="searchFor(place)">{{ place }}</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
             <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>Enter Place</label>
+                        <div class="row">
+                            <div class="col">
+                                <input class="form-control" id="places" type="search" list="places-list" placeholder="Enter place" v-model="search">
+                                <datalist id="places-list">
+                                    <option v-for="(place, index) in places" :key="index">{{ place }}</option>
+                                </datalist>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 <div class="col">
                     <div class="form-group">
                         <label>Enter location</label>
@@ -60,6 +65,7 @@
             return {
                 search: '',
                 places: [],
+                place: '',
                 location: 'Los Angeles, California'
             }
         },
@@ -83,6 +89,7 @@
         },
         created() {
             this.fetchData()
+
         }
 
     }

@@ -6,11 +6,13 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="places">Places</label>
-                        <select class="form-select" id="places" v-model="search">
+                        <input class="form-control" list="places-list"  id="places" type="search" v-model="search">
+                        <datalist id="places-list">
                             <option v-for="(place, index) in places" :key="index">{{ place }}</option>
-                        </select>
+                        </datalist>
                     </div>
                 </div>
+
                 <div class="col-12">
                     <div class="form-group">
                         <label>Enter location</label>
