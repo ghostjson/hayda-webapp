@@ -6,10 +6,10 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="places">Places</label>
-                        <input class="form-control" list="places-list"  id="places" type="search" v-model="search">
-                        <datalist id="places-list">
-                            <option v-for="(place, index) in places" :key="index">{{ place }}</option>
-                        </datalist>
+                        <input class="form-control"   id="places" type="search" v-model="search">
+<!--                        <datalist id="places-list">-->
+<!--                            <option v-for="(place, index) in places" :key="index">{{ place }}</option>-->
+<!--                        </datalist>-->
                     </div>
                 </div>
 
@@ -28,11 +28,17 @@
             </div>
             <iframe
                     width="600"
-                    frameborder="0" style="border:0;flex-grow: 1;height: calc(100vh - 165px)"
+                    frameborder="0" style="border:0;flex-grow: 1;height: calc(95vh - 165px)"
                     :src="`https://www.google.com/maps/embed/v1/place?key=AIzaSyBQIN6zs0acYLaiCwTAdlC2s4cfyHPhRZM
                     &zoom=14
     &q=${search}+in+${location}`" allowfullscreen>
             </iframe>
+
+            <div class="col-12" style="padding: 0;">
+                <div class="place-suggestion">
+                    <span @click="searchFor(place)" v-for="(place, index) in places" :key="index">{{ place }}</span>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -54,6 +60,27 @@
     .page-content .container{
         margin: 0 !important;
         padding: 0 !important;
+    }
+
+    .place-suggestion{
+        height: 6vh;
+        display: flex;
+        overflow-x: auto;
+        padding: 5px;
+        flex-wrap: nowrap;
+        overflow-y: hidden;
+        align-content: stretch;
+    }
+
+    .place-suggestion span{
+        background-color: var(--primary-color);
+        color: white;
+        padding: 4px 10px;
+        margin-left: 10px;
+        border-radius: 15px;
+        font-weight: bold;
+        height: 30px;
+        min-width: fit-content;
     }
 </style>
 
