@@ -6,10 +6,10 @@
                 <div class="col-12">
                     <div class="form-group">
                         <label for="places">Places</label>
-                        <input class="form-control"   id="places" type="search" v-model="search">
-<!--                        <datalist id="places-list">-->
-<!--                            <option v-for="(place, index) in places" :key="index">{{ place }}</option>-->
-<!--                        </datalist>-->
+                        <input class="form-control" id="places" type="search" v-model="search">
+                        <!--                        <datalist id="places-list">-->
+                        <!--                            <option v-for="(place, index) in places" :key="index">{{ place }}</option>-->
+                        <!--                        </datalist>-->
                     </div>
                 </div>
 
@@ -57,12 +57,12 @@
         padding-top: 0 !important;
     }
 
-    .page-content .container{
+    .page-content .container {
         margin: 0 !important;
         padding: 0 !important;
     }
 
-    .place-suggestion{
+    .place-suggestion {
         height: 6vh;
         display: flex;
         overflow-x: auto;
@@ -72,7 +72,7 @@
         align-content: stretch;
     }
 
-    .place-suggestion span{
+    .place-suggestion span {
         background-color: var(--primary-color);
         color: white;
         padding: 4px 10px;
@@ -87,7 +87,6 @@
 <script>
 
     import api from "../modules/Api";
-    import auth from "../services/auth";
 
     export default {
         name: 'GeolocationPage',
@@ -102,22 +101,25 @@
             searchFor(keyword) {
                 this.search = keyword
             },
+            extractZip() {
+                const zip_string = location.href.split("=")[1]
+
+                if (zip_string !== undefined){
+                    this.location = zip_string
+                }
+            },
             fetchData() {
                 api.get('/page-content/discover-places').then(res => {
                     let places_string = res.data.data.content['places']
                     this.places = places_string.split(',')
-
-                    if (!auth.isLogged()) {
-                        this.location = 'Los Angeles, California'
-                    } else {
-                        this.location = auth.getUser().zip_code
-                    }
-
                 })
             }
         },
         created() {
             this.fetchData()
+
+            this.extractZip()
+
         }
 
     }
