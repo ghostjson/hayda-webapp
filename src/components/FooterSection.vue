@@ -94,7 +94,7 @@
         </div>
         <div class="copyright-content">
             <div class="container">
-                <div class="copyright-text text-center">© 2021 HAYDA - Caption Here . All Rights
+                <div class="copyright-text text-center">© 2021 HAYDA. All Rights
                     Reserved.<a href="/" style="font-weight: bold"> HAYDA</a></div>
             </div>
         </div>
