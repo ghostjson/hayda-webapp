@@ -40,9 +40,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <p>
-                                        {{ blog.content }}
-                                    </p>
+                                    <pre class="blog-content">{{ blog.content }}</pre>
                                 </div>
                             </div>
                         </div>
@@ -150,6 +148,23 @@
     </section>
 </template>
 
+<style>
+    .blog-content{
+        white-space: pre-wrap;
+        white-space: -moz-pre-wrap;
+        white-space: -o-pre-wrap;
+        word-wrap: break-word;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        text-transform: none;
+        line-height: 1.7;
+        letter-spacing: 0;
+        color: #777777;
+        font-family: "Poppins", sans-serif;
+    }
+</style>
+
 <script>
     import Api from "../modules/Api";
     import SpinnerComponent from "../components/SpinnerComponent";
@@ -173,6 +188,8 @@
                 let id = window.location.href.split('/').pop()
                 let response = await Api.get('/blog/' + id)
                 this.blog = response.data.data
+
+                console.log(this.blog)
 
                 this.recent_blogs = (await Api.get('/blog/recent')).data
                 this.categories = (await Api.get('/blog/categories')).data
