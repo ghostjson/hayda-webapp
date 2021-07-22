@@ -10,13 +10,13 @@
                 <p>No blogs.</p>
             </div>
 
-            <div id="blog" class="grid-layout post-3-columns m-b-30 " data-item="post-item">
+            <div id="blog" class=" m-b-30 " data-item="post-item">
                 <!-- Post item-->
                 <div v-for="(blog,index) in blogs" :key="index" class="post-item border">
                     <div class="post-item-wrap">
                         <div class="post-image">
                             <a href="#">
-                                <img alt="" :src="blog.image">
+                                <img alt="" height="250px" :src="blog.image">
                             </a>
                             <span class="post-meta-category"><a href="">{{ blog.category }}</a></span>
                         </div>
@@ -40,9 +40,18 @@
 </template>
 
 <style>
-    .post-item {
-
+    @media screen and (min-width: 992px) {
+        #blog{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 10px;
+        }
     }
+
+    #blog{
+        display: grid;
+    }
+
 </style>
 
 <script>
