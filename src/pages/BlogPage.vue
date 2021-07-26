@@ -16,15 +16,14 @@
                     <div class="post-item-wrap">
                         <div class="post-image">
                             <a href="#">
-                                <img alt="" height="250px" :src="blog.image">
+                                <img style="height: 320px !important;" :src="blog.image">
                             </a>
                             <span class="post-meta-category"><a href="">{{ blog.category }}</a></span>
                         </div>
                         <div class="post-item-description">
                             <span class="post-meta-date"><i class="fa fa-calendar-o"></i>{{ dateFormatter(blog.created_at) }}</span>
-                            <!--                            <span class="post-meta-comments"><a href=""><i class="fa fa-comments-o"></i>33 Comments</a></span>-->
                             <h2>
-                                <router-link :to="'/blog/'+blog.id">{{ blog.title }}
+                                <router-link :to="'/blog/'+blog.id">{{ paraShortener(blog.title, 80) }}
                                 </router-link>
                             </h2>
                             <p>{{ paraShortener(blog.content, 150) }}</p>
