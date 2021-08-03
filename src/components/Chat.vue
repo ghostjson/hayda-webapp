@@ -16,7 +16,9 @@
 
             </div>
             <div class="chat-input-section">
-                <textarea :disabled="!message_box_active" v-model="message_entry" @keyup.enter.exact.prevent="sendMessage()" id="messageBox" placeholder="Type message here..."></textarea>
+                <textarea :disabled="!message_box_active" v-model="message_entry"
+                          @keyup.enter.exact.prevent="sendMessage()" id="messageBox"
+                          placeholder="Type message here..."></textarea>
             </div>
             </span>
         </div>
@@ -28,7 +30,7 @@
 
 </template>
 
-<style >
+<style>
 
     .chat {
         position: fixed;
@@ -37,6 +39,7 @@
         z-index: 100;
         border-top-right-radius: 10px;
     }
+
     .window {
         height: 0;
         width: 0;
@@ -49,6 +52,7 @@
         overflow: scroll;
         padding-bottom: 20px;
     }
+
     .window .chat-head {
         background: var(--dark-color);
         display: flex;
@@ -60,20 +64,24 @@
         border-top-right-radius: 10px;
         color: var(--primary-color);
     }
+
     .window .chat-head h3 {
         font-size: 1em;
         color: white;
         padding-top: 13px;
     }
+
     .window .chat-head #chat-close-button {
         cursor: pointer;
     }
+
     .window .chat-input-section {
         position: absolute;
         bottom: 0;
         height: 30px;
         width: 300px;
     }
+
     .window .chat-input-section textarea {
         height: inherit;
         width: 300px;
@@ -83,6 +91,7 @@
         overflow: hidden;
         resize: none;
     }
+
     .window .message-section .bot {
         background-color: var(--primary-color);
         width: 65%;
@@ -93,6 +102,7 @@
         font-size: 0.8em;
         line-height: 16px;
     }
+
     .window .message-section .user {
         background-color: lightgray;
         width: 65%;
@@ -100,11 +110,13 @@
         border-radius: 8px 0 8px 8px;
         margin: 5px 3px 5px auto;
     }
+
     .open {
         visibility: visible;
         height: 300px;
         width: 300px;
     }
+
     .button {
         cursor: pointer;
         background: var(--dark-color);
@@ -117,6 +129,7 @@
         font-size: 1.8em;
         color: var(--primary-color);
     }
+
     .hide {
         display: none;
     }
@@ -154,34 +167,37 @@
                 this.is_chat_open = false;
                 cache.store('isChatOpen', false)
             },
-            async sendMessage(){
+            async sendMessage() {
 
-                let message = this.message_entry
-                this.message_entry = ''
-                this.insertUserMessage(message)
+                if (this.message_entry !== '' || this.message_entry !== ' ') {
 
-                let respond = await Api.post('/chat', {
-                    'message': message
-                })
+                    let message = this.message_entry
+                    this.message_entry = ''
+                    this.insertUserMessage(message)
 
-                this.insertBotMessage(respond.data.message)
+                    let respond = await Api.post('/chat', {
+                        'message': message
+                    })
 
+                    this.insertBotMessage(respond.data.message)
+
+                }
             },
-            scrollMessage(){
+            scrollMessage() {
                 setTimeout(function () {
                     let element = document.getElementsByClassName('window')[0]
                     element.scrollTop = element.scrollHeight
                 }, 500)
 
             },
-            insertUserMessage(message){
+            insertUserMessage(message) {
                 let message_obj = {
                     user: message
                 }
                 this.messages.push(message_obj)
                 this.scrollMessage()
             },
-            insertBotMessage(message){
+            insertBotMessage(message) {
                 let message_obj = {
                     bot: message
                 }
@@ -190,11 +206,11 @@
             }
         },
         created() {
-            if(auth.isLogged()){
+            if (auth.isLogged()) {
                 this.username = JSON.parse(localStorage.getItem('User')).name
             }
 
-            if (cache.isExist('isChatOpen')){
+            if (cache.isExist('isChatOpen')) {
                 this.is_chat_open = cache.get('isChatOpen')
             }
         }
