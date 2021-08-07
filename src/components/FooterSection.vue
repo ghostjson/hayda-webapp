@@ -74,14 +74,14 @@
                             <div class="col-lg-3">
                                 <div class="widget">
 <!--                                    <div class="widget-title">Get the APP</div>-->
-                                    <div class="widget-title">App Coming Soon</div>
+                                    <div class="widget-title">Download HAYDA App</div>
 
-                                    <a :href="app_urls['ios']">
+                                    <a :href="app_urls['ios']" target="_blank">
                                         <div class="get-app-button">
                                             <i class="fab fa-apple"></i> iOS
                                         </div>
                                     </a>
-                                    <a :href="app_urls['android']">
+                                    <a :href="app_urls['android']" target="_blank">
                                         <div class="get-app-button">
                                             <i class="fab fa-android"></i> Android
                                         </div>
