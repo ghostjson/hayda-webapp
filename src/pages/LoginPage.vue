@@ -28,6 +28,13 @@
                   placeholder="*********"
                   required=""
                 />
+                <p style="margin-top: 10px">
+                  <small
+                    ><a href="#" @click="forgotPassword"
+                      >Forgot Password</a
+                    ></small
+                  >
+                </p>
               </div>
 
               <button type="submit" class="btn btn-primary">Login</button>
@@ -71,6 +78,23 @@ export default {
         window.location.reload();
       } else {
         this.error = "Email or password is incorrect";
+      }
+    },
+
+    async forgotPassword() {
+      if (
+        this.credential.email === null ||
+        this.credential.email === "" ||
+        this.credential.email === undefined
+      ) {
+        this.error = "Enter your email to send link.";
+      } else {
+        const response = await auth.sendForgotPasswordLink(
+          this.credential.email
+        );
+        if (response.status === 200) {
+          this.error = "Check email to reset password.";
+        }
       }
     },
   },

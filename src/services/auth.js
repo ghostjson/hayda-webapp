@@ -85,6 +85,10 @@ export default {
     return await Api.post("/auth/user/verify", { verification_code: otp });
   },
 
+  async sendForgotPasswordLink(email) {
+    return await Api.post("/auth/forgot", { email });
+  },
+
   async changePassword(code, password) {
     return await Api.post("/auth/forgot/change", { code, password });
   },
