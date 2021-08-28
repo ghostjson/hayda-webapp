@@ -121,4 +121,9 @@ export const routes = [
     name: "VerifyPage",
     component: () => import("../pages/VerifyPage"),
   },
+  {
+    path: "/forgot-password/:code",
+    name: "ForgotPasswordPage",
+    component: () => import("../pages/ForgotPasswordPage"),
+  },
 ];

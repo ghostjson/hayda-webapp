@@ -84,4 +84,8 @@ export default {
   async verifyEmailOTP(otp) {
     return await Api.post("/auth/user/verify", { verification_code: otp });
   },
+
+  async changePassword(code, password) {
+    return await Api.post("/auth/forgot/change", { code, password });
+  },
 };
