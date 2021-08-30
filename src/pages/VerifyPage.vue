@@ -6,7 +6,7 @@
           <div class="card">
             <div class="card-header">
               <h5 class="card-title">Verify Email</h5>
-              <p>Enter the code we just send to your email.</p>
+              <p>Enter the code we just sent to your email.</p>
             </div>
             <div class="card-body">
               <form @submit.prevent="checkOTP">
